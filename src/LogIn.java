@@ -19,8 +19,6 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class LogIn extends JFrame {
 
