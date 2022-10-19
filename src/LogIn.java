@@ -22,14 +22,11 @@ import java.awt.Font;
 
 public class LogIn extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField txt_user;
-	private JTextField txt_psw;
-	private JPanel panel_Princ;
-	private JPanel panel_Sec;
-	private JLabel lbl_restablecerContra, lbl_Logo;
+	private JPanel contentPane, panel_Princ,panel_Sec;
+	private JTextField txt_user,txt_psw;
+	private JLabel lbl_restablecerContra, lbl_Logo,lbl_LogIn;
 	private JButton btn_logIn;
-	private JLabel lbl_LogIn;
+	private String UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT ;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -47,12 +44,12 @@ public class LogIn extends JFrame {
 	public LogIn() {
 		setResizable(false);
 		cargarPanel();
+		cargarPaneles();
 		cargarImg();
 		llamarText();
 		boton();
 		llamarLbl();
 		iniciarAcciones();
-		cargarPaneles();
 	}
 
 	public void cargarPanel() {
@@ -69,34 +66,34 @@ public class LogIn extends JFrame {
 	public void llamarText() {
 		txt_user = new JTextField();
 		txt_user.setToolTipText("");
-		txt_user.setBounds(169, 83, 96, 19);
-		contentPane.add(txt_user);
+		txt_user.setBounds(103, 83, 96, 19);
+		panel_Princ.add(txt_user);
 		txt_user.setColumns(10);
 		TextPrompt user = new TextPrompt("Usuario", txt_user);
 
 		txt_psw = new JPasswordField();
 		txt_psw.setText("");
-		txt_psw.setBounds(169, 112, 96, 19);
-		contentPane.add(txt_psw);
+		txt_psw.setBounds(103, 115, 96, 19);
+		panel_Princ.add(txt_psw);
 		txt_psw.setColumns(10);
 		TextPrompt psw = new TextPrompt("Contrasena", txt_psw);
 	}
 
 	public void boton() {
 		btn_logIn = new JButton("Iniciar sesion");
-		btn_logIn.setBounds(157, 168, 119, 21);
-		contentPane.add(btn_logIn);
+		btn_logIn.setBounds(96, 169, 119, 21);
+		panel_Princ.add(btn_logIn);
 	}
 
 	public void llamarLbl() {
 		lbl_restablecerContra = new JLabel("Restablecer contrasena");
-		lbl_restablecerContra.setBounds(158, 145, 153, 13);
-		contentPane.add(lbl_restablecerContra);
-		
+		lbl_restablecerContra.setBounds(80, 145, 148, 13);
+		panel_Princ.add(lbl_restablecerContra);
+
 		lbl_LogIn = new JLabel("Log in");
 		lbl_LogIn.setFont(new Font("Arial", Font.PLAIN, 18));
-		lbl_LogIn.setBounds(213, 34, 119, 38);
-		contentPane.add(lbl_LogIn);
+		lbl_LogIn.setBounds(140, 33, 119, 38);
+		panel_Princ.add(lbl_LogIn);
 	}
 
 	public void iniciarAcciones() {
@@ -119,10 +116,10 @@ public class LogIn extends JFrame {
 		btn_logIn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				// comprobar login
-				checkLogin();
+			    checkLogin();
 			}
 		});
-		
+
 	}
 
 	public void cargarPaneles() {
@@ -141,27 +138,31 @@ public class LogIn extends JFrame {
 	public void cargarImg() {
 		lbl_Logo = new JLabel("");
 		lbl_Logo.setIcon(new ImageIcon("./src/resources/duke-bicycle.png"));
-		lbl_Logo.setBounds(153, 7, 50, 95);
-		contentPane.add(lbl_Logo);
+		lbl_Logo.setBounds(80, 7, 50, 95);
+		panel_Princ.add(lbl_Logo);
 	}
 
 	private String checkLogin() {
 		String linea;
-		String user_type = null;
+		String user_type = "";
 		boolean isLoginSuccess = false;
-		String User_Text = txt_user.getText(); 
+		String User_Text = txt_user.getText();
 		String Contra_Text = txt_psw.getText();
 		try {
 
-			BufferedReader br = new BufferedReader(new FileReader("./src/Usuarios.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("./src/BBDD.txt"));
 
 			while ((linea = br.readLine()) != null) {
 
 				String[] parte = linea.split(":");
-				String UsuarioTXT = parte[0];
-				String ContraseñaTXT = parte[1];
+				UsuarioTXT = parte[0];
+				String ContrasenaTXT = parte[1];
 				String TipoTXT = parte[2];
-				if (User_Text.equals(UsuarioTXT) && Contra_Text.equals(ContraseñaTXT)) {
+				NombreTXT = parte[3];
+				ApellidosTXT= parte[4];
+				NumeroTXT = parte[5];
+				DireccionTXT = parte[6];
+				if (User_Text.equals(UsuarioTXT) && Contra_Text.equals(ContrasenaTXT)) {
 					user_type = parte[2];
 					isLoginSuccess = true;
 					break;
@@ -169,13 +170,29 @@ public class LogIn extends JFrame {
 			}
 			if (isLoginSuccess) {
 				System.out.println("Funciona");
+				if (user_type.equals("Socio")) {
+					// Abrir frame socio
+					SocioScreen ventanaSocio = new SocioScreen(UsuarioTXT,NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT );
+					ventanaSocio.setVisible(true);
+				} else if (user_type.equals("Admin")) {
+					// Abrir frame admin
+					AdminScreen admin = new AdminScreen(UsuarioTXT);
+					admin.setVisible(true);
+					dispose();
+				} else if (user_type.equals("Gestor")) {
+					// Abrir frame Gestor
+					GestorScreen gestor = new GestorScreen(UsuarioTXT);
+					gestor.setVisible(true);
+					dispose();
+				} 
 			} else {
 				System.out.println("No Funciona");
+				JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame,"Usuario/Contrasena incorrecta","Error" , JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (IOException e) {
 			System.out.println(e);
 		}
 		return user_type;
-
 	}
 }
