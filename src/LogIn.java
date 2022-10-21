@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -53,7 +55,10 @@ public class LogIn extends JFrame {
 	}
 
 	public void cargarPanel() {
+	    setMinimumSize(new Dimension(720, 480));
+        setPreferredSize(new Dimension(720, 480));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(new Dimension(720, 480));
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(168, 201, 240));
@@ -66,14 +71,14 @@ public class LogIn extends JFrame {
 	public void llamarText() {
 		txt_user = new JTextField();
 		txt_user.setToolTipText("");
-		txt_user.setBounds(103, 83, 96, 19);
+		txt_user.setBounds(246, 234, 178, 42);
 		panel_Princ.add(txt_user);
 		txt_user.setColumns(10);
 		TextPrompt user = new TextPrompt("Usuario", txt_user);
 
 		txt_psw = new JPasswordField();
 		txt_psw.setText("");
-		txt_psw.setBounds(103, 115, 96, 19);
+		txt_psw.setBounds(246, 286, 178, 42);
 		panel_Princ.add(txt_psw);
 		txt_psw.setColumns(10);
 		TextPrompt psw = new TextPrompt("Contrasena", txt_psw);
@@ -81,18 +86,19 @@ public class LogIn extends JFrame {
 
 	public void boton() {
 		btn_logIn = new JButton("Iniciar sesion");
-		btn_logIn.setBounds(96, 169, 119, 21);
+		btn_logIn.setBounds(232, 374, 204, 21);
 		panel_Princ.add(btn_logIn);
 	}
 
 	public void llamarLbl() {
 		lbl_restablecerContra = new JLabel("Restablecer contrasena");
-		lbl_restablecerContra.setBounds(80, 145, 148, 13);
+		lbl_restablecerContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbl_restablecerContra.setBounds(262, 327, 242, 42);
 		panel_Princ.add(lbl_restablecerContra);
 
 		lbl_LogIn = new JLabel("Log in");
-		lbl_LogIn.setFont(new Font("Arial", Font.PLAIN, 18));
-		lbl_LogIn.setBounds(140, 33, 119, 38);
+		lbl_LogIn.setFont(new Font("Arial", Font.PLAIN, 20));
+		lbl_LogIn.setBounds(293, 151, 211, 141);
 		panel_Princ.add(lbl_LogIn);
 	}
 
@@ -125,20 +131,20 @@ public class LogIn extends JFrame {
 	public void cargarPaneles() {
 		panel_Princ = new JPanel();
 		panel_Princ.setBackground(new Color(249, 249, 249));
-		panel_Princ.setBounds(60, 23, 298, 206);
+		panel_Princ.setBounds(10, 11, 669, 406);
 		contentPane.add(panel_Princ);
 		panel_Princ.setLayout(null);
 
 		panel_Sec = new JPanel();
 		panel_Sec.setBackground(new Color(142, 224, 157));
-		panel_Sec.setBounds(60, 23, 309, 214);
+		panel_Sec.setBounds(10, 11, 684, 419);
 		contentPane.add(panel_Sec);
 	}
 
 	public void cargarImg() {
 		lbl_Logo = new JLabel("");
-		lbl_Logo.setIcon(new ImageIcon("./src/resources/duke-bicycle.png"));
-		lbl_Logo.setBounds(80, 7, 50, 95);
+		lbl_Logo.setIcon(new ImageIcon("./src/resources/duke.png"));
+		lbl_Logo.setBounds(244, 18, 192, 205);
 		panel_Princ.add(lbl_Logo);
 	}
 
@@ -176,7 +182,7 @@ public class LogIn extends JFrame {
 					ventanaSocio.setVisible(true);
 				} else if (user_type.equals("Admin")) {
 					// Abrir frame admin
-					AdminScreen admin = new AdminScreen(UsuarioTXT);
+					Admin admin = new Admin(UsuarioTXT);
 					admin.setVisible(true);
 					dispose();
 				} else if (user_type.equals("Gestor")) {

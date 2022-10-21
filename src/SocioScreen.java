@@ -18,7 +18,6 @@ public class SocioScreen extends JFrame {
 	private String user, linea, nombre, direccion, apellidos, telefono;
 
 	public SocioScreen(String usuario, String nombre, String direccion, String apellidos, String Telefono) {
-		setMinimumSize(new Dimension(1080, 720));
 		this.user = usuario;
 		this.direccion = direccion;
 		this.nombre = nombre;
@@ -30,6 +29,10 @@ public class SocioScreen extends JFrame {
 	}
 
 	public void cargarPanel() {
+		setMinimumSize(new Dimension(1080, 720));
+        setPreferredSize(new Dimension(1080, 720));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(new Dimension(1080, 720));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -43,7 +46,7 @@ public class SocioScreen extends JFrame {
 		contentPane.setLayout(null);
 		panel_Princ = new JPanel();
 		panel_Princ.setMinimumSize(new Dimension(720, 480));
-		panel_Princ.setBounds(10, 81, 1044, 556);
+		panel_Princ.setBounds(10, 11, 1044, 659);
 		panel_Princ.setBackground(new Color(249, 249, 249));
 		contentPane.add(panel_Princ);
 		panel_Princ.setLayout(null);
@@ -52,10 +55,10 @@ public class SocioScreen extends JFrame {
 	public void cargarLabels() {
 		JLabel lbl_Textito = new JLabel("Eres un socio");
 		lbl_Textito.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lbl_Textito.setBounds(67, 66, 149, 71);
+		lbl_Textito.setBounds(442, 259, 149, 71);
 		panel_Princ.add(lbl_Textito);
 		JLabel lbl_user = new JLabel(user);
-		lbl_user.setBounds(77, 147, 106, 66);
+		lbl_user.setBounds(473, 391, 106, 66);
 		panel_Princ.add(lbl_user);
 
 	}

@@ -10,4 +10,3 @@ asd:ads:Socio:das:asd:sad:asd:true
 123:123:Socio:123:123:123:123:true
 gd:gfd:Socio:dsa:fdsf:fds:dfs:true
 n:n:Socio:u:n:n:n:true
-m:m:Socio:m:m:m:m:true

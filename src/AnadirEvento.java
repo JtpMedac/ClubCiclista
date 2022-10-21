@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Dimension;
 
 public class AnadirEvento extends JDialog {
 
@@ -27,6 +28,10 @@ public class AnadirEvento extends JDialog {
      * Create the dialog.
      */
     public AnadirEvento() {
+        setMinimumSize(new Dimension(920, 518));
+		setPreferredSize(new Dimension(920, 518));
+		setResizable(false);
+		setSize(new Dimension(920, 518));
         setBounds(100, 100, 450, 300);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setLayout(new FlowLayout());

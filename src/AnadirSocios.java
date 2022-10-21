@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -59,10 +60,10 @@ public class AnadirSocios extends JDialog {
 	}
 
 	public void cargarPanelPrin() {
-		setMinimumSize(new Dimension(1080, 720));
-		setPreferredSize(new Dimension(1080, 720));
+		setMinimumSize(new Dimension(920, 518));
+		setPreferredSize(new Dimension(920, 518));
 		setResizable(false);
-		setSize(new Dimension(1080, 720));
+		setSize(new Dimension(920, 518));
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(168, 201, 240));
@@ -79,7 +80,7 @@ public class AnadirSocios extends JDialog {
 
 		panel_datos = new JPanel();
 		panel_datos.setBackground(new Color(217, 217, 217));
-		panel_datos.setBounds(10, 81, 1044, 556);
+		panel_datos.setBounds(10, 81, 884, 354);
 		contentPanel.add(panel_datos);
 		panel_datos.setLayout(null);
 	}
@@ -87,70 +88,70 @@ public class AnadirSocios extends JDialog {
 	public void cargarJLabels() {
 		lbl_Nombre = new JLabel("Nombre");
 		lbl_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_Nombre.setBounds(96, 91, 193, 29);
+		lbl_Nombre.setBounds(56, 35, 193, 29);
 		panel_datos.add(lbl_Nombre);
 
 		lbl_Apellidos = new JLabel("Apellidos");
 		lbl_Apellidos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_Apellidos.setBounds(96, 198, 193, 29);
+		lbl_Apellidos.setBounds(56, 141, 193, 29);
 		panel_datos.add(lbl_Apellidos);
 
 		lbl_DNI = new JLabel("DNI");
 		lbl_DNI.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_DNI.setBounds(96, 333, 193, 29);
+		lbl_DNI.setBounds(56, 265, 193, 29);
 		panel_datos.add(lbl_DNI);
 
 		lbl_Direccion = new JLabel("Direccion");
 		lbl_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_Direccion.setBounds(575, 91, 193, 29);
+		lbl_Direccion.setBounds(486, 35, 193, 29);
 		panel_datos.add(lbl_Direccion);
 
 		lbl_Telefono = new JLabel("Telefono");
 		lbl_Telefono.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_Telefono.setBounds(575, 198, 193, 29);
+		lbl_Telefono.setBounds(486, 141, 193, 29);
 		panel_datos.add(lbl_Telefono);
 
 		lbl_Contrasena = new JLabel("Contrasena");
 		lbl_Contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_Contrasena.setBounds(575, 333, 193, 29);
+		lbl_Contrasena.setBounds(486, 265, 193, 29);
 		panel_datos.add(lbl_Contrasena);
 	}
 
 	public void cargarTextFields() {
 		txt_Nombre = new JTextField();
 		txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txt_Nombre.setBounds(244, 97, 238, 20);
+		txt_Nombre.setBounds(179, 39, 238, 20);
 		panel_datos.add(txt_Nombre);
 		txt_Nombre.setColumns(10);
 
 		txt_Apellidos = new JTextField();
 		txt_Apellidos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txt_Apellidos.setColumns(10);
-		txt_Apellidos.setBounds(244, 204, 238, 20);
+		txt_Apellidos.setBounds(179, 145, 238, 20);
 		panel_datos.add(txt_Apellidos);
 
 		txt_DNI = new JTextField();
 		txt_DNI.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txt_DNI.setColumns(10);
-		txt_DNI.setBounds(244, 339, 238, 20);
+		txt_DNI.setBounds(179, 274, 238, 20);
 		panel_datos.add(txt_DNI);
 
 		txt_Direccion = new JTextField();
 		txt_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txt_Direccion.setColumns(10);
-		txt_Direccion.setBounds(734, 97, 238, 20);
+		txt_Direccion.setBounds(633, 39, 238, 20);
 		panel_datos.add(txt_Direccion);
 
 		txt_Telefono = new JTextField();
 		txt_Telefono.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txt_Telefono.setColumns(10);
-		txt_Telefono.setBounds(734, 204, 238, 20);
+		txt_Telefono.setBounds(633, 145, 238, 20);
 		panel_datos.add(txt_Telefono);
 
 		txt_contrasena = new JPasswordField();
 		txt_contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txt_contrasena.setColumns(10);
-		txt_contrasena.setBounds(734, 339, 238, 20);
+		txt_contrasena.setBounds(633, 269, 238, 20);
 		panel_datos.add(txt_contrasena);
 
 		lblAviso = new JLabel("");
@@ -180,6 +181,8 @@ public class AnadirSocios extends JDialog {
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
+						AdminScreen admin = new AdminScreen();
+		                admin.setVisible(true);
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
@@ -198,11 +201,32 @@ public class AnadirSocios extends JDialog {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("./src/BBDD.txt", true));
 				bw.newLine();
 				bw.write(txt_DNI.getText() + ":" + txt_contrasena.getText() + ":Socio:" + txt_Nombre.getText() + ":"
-						+ txt_Apellidos.getText() + ":" + txt_Telefono.getText() + ":" + txt_Direccion.getText()+":"+"true");
+						+ txt_Apellidos.getText() + ":" + txt_Telefono.getText() + ":" + txt_Direccion.getText() + ":"
+						+ "true");
 				bw.close();
-				lblAviso.setText("Socio creado correctamente");
+				JOptionPane.showMessageDialog(null, "Socio creado correctamente", "Socio creado",
+						JOptionPane.INFORMATION_MESSAGE);
+				int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres crear otro usuario?",
+						"¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
+						JOptionPane.INFORMATION_MESSAGE);
+				switch (opcionJpane) {
+					case 0:
+						txt_DNI.setText("");
+						txt_contrasena.setText("");
+						txt_Nombre.setText("");
+						txt_Apellidos.setText("");
+						txt_Telefono.setText("");
+						txt_Direccion.setText("");
+						break;
+					case 1:
+					    AdminScreen admin = new AdminScreen();
+		                admin.setVisible(true);
+						dispose();
+						break;
+				}
 			} else {
-				lblAviso.setText("Error");
+				JOptionPane.showMessageDialog(null, "Error al crear el socio\nRellene todos los campos",
+						"ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (IOException e) {
 			System.out.println(e);
