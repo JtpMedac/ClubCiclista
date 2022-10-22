@@ -1,48 +1,43 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-public class AnadirEvento extends JDialog {
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class ModificarEventos extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_Nombre;
-    private JTextField txt_Fecha;
-    private JTextField txt_Plazas;
-    private JTextField txt_Descripcion;
+    private JTextField txt_Id, txt_Nombre, txt_Descripcion,txt_Plazas,txt_Fecha;
     private JPanel panel_datos;
     private JLabel lbl_datos, lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso;
+    private String id;
 
-    public static void main(String[] args) {
-        try {
-            AnadirEvento dialog = new AnadirEvento();
-            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public AnadirEvento() {
+    public ModificarEventos(String id) {
+        this.id = id;
         cargarPanelPrin();
         cargarPanelSec();
         cargarJLabels();
         cargarTextFields();
         botonesConf();
+        leerSocio();
 
     }
 
@@ -60,13 +55,13 @@ public class AnadirEvento extends JDialog {
     }
 
     public void cargarPanelSec() {
-        lbl_datos = new JLabel("Datos del nuevo evento");
+        lbl_datos = new JLabel("Modificar socio");
         lbl_datos.setFont(new Font("Tahoma", Font.PLAIN, 36));
         lbl_datos.setBounds(34, 26, 364, 44);
         contentPanel.add(lbl_datos);
 
         panel_datos = new JPanel();
-        panel_datos.setBackground(new Color(158, 232, 134));
+        panel_datos.setBackground(new Color(217, 217, 217));
         panel_datos.setBounds(10, 81, 884, 354);
         contentPanel.add(panel_datos);
         panel_datos.setLayout(null);
@@ -136,7 +131,10 @@ public class AnadirEvento extends JDialog {
                 JButton okButton = new JButton("OK");
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        aniadirEvento();
+                        modificarSocio();
+                        dispose();
+                        AdminEvents admin = new AdminEvents();
+                        admin.setVisible(true);
                     }
                 });
                 okButton.setActionCommand("OK");
@@ -146,11 +144,13 @@ public class AnadirEvento extends JDialog {
             {
                 JButton cancelButton = new JButton("Cancel");
                 cancelButton.addActionListener(new ActionListener() {
+
                     public void actionPerformed(ActionEvent e) {
                         dispose();
-                        AdminScreen admin = new AdminScreen();
+                        AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
                     }
+
                 });
                 cancelButton.setActionCommand("Cancel");
                 buttonPane.add(cancelButton);
@@ -158,40 +158,75 @@ public class AnadirEvento extends JDialog {
         }
     }
 
-    public void aniadirEvento() {
+    public void leerSocio() {
+        String linea;
         try {
-            // Este if es como los miembros de este grupo son feos pero sirven
-            if ((!(txt_Descripcion.getText().equals("") || (txt_Plazas.getText().equals(""))
+
+            BufferedReader br = new BufferedReader(
+                    new FileReader("./src/Eventos.txt"));
+            while ((linea = br.readLine()) != null) {
+                String[] parte = linea.split(":");
+                if (id.equals(parte[0])) {
+                    txt_Id.setText(parte[0]);
+                    txt_Nombre.setText(parte[1]);
+                    txt_Descripcion.setText(parte[2]);
+                    txt_Fecha.setText(parte[3]);
+                    txt_Plazas.setText(parte[4]);
+                }
+            }
+        } catch (IOException exception) {
+            System.out.println(exception);
+        }
+    }
+
+    public void modificarSocio() {
+        try {
+            File fichero = new File("./src/Eventos.txt");
+            File ficherotmp = new File("./src/Eventostmp.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(fichero));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(ficherotmp));
+            String linea;
+
+            while ((linea = reader.readLine()) != null) {
+                String[] parte = linea.split(":");
+                if (id.equals(parte[0])) {
+                    if ((!(txt_Descripcion.getText().equals("") || (txt_Plazas.getText().equals(""))
                     || (txt_Nombre.getText().equals("")) || (txt_Fecha.getText().equals(""))))) {
 
-                BufferedWriter bw = new BufferedWriter(new FileWriter("./src/Eventos.txt", true));
-                bw.newLine();
-                bw.write("4:" + txt_Nombre.getText() + ":" + txt_Descripcion.getText() + ":"
-                        + txt_Fecha.getText() + ":" + txt_Plazas.getText() + ":0:");
-                bw.close();
-                JOptionPane.showMessageDialog(null, "Evento creado correctamente", "Evento creado",
-                        JOptionPane.INFORMATION_MESSAGE);
-                int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres crear otro evento?",
-                        "¿Crear otro evento?", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.INFORMATION_MESSAGE);
-                switch (opcionJpane) {
-                    case 0:
-                        txt_Descripcion.setText("");
-                        txt_Fecha.setText("");
-                        txt_Nombre.setText("");
-                        txt_Plazas.setText("");
-                        break;
-                    case 1:
-                       dispose();
-                        break;
+                        writer.write(parte[0] + ":" + txt_Nombre.getText() + txt_Descripcion.getText() + ":"
+                                + txt_Fecha.getText() + ":" + txt_Plazas.getText() + "\n");
+
+                    }
+
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al crear el evento\nRellene todos los campos",
-                        "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                if (id.equals(parte[0]))
+                    continue;
+                writer.write(linea + System.getProperty("line.separator"));
+
             }
-        } catch (IOException e) {
-            System.out.println(e);
+            writer.close();
+            reader.close();
+
+        } catch (IOException exception) {
+            System.out.println(exception);
         }
 
+        try {
+            File fichero = new File("./src/Eventos.txt");
+            File ficherotmp = new File("./src/Eventostmp.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(ficherotmp));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fichero));
+            String linea;
+
+            while ((linea = reader.readLine()) != null) {
+                String[] parte = linea.split(":");
+                writer.write(linea + System.getProperty("line.separator"));
+            }
+            writer.close();
+            reader.close();
+            ficherotmp.delete();
+        } catch (IOException exception) {
+            System.out.println(exception);
+        }
     }
 }

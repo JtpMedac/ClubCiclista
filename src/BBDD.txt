@@ -2,12 +2,4 @@
 79041428L:1234ABC:Socio:Joaquin:Toscano Perez:689996422:NoTieneCasaEnMalaga:Alta
 79039140P:1234ABC:Gestor:Alvaro:Rayo Vallecano:617611653:Palma Palmilla:Alta
 88930930R:1234ABC:Socio:Celia:Martín Fuentes:938383049:ElPalo:Baja
-1235231w:Hola:Socio:Medinilla:Medinilla:1231421:su casa:true
-wqe:eweq:Socio:wdsewq:eqweqwe:ewq:qwe:true
-afss:asf:Socio:fdsa:afs:asf:asf:true
-asd:ads:Socio:das:asd:sad:asd:true
-214:214:Socio:214:214:214:214:true
-123:123:Socio:123:123:123:123:true
-gd:gfd:Socio:dsa:fdsf:fds:dfs:true
-n:n:Socio:u:n:n:n:true
-m:m:Socio:m:m:m:m:true
+1235231w:si:Socio:Medinilla:Medinilla:1231421:su casa:true

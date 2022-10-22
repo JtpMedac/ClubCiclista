@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -17,26 +19,19 @@ public class AdminPrincipal extends JFrame {
     private JPanel panel_Princ;
     private JLabel lbl_bienvenida;
     private JButton btn_socios, btn_eventos, btn_ventas;
-
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    AdminPrincipal frame = new AdminPrincipal();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
+    String user;
+        public static void main(String[] args) {
+            EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    try {
+                        AdminEvents frame = new AdminEvents();
+                        frame.setVisible(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
-    }
-
-    /**
-     * Create the frame.
-     */
+            });
+        }
     public AdminPrincipal() {
         cargarPanel();
         cargarPaneles();
@@ -83,18 +78,29 @@ public class AdminPrincipal extends JFrame {
         
         btn_ventas.setBounds(760, 282, 158, 207);
         panel_Princ.add(btn_ventas);
+        
+        JButton btn_CerrarSesion = new JButton("Cerrar sesion");
+        btn_CerrarSesion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ConfirmExit Confirmar = new ConfirmExit();
+                Confirmar.setVisible(true);
+                dispose();
+            }
+        });
+        btn_CerrarSesion.setBounds(850, 32, 147, 21);
+        panel_Princ.add(btn_CerrarSesion);
     }
     public void iniciarAcciones() {
         btn_socios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AnadirSocios socios = new AnadirSocios();
-                socios.setVisible(true);
+                AdminScreen admin = new AdminScreen();
+                admin.setVisible(true);
                 dispose();
             }
         });
         btn_eventos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AnadirEvento eventos = new AnadirEvento();
+                AdminEvents eventos = new AdminEvents();
                 eventos.setVisible(true);
                 dispose();
             }

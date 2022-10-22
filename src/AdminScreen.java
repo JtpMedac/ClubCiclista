@@ -11,7 +11,10 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,6 +33,8 @@ public class AdminScreen extends JFrame {
     private JTable table;
     private DefaultTableModel modelo;
     JButton btnNewButton;
+    private String contrasena;
+    String dni;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -43,6 +48,7 @@ public class AdminScreen extends JFrame {
             }
         });
     }
+
     public AdminScreen() {
         cargarPanel();
         cargarPaneles();
@@ -168,32 +174,62 @@ public class AdminScreen extends JFrame {
                         if (boton.getName().equals("edit")) {
                             System.out.println("Click en el boton modificar");
                             // EVENTOS MODIFICAR
+                            int columna = 0;
+                            int fila = e.getY() / table.getRowHeight();
+
+                            if (fila < table.getRowCount() && fila >= 0 && columna < table.getColumnCount()
+                                    && columna >= 0) {
+                                Object objeto = table.getValueAt(fila, columna);
+
+                                ModificarSocios modificar = new ModificarSocios(objeto.toString());
+                                modificar.setVisible(true);
+
+                            }
                         }
                         if (boton.getName().equals("delt")) {
                             if (JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar",
                                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                                 if (table.getSelectedRow() >= 0) {
                                     ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
+                                    // Borrar del fichero
+
+                                    int columna = 0;
+                                    int fila = e.getY() / table.getRowHeight();
+
+                                    if (fila < table.getRowCount() && fila >= 0 && columna < table.getColumnCount()
+                                            && columna >= 0) {
+                                        Object objeto = table.getValueAt(fila, columna);
+                                        dni = objeto.toString();
+                                    }
+
+                                    try {
+                                        File fichero = new File("./src/BBDD.txt");
+                                        File ficherotmp = new File("./src/BBDDtmp.txt");
+                                        BufferedReader reader = new BufferedReader(new FileReader(fichero));
+                                        BufferedWriter writer = new BufferedWriter(new FileWriter(ficherotmp));
+                                        String linea;
+
+                                        while ((linea = reader.readLine()) != null) {
+                                            String[] parte = linea.split(":");
+                                            if (dni.equals(parte[0])) continue;
+                                                writer.write(linea + System.getProperty("line.separator"));
+                                        }
+                                        writer.close();
+                                        reader.close();
+
+                                    } catch (IOException exception) {
+                                        System.out.println(exception);
+                                    }
+
                                 }
+                                System.out.println("Click en el boton eliminar");
+                                // EVENTOS ELIMINAR
                             }
-                            System.out.println("Click en el boton eliminar");
-                            // EVENTOS ELIMINAR
                         }
                     }
                 }
             }
         });
-        /*btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                recargarTabla();
-            }
-        });
-        btnNewButton.setBounds(435, 23, 85, 21);
-    }
 
-    public void recargarTabla() {
-        modelo = (DefaultTableModel) table.getModel();
-        modelo.setRowCount(0);
-        cargarTabla();*/
     }
 }

@@ -182,7 +182,7 @@ public class LogIn extends JFrame {
 					ventanaSocio.setVisible(true);
 				} else if (user_type.equals("Admin")) {
 					// Abrir frame admin
-					Admin admin = new Admin(UsuarioTXT);
+				    AdminPrincipal admin = new AdminPrincipal();
 					admin.setVisible(true);
 					dispose();
 				} else if (user_type.equals("Gestor")) {
