@@ -28,7 +28,7 @@ public class AdminScreen extends JFrame {
     private JPanel panel_Princ;
     private JLabel lblNewLabel;
     private JLabel lbl_user;
-    private JButton btn_anadirSocio, btn_cerrarSesion;
+    private JButton btn_anadirSocio, btn_salir;
     private JScrollPane scrollPane;
     private JTable table;
     private DefaultTableModel modelo;
@@ -90,9 +90,9 @@ public class AdminScreen extends JFrame {
         btn_anadirSocio = new JButton("Anadir socio");
         btn_anadirSocio.setBounds(748, 45, 157, 21);
         panel_Princ.add(btn_anadirSocio);
-        btn_cerrarSesion = new JButton("Cerrar Sesion");
-        btn_cerrarSesion.setBounds(904, 22, 130, 23);
-        panel_Princ.add(btn_cerrarSesion);
+        btn_salir = new JButton("Salir");
+        btn_salir.setBounds(904, 22, 130, 23);
+        panel_Princ.add(btn_salir);
 
         btnNewButton = new JButton("Hola");
         panel_Princ.add(btnNewButton);
@@ -154,10 +154,10 @@ public class AdminScreen extends JFrame {
             }
         });
 
-        btn_cerrarSesion.addActionListener(new ActionListener() {
+        btn_salir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ConfirmExit Confirmar = new ConfirmExit();
-                Confirmar.setVisible(true);
+                AdminPrincipal principal = new AdminPrincipal();
+                principal.setVisible(true);
             }
         });
         table.addMouseListener(new MouseAdapter() {

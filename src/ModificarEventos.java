@@ -25,13 +25,13 @@ import java.awt.event.ActionEvent;
 public class ModificarEventos extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_Id, txt_Nombre, txt_Descripcion,txt_Plazas,txt_Fecha;
+    private JTextField txt_ID, txt_Nombre, txt_Descripcion, txt_Fecha, txt_Plazas;
     private JPanel panel_datos;
-    private JLabel lbl_datos, lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso;
-    private String id;
+    private JLabel lbl_datos, lbl_ID, lbl_Nombre, lbl_Descripcion, lbl_Fecha, lbl_Plazas, lblAviso;
+    private String ID;
 
-    public ModificarEventos(String id) {
-        this.id = id;
+    public ModificarEventos(String dni) {
+        this.ID = ID;
         cargarPanelPrin();
         cargarPanelSec();
         cargarJLabels();
@@ -55,7 +55,7 @@ public class ModificarEventos extends JDialog {
     }
 
     public void cargarPanelSec() {
-        lbl_datos = new JLabel("Modificar socio");
+        lbl_datos = new JLabel("Modificar evento");
         lbl_datos.setFont(new Font("Tahoma", Font.PLAIN, 36));
         lbl_datos.setBounds(34, 26, 364, 44);
         contentPanel.add(lbl_datos);
@@ -68,53 +68,67 @@ public class ModificarEventos extends JDialog {
     }
 
     public void cargarJLabels() {
+        lbl_ID = new JLabel("ID");
+        lbl_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_ID.setBounds(56, 35, 193, 29);
+        panel_datos.add(lbl_ID);
+
         lbl_Nombre = new JLabel("Nombre");
         lbl_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Nombre.setBounds(56, 35, 193, 29);
+        lbl_Nombre.setBounds(56, 141, 193, 29);
         panel_datos.add(lbl_Nombre);
+
+        lbl_Descripcion = new JLabel("Descripcion");
+        lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Descripcion.setBounds(56, 265, 193, 29);
+        panel_datos.add(lbl_Descripcion);
 
         lbl_Fecha = new JLabel("Fecha");
         lbl_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Fecha.setBounds(56, 141, 193, 29);
+        lbl_Fecha.setBounds(486, 35, 193, 29);
         panel_datos.add(lbl_Fecha);
 
-        lbl_Plazas = new JLabel("Numero de plazas");
+        lbl_Plazas = new JLabel("Plazas");
         lbl_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Plazas.setBounds(42, 246, 193, 29);
+        lbl_Plazas.setBounds(486, 141, 193, 29);
         panel_datos.add(lbl_Plazas);
-        
-        lbl_Descripcion = new JLabel("Descripcion de plazas");
-        lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Descripcion.setBounds(582, 35, 193, 29);
-        panel_datos.add(lbl_Descripcion);
-
- 
     }
 
     public void cargarTextFields() {
+        txt_ID = new JTextField();
+        txt_ID.setEditable(false);
+        txt_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_ID.setBounds(179, 39, 238, 20);
+        panel_datos.add(txt_ID);
+        txt_ID.setColumns(10);
+
         txt_Nombre = new JTextField();
+        txt_Nombre.setEditable(false);
         txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Nombre.setBounds(179, 39, 238, 20);
-        panel_datos.add(txt_Nombre);
         txt_Nombre.setColumns(10);
+        txt_Nombre.setBounds(179, 145, 238, 20);
+        panel_datos.add(txt_Nombre);
+
+        txt_Descripcion = new JTextField();
+        txt_Descripcion.setEditable(false);
+        txt_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_Descripcion.setColumns(10);
+        txt_Descripcion.setBounds(179, 274, 238, 20);
+        panel_datos.add(txt_Descripcion);
 
         txt_Fecha = new JTextField();
+        txt_Fecha.setEditable(false);
         txt_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Fecha.setColumns(10);
-        txt_Fecha.setBounds(179, 145, 238, 20);
+        txt_Fecha.setBounds(633, 39, 238, 20);
         panel_datos.add(txt_Fecha);
 
         txt_Plazas = new JTextField();
+        txt_Plazas.setEditable(false);
         txt_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Plazas.setColumns(10);
-        txt_Plazas.setBounds(179, 250, 238, 20);
+        txt_Plazas.setBounds(633, 145, 238, 20);
         panel_datos.add(txt_Plazas);
-        
-        txt_Descripcion = new JTextField();
-        txt_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Descripcion.setColumns(10);
-        txt_Descripcion.setBounds(575, 60, 248, 243);
-        panel_datos.add(txt_Descripcion);
 
         lblAviso = new JLabel("");
         lblAviso.setBounds(315, 402, 556, 20);
@@ -162,12 +176,11 @@ public class ModificarEventos extends JDialog {
         String linea;
         try {
 
-            BufferedReader br = new BufferedReader(
-                    new FileReader("./src/Eventos.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("./src/Eventos.txt"));
             while ((linea = br.readLine()) != null) {
                 String[] parte = linea.split(":");
-                if (id.equals(parte[0])) {
-                    txt_Id.setText(parte[0]);
+                if (ID.equals(parte[0])) {
+                    txt_ID.setText(parte[0]);
                     txt_Nombre.setText(parte[1]);
                     txt_Descripcion.setText(parte[2]);
                     txt_Fecha.setText(parte[3]);
@@ -189,20 +202,17 @@ public class ModificarEventos extends JDialog {
 
             while ((linea = reader.readLine()) != null) {
                 String[] parte = linea.split(":");
-                if (id.equals(parte[0])) {
-                    if ((!(txt_Descripcion.getText().equals("") || (txt_Plazas.getText().equals(""))
-                    || (txt_Nombre.getText().equals("")) || (txt_Fecha.getText().equals(""))))) {
+                if (ID.equals(parte[0])) {
+                    if (!((txt_Nombre.getText().equals("")||(txt_Descripcion.getText().equals(""))||(txt_Fecha.getText().equals(""))||(txt_Plazas.getText().equals(""))))) {
 
                         writer.write(parte[0] + ":" + txt_Nombre.getText() + txt_Descripcion.getText() + ":"
-                                + txt_Fecha.getText() + ":" + txt_Plazas.getText() + "\n");
+                                + txt_Fecha.getText() + ":" + txt_Plazas.getText() + ":" + parte[5] + "\n");
 
                     }
 
                 }
-                if (id.equals(parte[0]))
-                    continue;
+                if (ID.equals(parte[0]))continue;
                 writer.write(linea + System.getProperty("line.separator"));
-
             }
             writer.close();
             reader.close();

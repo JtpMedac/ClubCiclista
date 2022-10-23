@@ -194,9 +194,9 @@ public class AnadirSocios extends JDialog {
 	public void aniadirSocio() {
 		try {
 			// Este if es como los miembros de este grupo son feos pero sirven
-			if ((!(txt_DNI.getText().equals("") || (txt_contrasena.getText().equals(""))
+			if (!((txt_DNI.getText().equals("")) || (txt_contrasena.getText().equals(""))
 					|| (txt_Nombre.getText().equals("")) || (txt_Apellidos.getText().equals(""))
-					|| (txt_Telefono.getText().equals("")) || (txt_Direccion.getText().equals(""))))) {
+					|| (txt_Telefono.getText().equals("")) || (txt_Direccion.getText().equals("")))) {
 
 				BufferedWriter bw = new BufferedWriter(new FileWriter("./src/BBDD.txt", true));
 				bw.newLine();

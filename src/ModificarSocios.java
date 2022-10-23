@@ -35,13 +35,6 @@ public class ModificarSocios extends JDialog {
     private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contrasena, lblAviso;
     private String dni;
 
-    /**
-     * Launch the application.
-     */
-
-    /**
-     * Create the dialog.
-     */
     public ModificarSocios(String dni) {
         this.dni = dni;
         cargarPanelPrin();

@@ -86,7 +86,6 @@ public class ConfirmExit extends JDialog {
         LogIn logIn = new LogIn();
         logIn.setVisible(true);
         dispose();
-        // falta por terminar
     }
 
 }

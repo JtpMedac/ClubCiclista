@@ -28,15 +28,12 @@ public class AdminEvents extends JFrame {
     private JPanel panel_Princ;
     private JLabel lblNewLabel;
     private JLabel lbl_user;
-    private JButton btn_anadirEvento, btn_cerrarSesion, btn_editar, btn_borrar;
+    private JButton btn_anadirEvento, btn_salir, btn_editar, btn_borrar;
     private JScrollPane scrollPane;
     private JTable table;
     private DefaultTableModel modelo;
     JButton btnNewButton;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -50,9 +47,6 @@ public class AdminEvents extends JFrame {
         });
     }
 
-    /**
-     * Create the frame.
-     */
     public AdminEvents() {
             cargarPanel();
             cargarPaneles();
@@ -94,9 +88,9 @@ public class AdminEvents extends JFrame {
             btn_anadirEvento = new JButton("Anadir evento");
             btn_anadirEvento.setBounds(748, 45, 157, 21);
             panel_Princ.add(btn_anadirEvento);
-            btn_cerrarSesion = new JButton("Cerrar Sesion");
-            btn_cerrarSesion.setBounds(904, 22, 130, 23);
-            panel_Princ.add(btn_cerrarSesion);
+            btn_salir = new JButton("Cerrar Sesion");
+            btn_salir.setBounds(904, 22, 130, 23);
+            panel_Princ.add(btn_salir);
 
             btnNewButton = new JButton("Hola");
             panel_Princ.add(btnNewButton);
@@ -119,7 +113,7 @@ public class AdminEvents extends JFrame {
             table.setModel(new DefaultTableModel(
                     new Object[][] {},
                     new String[] {
-                            "ID", "Nombre", "Fecha", "Apuntados", "Plazas totales" ,"Modificar", "Borrar"
+                            "ID", "Nombre","Descripcion", "Fecha", "Apuntados", "Plazas totales" ,"Modificar", "Borrar"
                     }) {
                 public boolean isCellEditable(int row, int column) {
                     return false;
@@ -138,11 +132,12 @@ public class AdminEvents extends JFrame {
                     String[] parte = linea.split(":");
                     fila[0] = parte[0];
                     fila[1] = parte[1];
-                    fila[2] = parte[3];
-                    fila[3] = parte[4];
-                    fila[4] = parte[5];
-                    fila[5] = btn_editar;
-                    fila[6] = btn_borrar;
+                    fila[2] = parte[2];
+                    fila[3] = parte[3];
+                    fila[4] = parte[4];
+                    fila[5] = parte[5];
+                    fila[6] = btn_editar;
+                    fila[7] = btn_borrar;
                     ((DefaultTableModel) table.getModel()).addRow(fila);
                 }
             } catch (IOException e) {
@@ -159,10 +154,10 @@ public class AdminEvents extends JFrame {
                 }
             });
 
-            btn_cerrarSesion.addActionListener(new ActionListener() {
+            btn_salir.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    ConfirmExit Confirmar = new ConfirmExit();
-                    Confirmar.setVisible(true);
+                    AdminPrincipal principal = new AdminPrincipal();
+                    principal.setVisible(true);
                 }
             });
             table.addMouseListener(new MouseAdapter() {
