@@ -202,7 +202,7 @@ public class AnadirSocios extends JDialog {
 				bw.newLine();
 				bw.write(txt_DNI.getText() + ":" + txt_contrasena.getText() + ":Socio:" + txt_Nombre.getText() + ":"
 						+ txt_Apellidos.getText() + ":" + txt_Telefono.getText() + ":" + txt_Direccion.getText() + ":"
-						+ "true");
+						+ "Alta");
 				bw.close();
 				JOptionPane.showMessageDialog(null, "Socio creado correctamente", "Socio creado",
 						JOptionPane.INFORMATION_MESSAGE);

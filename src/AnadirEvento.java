@@ -21,12 +21,10 @@ import java.awt.Dimension;
 public class AnadirEvento extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_Nombre;
-    private JTextField txt_Fecha;
-    private JTextField txt_Plazas;
-    private JTextField txt_Descripcion;
+    private JTextField txt_Nombre,txt_Fecha,txt_Plazas,txt_Descripcion;
     private JPanel panel_datos;
-    private JLabel lbl_datos, lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso;
+    private JLabel lbl_datos, lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso, lbl_ID ;
+    private JTextField txt_ID;
 
     public static void main(String[] args) {
         try {
@@ -75,12 +73,12 @@ public class AnadirEvento extends JDialog {
     public void cargarJLabels() {
         lbl_Nombre = new JLabel("Nombre");
         lbl_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Nombre.setBounds(56, 35, 193, 29);
+        lbl_Nombre.setBounds(42, 115, 193, 29);
         panel_datos.add(lbl_Nombre);
 
         lbl_Fecha = new JLabel("Fecha");
         lbl_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Fecha.setBounds(56, 141, 193, 29);
+        lbl_Fecha.setBounds(42, 187, 193, 29);
         panel_datos.add(lbl_Fecha);
 
         lbl_Plazas = new JLabel("Numero de plazas");
@@ -88,25 +86,32 @@ public class AnadirEvento extends JDialog {
         lbl_Plazas.setBounds(42, 246, 193, 29);
         panel_datos.add(lbl_Plazas);
         
-        lbl_Descripcion = new JLabel("Descripcion de plazas");
+        lbl_Descripcion = new JLabel("Descripcion del evento");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Descripcion.setBounds(582, 35, 193, 29);
         panel_datos.add(lbl_Descripcion);
-
- 
+        
+        lbl_ID = new JLabel("ID");
+        lbl_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_ID.setBounds(42, 60, 45, 13);
+        panel_datos.add(lbl_ID);
+        
+        lblAviso = new JLabel("");
+        lblAviso.setBounds(315, 402, 556, 20);
+        panel_datos.add(lblAviso);
     }
 
     public void cargarTextFields() {
         txt_Nombre = new JTextField();
         txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Nombre.setBounds(179, 39, 238, 20);
+        txt_Nombre.setBounds(179, 119, 238, 20);
         panel_datos.add(txt_Nombre);
         txt_Nombre.setColumns(10);
 
         txt_Fecha = new JTextField();
         txt_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Fecha.setColumns(10);
-        txt_Fecha.setBounds(179, 145, 238, 20);
+        txt_Fecha.setBounds(179, 191, 238, 20);
         panel_datos.add(txt_Fecha);
 
         txt_Plazas = new JTextField();
@@ -121,9 +126,10 @@ public class AnadirEvento extends JDialog {
         txt_Descripcion.setBounds(575, 60, 248, 243);
         panel_datos.add(txt_Descripcion);
 
-        lblAviso = new JLabel("");
-        lblAviso.setBounds(315, 402, 556, 20);
-        panel_datos.add(lblAviso);
+        txt_ID = new JTextField();
+        txt_ID.setBounds(179, 59, 238, 19);
+        panel_datos.add(txt_ID);
+        txt_ID.setColumns(10);
     }
 
     public void botonesConf() {
@@ -148,7 +154,7 @@ public class AnadirEvento extends JDialog {
                 cancelButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         dispose();
-                        AdminScreen admin = new AdminScreen();
+                        AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
                     }
                 });
@@ -166,13 +172,13 @@ public class AnadirEvento extends JDialog {
 
                 BufferedWriter bw = new BufferedWriter(new FileWriter("./src/Eventos.txt", true));
                 bw.newLine();
-                bw.write("4:" + txt_Nombre.getText() + ":" + txt_Descripcion.getText() + ":"
-                        + txt_Fecha.getText() + ":" + txt_Plazas.getText() + ":0:");
+                bw.write(txt_ID.getText() + ":" + txt_Nombre.getText() + ":" + txt_Descripcion.getText() + ":"
+                        + txt_Fecha.getText() + ":" + txt_Plazas.getText() + ":0");
                 bw.close();
                 JOptionPane.showMessageDialog(null, "Evento creado correctamente", "Evento creado",
                         JOptionPane.INFORMATION_MESSAGE);
-                int opcionJpane = JOptionPane.showConfirmDialog(null, "Â¿Quieres crear otro evento?",
-                        "Â¿Crear otro evento?", JOptionPane.YES_NO_OPTION,
+                int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres crear otro evento?",
+                        "¿Crear otro evento?", JOptionPane.YES_NO_OPTION,
                         JOptionPane.INFORMATION_MESSAGE);
                 switch (opcionJpane) {
                     case 0:
@@ -180,8 +186,11 @@ public class AnadirEvento extends JDialog {
                         txt_Fecha.setText("");
                         txt_Nombre.setText("");
                         txt_Plazas.setText("");
+                        txt_ID.setText("");
                         break;
                     case 1:
+                        AdminEvents admin = new AdminEvents();
+                        admin.setVisible(true);
                        dispose();
                         break;
                 }

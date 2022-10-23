@@ -30,7 +30,7 @@ public class ModificarEventos extends JDialog {
     private JLabel lbl_datos, lbl_ID, lbl_Nombre, lbl_Descripcion, lbl_Fecha, lbl_Plazas, lblAviso;
     private String ID;
 
-    public ModificarEventos(String dni) {
+    public ModificarEventos(String ID) {
         this.ID = ID;
         cargarPanelPrin();
         cargarPanelSec();
