@@ -21,24 +21,19 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AnadirSocios extends JDialog {
+public class AñadirSocios extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txt_Nombre;
-	private JTextField txt_Apellidos;
-	private JTextField txt_DNI;
-	private JTextField txt_Direccion;
-	private JTextField txt_Telefono;
-	private JTextField txt_contrasena;
+	private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contraseña;
 	private JPanel panel_datos;
-	private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contrasena, lblAviso;
+	private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contraseña, lbl_Aviso;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			AnadirSocios dialog = new AnadirSocios();
+			AñadirSocios dialog = new AñadirSocios();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -49,7 +44,7 @@ public class AnadirSocios extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public AnadirSocios() {
+	public AñadirSocios() {
 
 		cargarPanelPrin();
 		cargarPanelSec();
@@ -101,20 +96,20 @@ public class AnadirSocios extends JDialog {
 		lbl_DNI.setBounds(56, 265, 193, 29);
 		panel_datos.add(lbl_DNI);
 
-		lbl_Direccion = new JLabel("Direccion");
+		lbl_Direccion = new JLabel("Dirección");
 		lbl_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_Direccion.setBounds(486, 35, 193, 29);
 		panel_datos.add(lbl_Direccion);
 
-		lbl_Telefono = new JLabel("Telefono");
+		lbl_Telefono = new JLabel("Teléfono");
 		lbl_Telefono.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_Telefono.setBounds(486, 141, 193, 29);
 		panel_datos.add(lbl_Telefono);
 
-		lbl_Contrasena = new JLabel("Contrasena");
-		lbl_Contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_Contrasena.setBounds(486, 265, 193, 29);
-		panel_datos.add(lbl_Contrasena);
+		lbl_Contraseña = new JLabel("Contraseña");
+		lbl_Contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lbl_Contraseña.setBounds(486, 265, 193, 29);
+		panel_datos.add(lbl_Contraseña);
 	}
 
 	public void cargarTextFields() {
@@ -148,15 +143,15 @@ public class AnadirSocios extends JDialog {
 		txt_Telefono.setBounds(633, 145, 238, 20);
 		panel_datos.add(txt_Telefono);
 
-		txt_contrasena = new JPasswordField();
-		txt_contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txt_contrasena.setColumns(10);
-		txt_contrasena.setBounds(633, 269, 238, 20);
-		panel_datos.add(txt_contrasena);
+		txt_contraseña = new JPasswordField();
+		txt_contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txt_contraseña.setColumns(10);
+		txt_contraseña.setBounds(633, 269, 238, 20);
+		panel_datos.add(txt_contraseña);
 
-		lblAviso = new JLabel("");
-		lblAviso.setBounds(315, 402, 556, 20);
-		panel_datos.add(lblAviso);
+		lbl_Aviso = new JLabel("");
+		lbl_Aviso.setBounds(315, 402, 556, 20);
+		panel_datos.add(lbl_Aviso);
 	}
 
 	public void botonesConf() {
@@ -194,25 +189,25 @@ public class AnadirSocios extends JDialog {
 	public void aniadirSocio() {
 		try {
 			// Este if es como los miembros de este grupo son feos pero sirven
-			if (!((txt_DNI.getText().equals("")) || (txt_contrasena.getText().equals(""))
+			if (!((txt_DNI.getText().equals("")) || (txt_contraseña.getText().equals(""))
 					|| (txt_Nombre.getText().equals("")) || (txt_Apellidos.getText().equals(""))
 					|| (txt_Telefono.getText().equals("")) || (txt_Direccion.getText().equals("")))) {
 
 				BufferedWriter bw = new BufferedWriter(new FileWriter("./src/BBDD.txt", true));
 				bw.newLine();
-				bw.write(txt_DNI.getText() + ":" + txt_contrasena.getText() + ":Socio:" + txt_Nombre.getText() + ":"
+				bw.write(txt_DNI.getText() + ":" + txt_contraseña.getText() + ":Socio:" + txt_Nombre.getText() + ":"
 						+ txt_Apellidos.getText() + ":" + txt_Telefono.getText() + ":" + txt_Direccion.getText() + ":"
 						+ "Alta");
 				bw.close();
 				JOptionPane.showMessageDialog(null, "Socio creado correctamente", "Socio creado",
 						JOptionPane.INFORMATION_MESSAGE);
-				int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres crear otro usuario?",
-						"¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
+				int opcionJpane = JOptionPane.showConfirmDialog(null, "?Quieres crear otro socio?",
+						"?Crear otro usuario?", JOptionPane.YES_NO_OPTION,
 						JOptionPane.INFORMATION_MESSAGE);
 				switch (opcionJpane) {
 					case 0:
 						txt_DNI.setText("");
-						txt_contrasena.setText("");
+						txt_contraseña.setText("");
 						txt_Nombre.setText("");
 						txt_Apellidos.setText("");
 						txt_Telefono.setText("");

@@ -28,12 +28,12 @@ public class AdminScreen extends JFrame {
     private JPanel panel_Princ;
     private JLabel lblNewLabel;
     private JLabel lbl_user;
-    private JButton btn_anadirSocio, btn_salir;
+    private JButton btn_añadirSocio, btn_salir;
     private JScrollPane scrollPane;
     private JTable table;
     private DefaultTableModel modelo;
     JButton btnNewButton;
-    private String contrasena;
+    private String contraseña;
     String dni;
 
     public static void main(String[] args) {
@@ -81,15 +81,15 @@ public class AdminScreen extends JFrame {
     }
 
     public void cargarLabel() {
-        lblNewLabel = new JLabel("Sos admin capo :D");
+        lblNewLabel = new JLabel("Has iniciado sesión como administrador");
         lblNewLabel.setBounds(58, 0, 106, 66);
         panel_Princ.add(lblNewLabel);
     }
 
     public void botones() {
-        btn_anadirSocio = new JButton("Anadir socio");
-        btn_anadirSocio.setBounds(748, 45, 157, 21);
-        panel_Princ.add(btn_anadirSocio);
+        btn_añadirSocio = new JButton("Añadir socio");
+        btn_añadirSocio.setBounds(748, 45, 157, 21);
+        panel_Princ.add(btn_añadirSocio);
         btn_salir = new JButton("Salir");
         btn_salir.setBounds(904, 22, 130, 23);
         panel_Princ.add(btn_salir);
@@ -146,9 +146,9 @@ public class AdminScreen extends JFrame {
     }
 
     public void iniciarAcciones() {
-        btn_anadirSocio.addActionListener(new ActionListener() {
+        btn_añadirSocio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AnadirSocios NuevoSocio = new AnadirSocios();
+                AñadirSocios NuevoSocio = new AñadirSocios();
                 NuevoSocio.setVisible(true);
                 dispose();
             }
@@ -187,7 +187,7 @@ public class AdminScreen extends JFrame {
                             }
                         }
                         if (boton.getName().equals("delt")) {
-                            if (JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar",
+                            if (JOptionPane.showConfirmDialog(null, "¿Desea eliminar este registro?", "Confirmar",
                                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                                 if (table.getSelectedRow() >= 0) {
                                     ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());

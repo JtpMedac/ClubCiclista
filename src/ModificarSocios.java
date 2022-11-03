@@ -30,7 +30,7 @@ public class ModificarSocios extends JDialog {
     private JTextField txt_DNI;
     private JTextField txt_Direccion;
     private JTextField txt_Telefono;
-    private JTextField txt_contrasena;
+    private JTextField txt_contraseña;
     private JPanel panel_datos;
     private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contrasena, lblAviso;
     private String dni;
@@ -88,7 +88,7 @@ public class ModificarSocios extends JDialog {
         lbl_DNI.setBounds(56, 265, 193, 29);
         panel_datos.add(lbl_DNI);
 
-        lbl_Direccion = new JLabel("Direccion");
+        lbl_Direccion = new JLabel("Dirección");
         lbl_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Direccion.setBounds(486, 35, 193, 29);
         panel_datos.add(lbl_Direccion);
@@ -98,7 +98,7 @@ public class ModificarSocios extends JDialog {
         lbl_Telefono.setBounds(486, 141, 193, 29);
         panel_datos.add(lbl_Telefono);
 
-        lbl_Contrasena = new JLabel("Contrasena");
+        lbl_Contrasena = new JLabel("Contraseña");
         lbl_Contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Contrasena.setBounds(486, 265, 193, 29);
         panel_datos.add(lbl_Contrasena);
@@ -140,11 +140,11 @@ public class ModificarSocios extends JDialog {
         txt_Telefono.setBounds(633, 145, 238, 20);
         panel_datos.add(txt_Telefono);
 
-        txt_contrasena = new JPasswordField();
-        txt_contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_contrasena.setColumns(10);
-        txt_contrasena.setBounds(633, 269, 238, 20);
-        panel_datos.add(txt_contrasena);
+        txt_contraseña = new JPasswordField();
+        txt_contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_contraseña.setColumns(10);
+        txt_contraseña.setBounds(633, 269, 238, 20);
+        panel_datos.add(txt_contraseña);
 
         lblAviso = new JLabel("");
         lblAviso.setBounds(315, 402, 556, 20);
@@ -220,9 +220,9 @@ public class ModificarSocios extends JDialog {
             while ((linea = reader.readLine()) != null) {
                 String[] parte = linea.split(":");
                 if (dni.equals(parte[0])) {
-                    if (!(txt_contrasena.getText().equals(""))) {
+                    if (!(txt_contraseña.getText().equals(""))) {
 
-                        writer.write(parte[0] + ":" + txt_contrasena.getText() + ":Socio:" + parte[3] + ":"
+                        writer.write(parte[0] + ":" + txt_contraseña.getText() + ":Socio:" + parte[3] + ":"
                                 + parte[4] + ":" + parte[5] + ":" + parte[6] + ":"
                                 + parte[7] + "\n");
 
