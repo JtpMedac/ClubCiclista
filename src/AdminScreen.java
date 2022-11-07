@@ -106,6 +106,7 @@ public class AdminScreen extends JFrame {
 
         modelo = new DefaultTableModel();
         table = new JTable(modelo);
+        table.setEnabled(false);
 
         table.setDefaultRenderer(Object.class, new Render());
         JButton btn_borrar = new JButton("X");
@@ -121,6 +122,7 @@ public class AdminScreen extends JFrame {
                 "DNI", "Nombre", "Apellidos", "Estado", "Mostrar datos", "Modificar", "Borrar"
             }
         ));
+        table.getTableHeader().setReorderingAllowed(false);
         scrollPane.setViewportView(table);
         int numCols = table.getModel().getColumnCount();
         try {
