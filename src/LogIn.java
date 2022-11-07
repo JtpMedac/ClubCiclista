@@ -139,8 +139,8 @@ public class LogIn extends JFrame {
                 }
                 if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
                     if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-                        int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres cerrar el programa?",
-                                "¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
+                        int opcionJpane = JOptionPane.showConfirmDialog(null, "Â¿Quieres cerrar el programa?",
+                                "Â¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
                         
                         if(opcionJpane==0) {
@@ -161,8 +161,8 @@ public class LogIn extends JFrame {
                  }
                  if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
                      if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-                         int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres cerrar el programa?",
-                                 "¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
+                         int opcionJpane = JOptionPane.showConfirmDialog(null, "Â¿Quieres cerrar el programa?",
+                                 "Â¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
                                  JOptionPane.INFORMATION_MESSAGE);
                          if(opcionJpane==0) {
                              dispose();  

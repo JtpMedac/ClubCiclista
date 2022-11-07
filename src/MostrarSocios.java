@@ -1,16 +1,12 @@
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.border.EmptyBorder;
-import java.awt.Dimension;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,11 +14,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
 
-public class ModificarSocios extends JDialog {
+public class MostrarSocios extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
     private JTextField txt_Nombre;
@@ -35,17 +35,15 @@ public class ModificarSocios extends JDialog {
     private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contrasena, lblAviso;
     private String dni;
 
-    public ModificarSocios(String dni) {
+    public MostrarSocios(String dni) {
         this.dni = dni;
         cargarPanelPrin();
         cargarPanelSec();
         cargarJLabels();
         cargarTextFields();
         botonesConf();
-        leerSocio();
-
+        leerDatos();
     }
-
     public void cargarPanelPrin() {
         setMinimumSize(new Dimension(920, 518));
         setPreferredSize(new Dimension(920, 518));
@@ -60,7 +58,7 @@ public class ModificarSocios extends JDialog {
     }
 
     public void cargarPanelSec() {
-        lbl_datos = new JLabel("Modificar socio");
+        lbl_datos = new JLabel("Mostrar datos");
         lbl_datos.setFont(new Font("Tahoma", Font.PLAIN, 36));
         lbl_datos.setBounds(34, 26, 364, 44);
         contentPanel.add(lbl_datos);
@@ -141,6 +139,7 @@ public class ModificarSocios extends JDialog {
         panel_datos.add(txt_Telefono);
 
         txt_contraseña = new JPasswordField();
+        txt_contraseña.setEditable(false);
         txt_contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_contraseña.setColumns(10);
         txt_contraseña.setBounds(633, 269, 238, 20);
@@ -161,7 +160,6 @@ public class ModificarSocios extends JDialog {
                 JButton okButton = new JButton("OK");
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        modificarSocio();
                         dispose();
                         AdminScreen admin = new AdminScreen();
                         admin.setVisible(true);
@@ -188,7 +186,7 @@ public class ModificarSocios extends JDialog {
         }
     }
 
-    public void leerSocio() {
+    public void leerDatos() {
         String linea;
         try {
 
@@ -202,59 +200,9 @@ public class ModificarSocios extends JDialog {
                     txt_Direccion.setText(parte[6]);
                     txt_DNI.setText(parte[0]);
                     txt_Telefono.setText(parte[5]);
+                    txt_contraseña.setText(parte[1]);
                 }
             }
-        } catch (IOException exception) {
-            System.out.println(exception);
-        }
-    }
-
-    public void modificarSocio() {
-        try {
-            File fichero = new File("./src/BBDD.txt");
-            File ficherotmp = new File("./src/BBDDtmp.txt");
-            BufferedReader reader = new BufferedReader(new FileReader(fichero));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(ficherotmp));
-            String linea;
-
-            while ((linea = reader.readLine()) != null) {
-                String[] parte = linea.split(":");
-                if (dni.equals(parte[0])) {
-                    if (!(txt_contraseña.getText().equals(""))) {
-
-                        writer.write(parte[0] + ":" + txt_contraseña.getText() + ":Socio:" + parte[3] + ":"
-                                + parte[4] + ":" + parte[5] + ":" + parte[6] + ":"
-                                + parte[7] + "\n");
-
-                    }
-
-                }
-                if (dni.equals(parte[0]))
-                    continue;
-                writer.write(linea + System.getProperty("line.separator"));
-
-            }
-            writer.close();
-            reader.close();
-
-        } catch (IOException exception) {
-            System.out.println(exception);
-        }
-
-        try {
-            File fichero = new File("./src/BBDD.txt");
-            File ficherotmp = new File("./src/BBDDtmp.txt");
-            BufferedReader reader = new BufferedReader(new FileReader(ficherotmp));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fichero));
-            String linea;
-
-            while ((linea = reader.readLine()) != null) {
-                String[] parte = linea.split(":");
-                writer.write(linea + System.getProperty("line.separator"));
-            }
-            writer.close();
-            reader.close();
-            ficherotmp.delete();
         } catch (IOException exception) {
             System.out.println(exception);
         }
