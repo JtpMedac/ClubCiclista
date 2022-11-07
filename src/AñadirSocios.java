@@ -20,13 +20,16 @@ import java.io.IOException;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AñadirSocios extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contraseña;
+	private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contraseña, txt_contraseñaM;
 	private JPanel panel_datos;
 	private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contraseña, lbl_Aviso;
+	private boolean mostrar = false;
 
 	/**
 	 * Launch the application.
@@ -41,9 +44,7 @@ public class AñadirSocios extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public AñadirSocios() {
 
 		cargarPanelPrin();
@@ -148,10 +149,37 @@ public class AñadirSocios extends JDialog {
 		txt_contraseña.setColumns(10);
 		txt_contraseña.setBounds(633, 269, 238, 20);
 		panel_datos.add(txt_contraseña);
+		
+		txt_contraseñaM = new JTextField();
+        txt_contraseñaM.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_contraseñaM.setColumns(10);
+        txt_contraseñaM.setBounds(633, 269, 238, 20);
+        panel_datos.add(txt_contraseñaM);
+        txt_contraseñaM.setVisible(false);
 
 		lbl_Aviso = new JLabel("");
 		lbl_Aviso.setBounds(315, 402, 556, 20);
 		panel_datos.add(lbl_Aviso);
+		
+		JButton btn_mostrarContra = new JButton("OJO");
+		btn_mostrarContra.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        if (!mostrar) {
+		            txt_contraseñaM.setText(txt_contraseña.getText());
+		            txt_contraseña.setVisible(false);
+		            txt_contraseñaM.setVisible(true);
+		            mostrar=true;
+                }else {
+                    txt_contraseña.setText(txt_contraseñaM.getText());
+                    txt_contraseña.setVisible(true);
+                    txt_contraseñaM.setVisible(false);
+                    mostrar=false;
+                }
+		    }
+		});
+		btn_mostrarContra.setBounds(643, 305, 69, 21);
+		panel_datos.add(btn_mostrarContra);
 	}
 
 	public void botonesConf() {
@@ -195,14 +223,21 @@ public class AñadirSocios extends JDialog {
 
 				BufferedWriter bw = new BufferedWriter(new FileWriter("./src/BBDD.txt", true));
 				bw.newLine();
-				bw.write(txt_DNI.getText() + ":" + txt_contraseña.getText() + ":Socio:" + txt_Nombre.getText() + ":"
-						+ txt_Apellidos.getText() + ":" + txt_Telefono.getText() + ":" + txt_Direccion.getText() + ":"
-						+ "Alta");
+				if (mostrar) {
+				    bw.write(txt_DNI.getText() + ":" + txt_contraseñaM.getText() + ":Socio:" + txt_Nombre.getText() + ":"
+	                        + txt_Apellidos.getText() + ":" + txt_Telefono.getText() + ":" + txt_Direccion.getText() + ":"
+	                        + "Alta");
+                }else {
+                    bw.write(txt_DNI.getText() + ":" + txt_contraseña.getText() + ":Socio:" + txt_Nombre.getText() + ":"
+                            + txt_Apellidos.getText() + ":" + txt_Telefono.getText() + ":" + txt_Direccion.getText() + ":"
+                            + "Alta");
+                }
+				
 				bw.close();
 				JOptionPane.showMessageDialog(null, "Socio creado correctamente", "Socio creado",
 						JOptionPane.INFORMATION_MESSAGE);
-				int opcionJpane = JOptionPane.showConfirmDialog(null, "?Quieres crear otro socio?",
-						"?Crear otro usuario?", JOptionPane.YES_NO_OPTION,
+				int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres crear otro socio?",
+						"¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
 						JOptionPane.INFORMATION_MESSAGE);
 				switch (opcionJpane) {
 					case 0:
