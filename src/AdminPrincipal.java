@@ -12,6 +12,12 @@ import javax.swing.JDialog;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 public class AdminPrincipal extends JFrame {
 
@@ -20,6 +26,10 @@ public class AdminPrincipal extends JFrame {
     private JLabel lbl_bienvenida;
     private JButton btn_socios, btn_eventos, btn_ventas;
     String user;
+    private JMenuBar menu_Principal;
+    private JMenuItem mntm_Economia;
+    private JMenuItem mnt_Socios;
+    private JMenuItem mnt_Eventos;
         public static void main(String[] args) {
             EventQueue.invokeLater(new Runnable() {
                 public void run() {
@@ -38,6 +48,8 @@ public class AdminPrincipal extends JFrame {
         cargarLabel();
         cargarBotones();
         iniciarAcciones();
+        cargarMenu();
+        accionesMenu();
     }
     public void cargarPanel() {
         setMinimumSize(new Dimension(1080, 720));
@@ -48,7 +60,6 @@ public class AdminPrincipal extends JFrame {
         contentPane = new JPanel();
         contentPane.setBackground(new Color(168, 201, 240));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
         setContentPane(contentPane);
     }
     public void cargarPaneles() {
@@ -108,6 +119,42 @@ public class AdminPrincipal extends JFrame {
         btn_ventas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //Hay que crear esta ventana
+                AdminEconomia economia = new AdminEconomia();
+                economia.setVisible(true);
+                dispose();
+            }
+        });
+    }
+    public void cargarMenu() {
+        menu_Principal = new JMenuBar();
+        setJMenuBar(menu_Principal);
+        mnt_Socios = new JMenuItem("Ir a la ventana socios");
+        menu_Principal.add(mnt_Socios);
+        mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
+        menu_Principal.add(mnt_Eventos);  
+        mntm_Economia = new JMenuItem("Ir a la ventana economica");     
+        menu_Principal.add(mntm_Economia);    
+    }
+    public void accionesMenu() {
+        mnt_Socios.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK));
+        mnt_Socios.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AdminScreen admin = new AdminScreen();
+                admin.setVisible(true);
+                dispose();
+            }
+        });
+        mnt_Eventos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_DOWN_MASK));
+        mnt_Eventos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AdminEvents eventos = new AdminEvents();
+                eventos.setVisible(true);
+                dispose();
+            }
+        });
+        mntm_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
+        mntm_Economia.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 AdminEconomia economia = new AdminEconomia();
                 economia.setVisible(true);
                 dispose();

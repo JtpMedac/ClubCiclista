@@ -16,6 +16,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -164,7 +166,16 @@ public class AñadirSocios extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						aniadirSocio();
+					    Pattern numero = Pattern.compile("^[0-9]*$");
+					    Matcher sacarNum = numero.matcher(txt_Telefono.getText());
+					    boolean comprobar = sacarNum.find();
+					    if(comprobar) {
+					        aniadirSocio();
+					    }else {
+					        JOptionPane.showMessageDialog(null, "Error al crear el socio\nIntroduzca un número correcto",
+			                        "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+					    }
+						
 					}
 				});
 				okButton.setActionCommand("OK");
