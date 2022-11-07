@@ -38,6 +38,7 @@ public class LogIn extends JFrame {
                 try {
                     LogIn frame = new LogIn();
                     frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -112,6 +113,7 @@ public class LogIn extends JFrame {
                 JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame,
                         "Pongase en contacto con un administrador para restablecer la contrasena");
+                
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -140,6 +142,7 @@ public class LogIn extends JFrame {
                         int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres cerrar el programa?",
                                 "¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
+                        
                         if(opcionJpane==0) {
                             dispose();  
                         }
@@ -218,6 +221,7 @@ public class LogIn extends JFrame {
                     break;
                 }
             }
+                                //Encapsular if con comprobar si usuario esta activo
             if (isLoginSuccess) {
                 System.out.println("Funciona");
                 if (user_type.equals("Socio")) {
@@ -225,15 +229,19 @@ public class LogIn extends JFrame {
                     SocioScreen ventanaSocio = new SocioScreen(UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT,
                             DireccionTXT);
                     ventanaSocio.setVisible(true);
+                    ventanaSocio.setLocationRelativeTo(null);
+                    dispose();
                 } else if (user_type.equals("Admin")) {
                     // Abrir frame admin
-                    AdminPrincipal admin = new AdminPrincipal();
+                    AdminPrincipal admin = new AdminPrincipal(); 
                     admin.setVisible(true);
+                    admin.setLocationRelativeTo(null);
                     dispose();
                 } else if (user_type.equals("Gestor")) {
                     // Abrir frame Gestor
                     GestorScreen gestor = new GestorScreen(UsuarioTXT);
                     gestor.setVisible(true);
+                    gestor.setLocationRelativeTo(null);
                     dispose();
                 }
             } else {
@@ -241,6 +249,7 @@ public class LogIn extends JFrame {
                 JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame, "Usuario/Contrasena incorrecta", "Error",
                         JOptionPane.WARNING_MESSAGE);
+                jFrame.setLocationRelativeTo(null);
             }
         } catch (IOException e) {
             System.out.println(e);
