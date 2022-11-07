@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
 
-public class AnadirEvento extends JDialog {
+public class AñadirEvento extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
     private JTextField txt_Nombre,txt_Fecha,txt_Plazas,txt_Descripcion;
@@ -28,14 +28,14 @@ public class AnadirEvento extends JDialog {
 
     public static void main(String[] args) {
         try {
-            AnadirEvento dialog = new AnadirEvento();
+            AñadirEvento dialog = new AñadirEvento();
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public AnadirEvento() {
+    public AñadirEvento() {
         cargarPanelPrin();
         cargarPanelSec();
         cargarJLabels();
@@ -81,12 +81,12 @@ public class AnadirEvento extends JDialog {
         lbl_Fecha.setBounds(42, 187, 193, 29);
         panel_datos.add(lbl_Fecha);
 
-        lbl_Plazas = new JLabel("Numero de plazas");
+        lbl_Plazas = new JLabel("Número de plazas");
         lbl_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Plazas.setBounds(42, 246, 193, 29);
         panel_datos.add(lbl_Plazas);
         
-        lbl_Descripcion = new JLabel("Descripcion del evento");
+        lbl_Descripcion = new JLabel("Descripción del evento");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Descripcion.setBounds(582, 35, 193, 29);
         panel_datos.add(lbl_Descripcion);

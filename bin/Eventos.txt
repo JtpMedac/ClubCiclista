@@ -1,7 +1,2 @@
-1:Carrera Montaña:Carrera en la Concha:25/05/2005:2:5
-2:Carrera Montaña:Carrera en la Concha:25/05/2005:2:5
-sadrfas:fasf:fsaasd:asfsad:fasfas:0
-
-123:sad:dsa:sadasd:sda:0
-
-213:sda:dsa:dsa:sda:0
+1:Carrera Montana:Carrera en la Concha:25/05/2005:2:5
+2:Carrera Montana:Carrera en la Concha:25/05/2005:2:5

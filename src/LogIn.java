@@ -112,6 +112,7 @@ public class LogIn extends JFrame {
                 JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame,
                         "Pongase en contacto con un administrador para restablecer la contrasena");
+                
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -137,8 +138,8 @@ public class LogIn extends JFrame {
                 }
                 if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
                     if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-                        int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres cerrar el programa?",
-                                "¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
+                        int opcionJpane = JOptionPane.showConfirmDialog(null, "Â¿Quieres cerrar el programa?",
+                                "Â¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
                                 JOptionPane.INFORMATION_MESSAGE);
                         if(opcionJpane==0) {
                             dispose();  
@@ -158,8 +159,8 @@ public class LogIn extends JFrame {
                  }
                  if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
                      if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-                         int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres cerrar el programa?",
-                                 "¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
+                         int opcionJpane = JOptionPane.showConfirmDialog(null, "Â¿Quieres cerrar el programa?",
+                                 "Â¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
                                  JOptionPane.INFORMATION_MESSAGE);
                          if(opcionJpane==0) {
                              dispose();  
@@ -227,7 +228,7 @@ public class LogIn extends JFrame {
                     ventanaSocio.setVisible(true);
                 } else if (user_type.equals("Admin")) {
                     // Abrir frame admin
-                    AdminPrincipal admin = new AdminPrincipal();
+                    AdminPrincipal admin = new AdminPrincipal(); 
                     admin.setVisible(true);
                     dispose();
                 } else if (user_type.equals("Gestor")) {
