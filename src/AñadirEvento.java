@@ -4,9 +4,13 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -41,7 +45,7 @@ public class AñadirEvento extends JDialog {
         cargarJLabels();
         cargarTextFields();
         botonesConf();
-
+        limitarCaracteres();
     }
 
     public void cargarPanelPrin() {
@@ -142,7 +146,16 @@ public class AñadirEvento extends JDialog {
                 JButton okButton = new JButton("OK");
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        aniadirEvento();
+                        Pattern numero = Pattern.compile("^[0-9]*$");
+                        Matcher sacarNum = numero.matcher(txt_ID.getText());
+                        boolean comprobar = sacarNum.find();
+                        if(comprobar) {
+                            aniadirEvento();
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Error al crear el evento\nEl identificador debe de ser númerico",
+                                    "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        }
+                        
                     }
                 });
                 okButton.setActionCommand("OK");
@@ -168,7 +181,8 @@ public class AñadirEvento extends JDialog {
         try {
             // Este if es como los miembros de este grupo son feos pero sirven
             if ((!(txt_Descripcion.getText().equals("") || (txt_Plazas.getText().equals(""))
-                    || (txt_Nombre.getText().equals("")) || (txt_Fecha.getText().equals(""))))) {
+                    || (txt_Nombre.getText().equals("")) || (txt_Fecha.getText().equals(""))
+                    || (txt_ID.getText().equals(""))))) {
 
                 BufferedWriter bw = new BufferedWriter(new FileWriter("./src/Eventos.txt", true));
                 bw.newLine();
@@ -202,5 +216,47 @@ public class AñadirEvento extends JDialog {
             System.out.println(e);
         }
 
+    }
+    public void limitarCaracteres() {
+        txt_Descripcion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Descripcion.getText().length() >= 100) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_ID.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_ID.getText().length() >= 4) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_Plazas.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Plazas.getText().length() >= 4) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_Nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Nombre.getText().length() >= 30) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_Fecha.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Fecha.getText().length() >= 10) {
+                    e.consume();    
+                }
+            }
+        });
     }
 }

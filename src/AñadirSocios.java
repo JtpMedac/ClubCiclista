@@ -22,6 +22,8 @@ import java.util.regex.Pattern;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class AñadirSocios extends JDialog {
 
@@ -53,6 +55,7 @@ public class AñadirSocios extends JDialog {
 		cargarJLabels();
 		cargarTextFields();
 		botonesConf();
+		limitarCaracteres();
 
 	}
 
@@ -116,6 +119,7 @@ public class AñadirSocios extends JDialog {
 
 	public void cargarTextFields() {
 		txt_Nombre = new JTextField();
+		
 		txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txt_Nombre.setBounds(179, 39, 238, 20);
 		panel_datos.add(txt_Nombre);
@@ -203,7 +207,6 @@ public class AñadirSocios extends JDialog {
 			if (!((txt_DNI.getText().equals("")) || (txt_contraseña.getText().equals(""))
 					|| (txt_Nombre.getText().equals("")) || (txt_Apellidos.getText().equals(""))
 					|| (txt_Telefono.getText().equals("")) || (txt_Direccion.getText().equals("")))) {
-
 				BufferedWriter bw = new BufferedWriter(new FileWriter("./src/BBDD.txt", true));
 				bw.newLine();
 				bw.write(txt_DNI.getText() + ":" + txt_contraseña.getText() + ":Socio:" + txt_Nombre.getText() + ":"
@@ -238,5 +241,55 @@ public class AñadirSocios extends JDialog {
 			System.out.println(e);
 		}
 
+	}
+	public void limitarCaracteres() {
+	    txt_Nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Nombre.getText().length() >= 20) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_Apellidos.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Apellidos.getText().length() >= 20) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_contraseña.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_contraseña.getText().length() >= 10) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_Direccion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Direccion.getText().length() >= 30) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_DNI.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_DNI.getText().length() >= 9) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_Telefono.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Telefono.getText().length() >= 9) {
+                    e.consume();    
+                }
+            }
+        });
 	}
 }
