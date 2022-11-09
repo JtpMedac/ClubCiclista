@@ -1,12 +1,20 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,6 +26,8 @@ public class AdminEconomia extends JFrame {
     private JPanel contentPane;
     private JPanel panel_Princ;
     private JScrollPane scrollPane;
+    private JButton btn_anadirProducto, btn_salir, btn_pedir, btn_borrar, btn_editar;
+    private JTable proveedores;
     /**
      * Launch the application.
      */
@@ -40,7 +50,9 @@ public class AdminEconomia extends JFrame {
     public AdminEconomia() {
         cargarPanel();
         cargarPaneles();
-        crearTablas();
+        crearTabla();
+        botones();
+        iniciarAcciones();
     }
     public void cargarPanel() {
         setMinimumSize(new Dimension(1080, 720));
@@ -63,21 +75,24 @@ public class AdminEconomia extends JFrame {
         panel_Princ.setLayout(null);
     
     }
-    public void crearTablas() {
+    public void crearTabla() {
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 75, 329, 520);
+        scrollPane.setBounds(10, 75, 1024, 520);
         panel_Princ.add(scrollPane);
 
         DefaultTableModel modelo = new DefaultTableModel();
-        JTable proveedores = new JTable(modelo);
+        proveedores = new JTable(modelo);
         proveedores.setDefaultRenderer(Object.class, new Render());
-        JButton btn_pedir = new JButton("Pedir");
-        JButton btn_borrar = new JButton("X");
-        JButton btn_editar = new JButton("Edit");
+        btn_pedir = new JButton("Pedir");
+        btn_borrar = new JButton("X");
+        btn_editar = new JButton("Edit");
+        btn_borrar.setName("delt");
+        btn_editar.setName("edit");
+        btn_pedir.setName("pedir");
         proveedores.setModel(new DefaultTableModel(
             new Object[][] {},
             new String[] {
-                "Nombre", "Realizar pedido", "Modificar", "Borrar"
+                "Nombre", "Precio", "Cantidad", "Realizar pedido", "Modificar", "Borrar"
             }
         )
         {
@@ -91,15 +106,15 @@ public class AdminEconomia extends JFrame {
             Object[] fila = new Object[numCols];
 
             String linea;
-            BufferedReader br = new BufferedReader(new FileReader("./src/BBDD.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("./src/Economía.txt"));
 
             while ((linea = br.readLine()) != null) {
 
                 String[] parte = linea.split(":");
-                fila[0] = parte[0];
+                fila[0] = parte[1];
                 fila[1] = parte[3];
                 fila[2] = parte[4];
-                fila[3] = parte[7];
+                fila[3] = btn_pedir;
                 fila[4] = btn_editar;
                 fila[5] = btn_borrar;
                 ((DefaultTableModel) proveedores.getModel()).addRow(fila);
@@ -108,5 +123,143 @@ public class AdminEconomia extends JFrame {
             System.out.println(e);
         }
     }
+    public void botones() {
+        btn_anadirProducto = new JButton("Anadir evento");
+        btn_anadirProducto.setBounds(748, 45, 157, 21);
+        panel_Princ.add(btn_anadirProducto);
+        btn_salir = new JButton("Cerrar Sesion");
+        btn_salir.setBounds(904, 22, 130, 23);
+        panel_Princ.add(btn_salir);
+    }
+    public void iniciarAcciones() {
+        btn_anadirProducto.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AnadirEvento NuevoEvento = new AnadirEvento();
+                NuevoEvento.setVisible(true);
+                dispose();
+            }
+        });
 
+        btn_salir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AdminPrincipal principal = new AdminPrincipal();
+                principal.setVisible(true);
+            }
+        });
+        proveedores.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int column = proveedores.getColumnModel().getColumnIndexAtX(e.getX());
+                int row = e.getY() / proveedores.getRowHeight();
+
+                if (row < proveedores.getRowCount() && row >= 0 && column < proveedores.getColumnCount() && column >= 0) {
+                    Object value = proveedores.getValueAt(row, column);
+                    if (value instanceof JButton) {
+                        ((JButton) value).doClick();
+                        JButton boton = (JButton) value;
+
+                        if (boton.getName().equals("edit")) {
+                            System.out.println("Click en el boton modificar");
+                            // EVENTOS MODIFICAR
+                            int columna = 0;
+                            int fila = e.getY() / proveedores.getRowHeight();
+
+                            if (fila < proveedores.getRowCount() && fila >= 0 && columna < proveedores.getColumnCount()
+                                    && columna >= 0) {
+                                Object objeto = proveedores.getValueAt(fila, columna);
+
+                                ModificarEventos modificar = new ModificarEventos(objeto.toString());
+                                modificar.setVisible(true);
+
+                            }
+                        }
+                        
+                        if (boton.getName().equals("delt")) {
+                            if (JOptionPane.showConfirmDialog(null, "Desea eliminar este producto", "Confirmar",
+                                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                                if (proveedores.getSelectedRow() >= 0) {
+                                    ((DefaultTableModel) proveedores.getModel()).removeRow(proveedores.getSelectedRow());
+                                //evento eliminar
+                                    
+                                    int columna = 0;
+                                    int fila = e.getY() / proveedores.getRowHeight();
+
+                                    if (fila < proveedores.getRowCount() && fila >= 0 && columna < proveedores.getColumnCount()
+                                            && columna >= 0) {
+                                        Object objeto = proveedores.getValueAt(fila, columna);
+
+                                        ModificarEventos modificar = new ModificarEventos(objeto.toString());
+                                        modificar.setVisible(true);
+                                    try {
+                                        File fichero = new File("./src/Economía.txt");
+                                        File ficherotmp = new File("./src/Economíatmp.txt");
+                                        BufferedReader reader = new BufferedReader(new FileReader(fichero));
+                                        BufferedWriter writer = new BufferedWriter(new FileWriter(ficherotmp));
+                                        String linea;
+
+                                        while ((linea = reader.readLine()) != null) {
+                                            String[] parte = linea.split(":");
+                                             if(parte[0].equals(objeto.toString()))continue;
+                                             writer.write(linea + System.getProperty("line.separator"));}
+                                        writer.close();
+                                        reader.close();
+                                    
+                                    
+                                    
+                                    } catch (IOException exception) {
+                                        System.out.println(exception);
+                                    }
+                                
+                                }
+                            }
+                            System.out.println("Click en el boton eliminar");
+                            // EVENTOS ELIMINAR
+                        }}
+                        if (boton.getName().equals("pedir")) {
+                            if (JOptionPane.showConfirmDialog(null, "Desea pedir este producto", "Confirmar",
+                                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                                if (proveedores.getSelectedRow() >= 0) {
+                                    ((DefaultTableModel) proveedores.getModel()).removeRow(proveedores.getSelectedRow());
+                                //evento pedir
+                                    
+                                    int columna = 0;
+                                    int fila = e.getY() / proveedores.getRowHeight();
+
+                                    if (fila < proveedores.getRowCount() && fila >= 0 && columna < proveedores.getColumnCount()
+                                            && columna >= 0) {
+                                        Object objeto = proveedores.getValueAt(fila, columna);
+
+                                        ModificarProductos modificar = new ModificarProductos(objeto.toString());
+                                        modificar.setVisible(true);
+                                    try {
+                                        File fichero = new File("./src/Economía.txt");
+                                        File ficherotmp = new File("./src/Economíatmp.txt");
+                                        BufferedReader reader = new BufferedReader(new FileReader(fichero));
+                                        BufferedWriter writer = new BufferedWriter(new FileWriter(ficherotmp));
+                                        String linea;
+
+                                        while ((linea = reader.readLine()) != null) {
+                                            String[] parte = linea.split(":");
+                                             if(parte[0].equals(objeto.toString()))continue;
+                                             writer.write(linea + System.getProperty("line.separator"));}
+                                        writer.close();
+                                        reader.close();
+                                    
+                                    
+                                    
+                                    } catch (IOException exception) {
+                                        System.out.println(exception);
+                                    }
+                                
+                                }
+                            }
+                            System.out.println("Click en el boton pedir");
+                            // EVENTOS ELIMINAR
+                        }
+                        }
+                    }
+                }
+            }
+        });
+     
+    }
 }
