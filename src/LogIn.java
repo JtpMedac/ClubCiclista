@@ -81,17 +81,17 @@ public class LogIn extends JFrame {
 		txt_psw.setBounds(246, 286, 178, 42);
 		panel_Princ.add(txt_psw);
 		txt_psw.setColumns(10);
-		TextPrompt psw = new TextPrompt("Contraseña", txt_psw);
+		TextPrompt psw = new TextPrompt("Contrasena", txt_psw);
 	}
 
 	public void boton() {
-		btn_logIn = new JButton("Iniciar sesión");
+		btn_logIn = new JButton("Iniciar sesion");
 		btn_logIn.setBounds(232, 374, 204, 21);
 		panel_Princ.add(btn_logIn);
 	}
 
 	public void llamarLbl() {
-		lbl_restablecerContra = new JLabel("Restablecer contraseña");
+		lbl_restablecerContra = new JLabel("Restablecer contrasena");
 		lbl_restablecerContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lbl_restablecerContra.setBounds(262, 327, 242, 42);
 		panel_Princ.add(lbl_restablecerContra);
@@ -107,7 +107,7 @@ public class LogIn extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				JFrame jFrame = new JFrame();
 				JOptionPane.showMessageDialog(jFrame,
-						"Pongase en contacto con un administrador para restablecer la contraseña");
+						"Pongase en contacto con un administrador para restablecer la contrasena");
 			}
 
 			public void mouseEntered(MouseEvent e) {
@@ -162,13 +162,13 @@ public class LogIn extends JFrame {
 
 				String[] parte = linea.split(":");
 				UsuarioTXT = parte[0];
-				String ContraseñaTXT = parte[1];
+				String ContrasenaTXT = parte[1];
 				String TipoTXT = parte[2];
 				NombreTXT = parte[3];
 				ApellidosTXT= parte[4];
 				NumeroTXT = parte[5];
 				DireccionTXT = parte[6];
-				if (User_Text.equals(UsuarioTXT) && Contra_Text.equals(ContraseñaTXT)) {
+				if (User_Text.equals(UsuarioTXT) && Contra_Text.equals(ContrasenaTXT)) {
 					user_type = parte[2];
 					isLoginSuccess = true;
 					break;
@@ -194,7 +194,7 @@ public class LogIn extends JFrame {
 			} else {
 				System.out.println("No Funciona");
 				JFrame jFrame = new JFrame();
-                JOptionPane.showMessageDialog(jFrame,"Usuario/Contraseña incorrecta","Error" , JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(jFrame,"Usuario/Contrasena incorrecta","Error" , JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (IOException e) {
 			System.out.println(e);

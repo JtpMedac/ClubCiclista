@@ -1,0 +1,5 @@
+77491310D:1234ABC:Admin:Jaime:Rodriguez Perez:644283693:LaRoca:Alta
+79041428L:1234ABC:Socio:Joaquin:Toscano Perez:689996422:NoTieneCasaEnMalaga:Alta
+79039140P:1234ABC:Gestor:Alvaro:Rayo Vallecano:617611653:Palma Palmilla:Alta
+88930930R:pito:Socio:Celia:Martín Fuentes:938383049:ElPalo:Baja
+1235231w:si:Socio:Medinilla:Medinilla:1231421:su casa:true

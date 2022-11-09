@@ -85,10 +85,10 @@ public class AdminEvents extends JFrame {
         }
 
         public void botones() {
-            btn_anadirEvento = new JButton("Añadir evento");
+            btn_anadirEvento = new JButton("Anadir evento");
             btn_anadirEvento.setBounds(748, 45, 157, 21);
             panel_Princ.add(btn_anadirEvento);
-            btn_salir = new JButton("Cerrar Sesión");
+            btn_salir = new JButton("Cerrar Sesion");
             btn_salir.setBounds(904, 22, 130, 23);
             panel_Princ.add(btn_salir);
 
@@ -113,7 +113,7 @@ public class AdminEvents extends JFrame {
             table.setModel(new DefaultTableModel(
                     new Object[][] {},
                     new String[] {
-                            "ID", "Nombre","Descripcin", "Fecha", "Apuntados", "Plazas totales" ,"Modificar", "Borrar"
+                            "ID", "Nombre","Descripcion", "Fecha", "Apuntados", "Plazas totales" ,"Modificar", "Borrar"
                     }) {
                 public boolean isCellEditable(int row, int column) {
                     return false;
@@ -148,7 +148,7 @@ public class AdminEvents extends JFrame {
         public void iniciarAcciones() {
             btn_anadirEvento.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    AñadirEvento NuevoEvento = new AñadirEvento();
+                    AnadirEvento NuevoEvento = new AnadirEvento();
                     NuevoEvento.setVisible(true);
                     dispose();
                 }
@@ -188,7 +188,7 @@ public class AdminEvents extends JFrame {
                             }
                             
                             if (boton.getName().equals("delt")) {
-                                if (JOptionPane.showConfirmDialog(null, "¿Desea eliminar este registro?", "Confirmar",
+                                if (JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar",
                                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                                     if (table.getSelectedRow() >= 0) {
                                         ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());

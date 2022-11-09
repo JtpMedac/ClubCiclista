@@ -96,30 +96,35 @@ public class ModificarEventos extends JDialog {
 
     public void cargarTextFields() {
         txt_ID = new JTextField();
+        txt_ID.setEditable(false);
         txt_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_ID.setBounds(179, 39, 238, 20);
         panel_datos.add(txt_ID);
         txt_ID.setColumns(10);
 
         txt_Nombre = new JTextField();
+        txt_Nombre.setEditable(false);
         txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Nombre.setColumns(10);
         txt_Nombre.setBounds(179, 145, 238, 20);
         panel_datos.add(txt_Nombre);
 
         txt_Descripcion = new JTextField();
+        txt_Descripcion.setEditable(false);
         txt_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Descripcion.setColumns(10);
         txt_Descripcion.setBounds(179, 274, 238, 20);
         panel_datos.add(txt_Descripcion);
 
         txt_Fecha = new JTextField();
+        txt_Fecha.setEditable(false);
         txt_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Fecha.setColumns(10);
         txt_Fecha.setBounds(633, 39, 238, 20);
         panel_datos.add(txt_Fecha);
 
         txt_Plazas = new JTextField();
+        txt_Plazas.setEditable(false);
         txt_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Plazas.setColumns(10);
         txt_Plazas.setBounds(633, 145, 238, 20);

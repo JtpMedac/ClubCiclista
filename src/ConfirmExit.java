@@ -42,7 +42,7 @@ public class ConfirmExit extends JDialog {
     }
 
     public void crearLabel() {
-        lbl_pregunta = new JLabel("¿Estás seguro de que quieres cerrar sesión?");
+        lbl_pregunta = new JLabel("Estas seguro de que quieres cerrar sesion?");
         lbl_pregunta.setBounds(96, 51, 292, 106);
         contentPanel.add(lbl_pregunta);
     }
@@ -53,7 +53,7 @@ public class ConfirmExit extends JDialog {
             buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
             getContentPane().add(buttonPane, BorderLayout.SOUTH);
             {
-                btn_conf = new JButton("Sí");
+                btn_conf = new JButton("SI");
 
                 btn_conf.setActionCommand("OK");
                 buttonPane.add(btn_conf);
