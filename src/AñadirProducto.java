@@ -10,8 +10,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +39,8 @@ public class AñadirProducto extends JFrame {
     private JTextArea textArea_Descripcion;
     private JButton btn_Foto;
     private JFileChooser imagenElegida;
+    private JLabel lbl_Talla;
+    private JTextField txt_Talla;
     /**
      * Launch the application.
      */
@@ -94,17 +100,17 @@ public class AñadirProducto extends JFrame {
     public void cargarJLabels() {
         lbl_Nombre = new JLabel("Nombre");
         lbl_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Nombre.setBounds(42, 115, 193, 29);
+        lbl_Nombre.setBounds(42, 99, 193, 29);
         panel_datos.add(lbl_Nombre);
 
         lbl_Precio = new JLabel("Precio (euros)");
         lbl_Precio.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Precio.setBounds(42, 187, 193, 29);
+        lbl_Precio.setBounds(42, 139, 193, 29);
         panel_datos.add(lbl_Precio);
 
         lbl_Cantidad = new JLabel("Cantidad");
         lbl_Cantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Cantidad.setBounds(42, 246, 193, 29);
+        lbl_Cantidad.setBounds(42, 235, 193, 29);
         panel_datos.add(lbl_Cantidad);
         
         lbl_Descripcion = new JLabel("Descripci\u00F3n del producto");
@@ -135,20 +141,20 @@ public class AñadirProducto extends JFrame {
     public void cargarTextFields() {
         txt_Nombre = new JTextField();
         txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Nombre.setBounds(179, 119, 238, 20);
+        txt_Nombre.setBounds(179, 103, 238, 20);
         panel_datos.add(txt_Nombre);
         txt_Nombre.setColumns(10);
 
         txt_Precio = new JTextField();
         txt_Precio.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Precio.setColumns(10);
-        txt_Precio.setBounds(179, 191, 238, 20);
+        txt_Precio.setBounds(179, 143, 238, 20);
         panel_datos.add(txt_Precio);
 
         txt_Cantidad = new JTextField();
         txt_Cantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Cantidad.setColumns(10);
-        txt_Cantidad.setBounds(179, 250, 238, 20);
+        txt_Cantidad.setBounds(179, 239, 238, 20);
         panel_datos.add(txt_Cantidad);
 
         txt_ID = new JTextField();
@@ -166,6 +172,17 @@ public class AñadirProducto extends JFrame {
         btn_Foto = new JButton("Insertar Imagen");
         btn_Foto.setBounds(179, 304, 131, 23);
         panel_datos.add(btn_Foto);
+        
+        lbl_Talla = new JLabel("Talla/Tama\u00F1o");
+        lbl_Talla.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Talla.setBounds(42, 179, 193, 29);
+        panel_datos.add(lbl_Talla);
+        
+        txt_Talla = new JTextField();
+        txt_Talla.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_Talla.setColumns(10);
+        txt_Talla.setBounds(179, 183, 238, 20);
+        panel_datos.add(txt_Talla);
     }
 
     public void botonesConf() {
@@ -187,6 +204,7 @@ public class AñadirProducto extends JFrame {
                         boolean comprobarPre = sacarPrecio.find();
                         if(comprobar && comprobarCant && comprobarPre) {
                             aniadirEvento();
+                            prueba();
                         }else if(!comprobar){
                             JOptionPane.showMessageDialog(null, "Error al crear el producto\nEl identificador debe de ser númerico",
                                     "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
@@ -322,5 +340,27 @@ public class AñadirProducto extends JFrame {
                 }
             }
         });
+    }
+    
+    public void prueba() {
+        File origen = new File(lbl_Ruta.getText());
+        File destino = new File("C:\\Users/MEDAC/Git/ClubCiclista/src/pruebaProducto/productoprueba.png");
+
+        try {
+                InputStream in = new FileInputStream(origen);
+                OutputStream out = new FileOutputStream(destino);
+
+                byte[] buf = new byte[1024];
+                int len;
+
+                while ((len = in.read(buf)) > 0) {
+                        out.write(buf, 0, len);
+                }
+
+                in.close();
+                out.close();
+        } catch (IOException ioe){
+                ioe.printStackTrace();
+        }
     }
 }

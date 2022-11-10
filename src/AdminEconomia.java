@@ -92,7 +92,7 @@ public class AdminEconomia extends JFrame {
         proveedores.setModel(new DefaultTableModel(
             new Object[][] {},
             new String[] {
-                "Nombre", "Precio", "Cantidad", "Realizar pedido", "Modificar", "Borrar"
+                "Nombre", "Precio", "Cantidad", "Talla/Tamaño", "Realizar pedido", "Modificar", "Borrar"
             }
         )
         {
@@ -114,9 +114,10 @@ public class AdminEconomia extends JFrame {
                 fila[0] = parte[1];
                 fila[1] = parte[3];
                 fila[2] = parte[4];
-                fila[3] = btn_pedir;
-                fila[4] = btn_editar;
-                fila[5] = btn_borrar;
+                fila[3] = parte[5];
+                fila[4] = btn_pedir;
+                fila[5] = btn_editar;
+                fila[6] = btn_borrar;
                 ((DefaultTableModel) proveedores.getModel()).addRow(fila);
             }
         } catch (IOException e) {
