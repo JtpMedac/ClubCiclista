@@ -151,6 +151,7 @@ public class AdminScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AñadirSocios NuevoSocio = new AñadirSocios();
                 NuevoSocio.setVisible(true);
+                NuevoSocio.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -159,6 +160,8 @@ public class AdminScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminPrincipal principal = new AdminPrincipal();
                 principal.setVisible(true);
+                principal.setLocationRelativeTo(null);
+                dispose();
             }
         });
         table.addMouseListener(new MouseAdapter() {
@@ -184,6 +187,7 @@ public class AdminScreen extends JFrame {
 
                                 ModificarSocios modificar = new ModificarSocios(objeto.toString());
                                 modificar.setVisible(true);
+                                modificar.setLocationRelativeTo(null);
 
                             }
                         }
@@ -238,7 +242,7 @@ public class AdminScreen extends JFrame {
 
                                 MostrarSocios mostrar = new MostrarSocios(objeto.toString());
                                 mostrar.setVisible(true);
-
+                                mostrar.setLocationRelativeTo(null);
                             }
                         }
                     }

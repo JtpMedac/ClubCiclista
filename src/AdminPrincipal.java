@@ -79,11 +79,12 @@ public class AdminPrincipal extends JFrame {
         btn_ventas.setBounds(760, 282, 158, 207);
         panel_Princ.add(btn_ventas);
         
-        JButton btn_CerrarSesion = new JButton("Cerrar sesion");
+        JButton btn_CerrarSesion = new JButton("Cerrar sesión");
         btn_CerrarSesion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 ConfirmExit Confirmar = new ConfirmExit();
                 Confirmar.setVisible(true);
+                Confirmar.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -95,6 +96,7 @@ public class AdminPrincipal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminScreen admin = new AdminScreen();
                 admin.setVisible(true);
+                admin.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -102,6 +104,7 @@ public class AdminPrincipal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminEvents eventos = new AdminEvents();
                 eventos.setVisible(true);
+                eventos.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -110,6 +113,7 @@ public class AdminPrincipal extends JFrame {
                 //Hay que crear esta ventana
                 AdminEconomia economia = new AdminEconomia();
                 economia.setVisible(true);
+                economia.setLocationRelativeTo(null);
                 dispose();
             }
         });

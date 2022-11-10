@@ -88,7 +88,7 @@ public class AdminEvents extends JFrame {
             btn_anadirEvento = new JButton("Añadir evento");
             btn_anadirEvento.setBounds(748, 45, 157, 21);
             panel_Princ.add(btn_anadirEvento);
-            btn_salir = new JButton("Cerrar Sesión");
+            btn_salir = new JButton("Salir");
             btn_salir.setBounds(904, 22, 130, 23);
             panel_Princ.add(btn_salir);
 
@@ -150,6 +150,7 @@ public class AdminEvents extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     AñadirEvento NuevoEvento = new AñadirEvento();
                     NuevoEvento.setVisible(true);
+                    NuevoEvento.setLocationRelativeTo(null);
                     dispose();
                 }
             });
@@ -158,6 +159,8 @@ public class AdminEvents extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     AdminPrincipal principal = new AdminPrincipal();
                     principal.setVisible(true);
+                    principal.setLocationRelativeTo(null);
+                    dispose();
                 }
             });
             table.addMouseListener(new MouseAdapter() {

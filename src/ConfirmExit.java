@@ -85,6 +85,7 @@ public class ConfirmExit extends JDialog {
     public void salir() {
         LogIn logIn = new LogIn();
         logIn.setVisible(true);
+        logIn.setLocationRelativeTo(null);
         dispose();
     }
 
