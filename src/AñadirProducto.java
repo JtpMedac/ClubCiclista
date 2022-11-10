@@ -181,10 +181,20 @@ public class AñadirProducto extends JFrame {
                         Pattern numero = Pattern.compile("^[0-9]*$");
                         Matcher sacarNum = numero.matcher(txt_ID.getText());
                         boolean comprobar = sacarNum.find();
-                        if(comprobar) {
+                        Matcher sacarCantidad = numero.matcher(txt_Cantidad.getText());
+                        boolean comprobarCant = sacarCantidad.find();
+                        Matcher sacarPrecio = numero.matcher(txt_Precio.getText());
+                        boolean comprobarPre = sacarPrecio.find();
+                        if(comprobar && comprobarCant && comprobarPre) {
                             aniadirEvento();
-                        }else {
+                        }else if(!comprobar){
                             JOptionPane.showMessageDialog(null, "Error al crear el producto\nEl identificador debe de ser númerico",
+                                    "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        }else if(!comprobarCant) {
+                            JOptionPane.showMessageDialog(null, "Error al crear el producto\nLa cantidad debe de ser númerica",
+                                    "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        }else if(!comprobarPre) {
+                            JOptionPane.showMessageDialog(null, "Error al crear el producto\nEl precio debe de ser númerico",
                                     "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                         }
                         
@@ -236,7 +246,7 @@ public class AñadirProducto extends JFrame {
             // Este if es como los miembros de este grupo son feos pero sirven
             if ((!(textArea_Descripcion.getText().equals("") || (txt_Cantidad.getText().equals(""))
                     || (txt_Nombre.getText().equals("")) || (txt_Precio.getText().equals(""))
-                    || (txt_ID.getText().equals(""))))) {
+                    || (txt_ID.getText().equals("")) || (lbl_Ruta.getText().equals(""))))) {
 
                 BufferedWriter bw = new BufferedWriter(new FileWriter("./src/Economia.txt", true));
                 bw.newLine();

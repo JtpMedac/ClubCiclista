@@ -134,8 +134,9 @@ public class AdminEconomia extends JFrame {
     public void iniciarAcciones() {
         btn_anadirProducto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AnadirEvento NuevoEvento = new AnadirEvento();
-                NuevoEvento.setVisible(true);
+                AñadirProducto nuevoProducto = new AñadirProducto();
+                nuevoProducto.setVisible(true);
+                nuevoProducto.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -144,6 +145,7 @@ public class AdminEconomia extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminPrincipal principal = new AdminPrincipal();
                 principal.setVisible(true);
+                principal.setLocationRelativeTo(null);
             }
         });
         proveedores.addMouseListener(new MouseAdapter() {
@@ -215,45 +217,8 @@ public class AdminEconomia extends JFrame {
                             // EVENTOS ELIMINAR
                         }}
                         if (boton.getName().equals("pedir")) {
-                            if (JOptionPane.showConfirmDialog(null, "Desea pedir este producto", "Confirmar",
-                                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
-                                if (proveedores.getSelectedRow() >= 0) {
-                                    ((DefaultTableModel) proveedores.getModel()).removeRow(proveedores.getSelectedRow());
-                                //evento pedir
-                                    
-                                    int columna = 0;
-                                    int fila = e.getY() / proveedores.getRowHeight();
-
-                                    if (fila < proveedores.getRowCount() && fila >= 0 && columna < proveedores.getColumnCount()
-                                            && columna >= 0) {
-                                        Object objeto = proveedores.getValueAt(fila, columna);
-
-                                        ModificarProductos modificar = new ModificarProductos(objeto.toString());
-                                        modificar.setVisible(true);
-                                    try {
-                                        File fichero = new File("./src/Economía.txt");
-                                        File ficherotmp = new File("./src/Economíatmp.txt");
-                                        BufferedReader reader = new BufferedReader(new FileReader(fichero));
-                                        BufferedWriter writer = new BufferedWriter(new FileWriter(ficherotmp));
-                                        String linea;
-
-                                        while ((linea = reader.readLine()) != null) {
-                                            String[] parte = linea.split(":");
-                                             if(parte[0].equals(objeto.toString()))continue;
-                                             writer.write(linea + System.getProperty("line.separator"));}
-                                        writer.close();
-                                        reader.close();
-                                    
-                                    
-                                    
-                                    } catch (IOException exception) {
-                                        System.out.println(exception);
-                                    }
-                                
-                                }
-                            }
-                            System.out.println("Click en el boton pedir");
-                            // EVENTOS ELIMINAR
+                            if (JOptionPane.showInputDialog("¿Cuántos quieres pedir?", 1) != null) {
+                                //Aqui se sumará el número a la base de datos
                         }
                         }
                     }
