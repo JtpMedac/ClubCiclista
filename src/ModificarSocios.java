@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
 import java.awt.Color;
@@ -25,15 +27,12 @@ import java.awt.event.ActionEvent;
 public class ModificarSocios extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_Nombre;
-    private JTextField txt_Apellidos;
-    private JTextField txt_DNI;
-    private JTextField txt_Direccion;
-    private JTextField txt_Telefono;
-    private JTextField txt_contrasena;
+    private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contraseña, txt_Email;
     private JPanel panel_datos;
-    private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contrasena, lblAviso;
+    private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contraseña, lbl_Aviso, lbl_Imagen, lbl_Ruta, lbl_Sexo, lbl_Email;
     private String dni;
+    private ButtonGroup btngrp_sexo = new ButtonGroup();
+    private JRadioButton rdbtn_Macho, rdbtn_Hembra;
 
     public ModificarSocios(String dni) {
         this.dni = dni;
@@ -41,6 +40,8 @@ public class ModificarSocios extends JDialog {
         cargarPanelSec();
         cargarJLabels();
         cargarTextFields();
+        cargarBotones();
+        grupoBotones();
         botonesConf();
         leerSocio();
 
@@ -80,28 +81,47 @@ public class ModificarSocios extends JDialog {
 
         lbl_Apellidos = new JLabel("Apellidos");
         lbl_Apellidos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Apellidos.setBounds(56, 141, 193, 29);
+        lbl_Apellidos.setBounds(56, 102, 193, 29);
         panel_datos.add(lbl_Apellidos);
 
         lbl_DNI = new JLabel("DNI");
         lbl_DNI.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_DNI.setBounds(56, 265, 193, 29);
+        lbl_DNI.setBounds(56, 234, 193, 29);
         panel_datos.add(lbl_DNI);
 
-        lbl_Direccion = new JLabel("Direccion");
+        lbl_Direccion = new JLabel("Dirección");
         lbl_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Direccion.setBounds(486, 35, 193, 29);
         panel_datos.add(lbl_Direccion);
 
-        lbl_Telefono = new JLabel("Telefono");
+        lbl_Telefono = new JLabel("Teléfono");
         lbl_Telefono.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Telefono.setBounds(486, 141, 193, 29);
         panel_datos.add(lbl_Telefono);
 
-        lbl_Contrasena = new JLabel("Contrasena");
-        lbl_Contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Contrasena.setBounds(486, 265, 193, 29);
-        panel_datos.add(lbl_Contrasena);
+        lbl_Contraseña = new JLabel("Contraseña");
+        lbl_Contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Contraseña.setBounds(486, 234, 193, 29);
+        panel_datos.add(lbl_Contraseña);
+        
+        lbl_Sexo = new JLabel("Sexo");
+        lbl_Sexo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Sexo.setBounds(56, 297, 193, 29);
+        panel_datos.add(lbl_Sexo);
+        
+        lbl_Imagen = new JLabel("Foto");
+        lbl_Imagen.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Imagen.setBounds(486, 297, 109, 29);
+        panel_datos.add(lbl_Imagen);
+        
+        lbl_Ruta = new JLabel("");
+        lbl_Ruta.setBounds(738, 306, 133, 14);
+        panel_datos.add(lbl_Ruta);
+        
+        lbl_Email = new JLabel("Email");
+        lbl_Email.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Email.setBounds(56, 175, 193, 29);
+        panel_datos.add(lbl_Email);
     }
 
     public void cargarTextFields() {
@@ -116,39 +136,61 @@ public class ModificarSocios extends JDialog {
         txt_Apellidos.setEditable(false);
         txt_Apellidos.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Apellidos.setColumns(10);
-        txt_Apellidos.setBounds(179, 145, 238, 20);
+        txt_Apellidos.setBounds(179, 106, 238, 20);
         panel_datos.add(txt_Apellidos);
 
         txt_DNI = new JTextField();
-        txt_DNI.setEditable(false);
         txt_DNI.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_DNI.setEditable(false);
         txt_DNI.setColumns(10);
-        txt_DNI.setBounds(179, 274, 238, 20);
+        txt_DNI.setBounds(179, 238, 238, 20);
         panel_datos.add(txt_DNI);
 
         txt_Direccion = new JTextField();
-        txt_Direccion.setEditable(false);
         txt_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Direccion.setColumns(10);
         txt_Direccion.setBounds(633, 39, 238, 20);
         panel_datos.add(txt_Direccion);
 
         txt_Telefono = new JTextField();
-        txt_Telefono.setEditable(false);
         txt_Telefono.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Telefono.setColumns(10);
         txt_Telefono.setBounds(633, 145, 238, 20);
         panel_datos.add(txt_Telefono);
 
-        txt_contrasena = new JPasswordField();
-        txt_contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_contrasena.setColumns(10);
-        txt_contrasena.setBounds(633, 269, 238, 20);
-        panel_datos.add(txt_contrasena);
+        txt_contraseña = new JPasswordField();
+        txt_contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_contraseña.setColumns(10);
+        txt_contraseña.setBounds(633, 238, 238, 20);
+        panel_datos.add(txt_contraseña);
+        
+        txt_Email = new JTextField();
+        txt_Email.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_Email.setColumns(10);
+        txt_Email.setBounds(179, 179, 238, 20);
+        panel_datos.add(txt_Email);
 
-        lblAviso = new JLabel("");
-        lblAviso.setBounds(315, 402, 556, 20);
-        panel_datos.add(lblAviso);
+        lbl_Aviso = new JLabel("");
+        lbl_Aviso.setBounds(315, 402, 556, 20);
+        panel_datos.add(lbl_Aviso);
+    }
+    
+    public void cargarBotones() {
+        rdbtn_Macho = new JRadioButton("Hombre");
+        rdbtn_Macho.setEnabled(false);
+        rdbtn_Macho.setBounds(179, 302, 109, 23);
+        panel_datos.add(rdbtn_Macho);
+        
+        rdbtn_Hembra = new JRadioButton("Mujer");
+        rdbtn_Hembra.setEnabled(false);
+        rdbtn_Hembra.setBounds(315, 302, 109, 23);
+        panel_datos.add(rdbtn_Hembra);
+        
+    }
+    
+    public void grupoBotones() {
+        btngrp_sexo.add(rdbtn_Macho);
+        btngrp_sexo.add(rdbtn_Hembra);
     }
 
     public void botonesConf() {
@@ -220,9 +262,9 @@ public class ModificarSocios extends JDialog {
             while ((linea = reader.readLine()) != null) {
                 String[] parte = linea.split(":");
                 if (dni.equals(parte[0])) {
-                    if (!(txt_contrasena.getText().equals(""))) {
+                    if (!(txt_contraseña.getText().equals(""))) {
 
-                        writer.write(parte[0] + ":" + txt_contrasena.getText() + ":Socio:" + parte[3] + ":"
+                        writer.write(parte[0] + ":" + txt_contraseña.getText() + ":Socio:" + parte[3] + ":"
                                 + parte[4] + ":" + parte[5] + ":" + parte[6] + ":"
                                 + parte[7] + "\n");
 

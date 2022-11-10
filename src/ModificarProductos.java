@@ -147,6 +147,7 @@ public class ModificarProductos extends JFrame {
         txt_ID.setColumns(10);
         
         textArea_Descripcion = new JTextArea();
+        textArea_Descripcion.setLineWrap(true);
         textArea_Descripcion.setEditable(false);
         textArea_Descripcion.setBounds(582, 75, 262, 238);
         panel_datos.add(textArea_Descripcion);

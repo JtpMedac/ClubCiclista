@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
 import java.awt.Color;
@@ -20,14 +21,18 @@ import java.io.IOException;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class ModificarEventos extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_ID, txt_Nombre, txt_Descripcion, txt_Fecha, txt_Plazas;
+    private JTextField txt_Nombre,txt_Fecha,txt_Plazas;
     private JPanel panel_datos;
-    private JLabel lbl_datos, lbl_ID, lbl_Nombre, lbl_Descripcion, lbl_Fecha, lbl_Plazas, lblAviso;
+    private JLabel lbl_datos, lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso, lbl_ID ;
+    private JTextField txt_ID;
+    private JTextArea textArea_Descripcion;
     private String ID;
 
     public ModificarEventos(String ID) {
@@ -37,6 +42,7 @@ public class ModificarEventos extends JDialog {
         cargarJLabels();
         cargarTextFields();
         botonesConf();
+        limitarCaracteres();
         leerSocio();
 
     }
@@ -57,78 +63,74 @@ public class ModificarEventos extends JDialog {
     public void cargarPanelSec() {
         lbl_datos = new JLabel("Modificar evento");
         lbl_datos.setFont(new Font("Tahoma", Font.PLAIN, 36));
-        lbl_datos.setBounds(34, 26, 364, 44);
+        lbl_datos.setBounds(34, 26, 415, 44);
         contentPanel.add(lbl_datos);
 
         panel_datos = new JPanel();
-        panel_datos.setBackground(new Color(217, 217, 217));
+        panel_datos.setBackground(new Color(158, 232, 134));
         panel_datos.setBounds(10, 81, 884, 354);
         contentPanel.add(panel_datos);
         panel_datos.setLayout(null);
     }
 
     public void cargarJLabels() {
-        lbl_ID = new JLabel("ID");
-        lbl_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_ID.setBounds(56, 35, 193, 29);
-        panel_datos.add(lbl_ID);
-
         lbl_Nombre = new JLabel("Nombre");
         lbl_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Nombre.setBounds(56, 141, 193, 29);
+        lbl_Nombre.setBounds(42, 115, 193, 29);
         panel_datos.add(lbl_Nombre);
-
-        lbl_Descripcion = new JLabel("Descripcion");
-        lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Descripcion.setBounds(56, 265, 193, 29);
-        panel_datos.add(lbl_Descripcion);
 
         lbl_Fecha = new JLabel("Fecha");
         lbl_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Fecha.setBounds(486, 35, 193, 29);
+        lbl_Fecha.setBounds(42, 187, 193, 29);
         panel_datos.add(lbl_Fecha);
 
-        lbl_Plazas = new JLabel("Plazas");
+        lbl_Plazas = new JLabel("Número de plazas");
         lbl_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Plazas.setBounds(486, 141, 193, 29);
+        lbl_Plazas.setBounds(42, 246, 193, 29);
         panel_datos.add(lbl_Plazas);
+        
+        lbl_Descripcion = new JLabel("Descripción del evento");
+        lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Descripcion.setBounds(582, 35, 193, 29);
+        panel_datos.add(lbl_Descripcion);
+        
+        lbl_ID = new JLabel("ID");
+        lbl_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_ID.setBounds(42, 60, 45, 13);
+        panel_datos.add(lbl_ID);
     }
 
     public void cargarTextFields() {
-        txt_ID = new JTextField();
-        txt_ID.setEditable(false);
-        txt_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_ID.setBounds(179, 39, 238, 20);
-        panel_datos.add(txt_ID);
-        txt_ID.setColumns(10);
-
         txt_Nombre = new JTextField();
         txt_Nombre.setEditable(false);
         txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Nombre.setColumns(10);
-        txt_Nombre.setBounds(179, 145, 238, 20);
+        txt_Nombre.setBounds(179, 119, 238, 20);
         panel_datos.add(txt_Nombre);
-
-        txt_Descripcion = new JTextField();
-        txt_Descripcion.setEditable(false);
-        txt_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Descripcion.setColumns(10);
-        txt_Descripcion.setBounds(179, 274, 238, 20);
-        panel_datos.add(txt_Descripcion);
+        txt_Nombre.setColumns(10);
 
         txt_Fecha = new JTextField();
         txt_Fecha.setEditable(false);
         txt_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Fecha.setColumns(10);
-        txt_Fecha.setBounds(633, 39, 238, 20);
+        txt_Fecha.setBounds(179, 191, 238, 20);
         panel_datos.add(txt_Fecha);
 
         txt_Plazas = new JTextField();
-        txt_Plazas.setEditable(false);
         txt_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Plazas.setColumns(10);
-        txt_Plazas.setBounds(633, 145, 238, 20);
+        txt_Plazas.setBounds(179, 250, 238, 20);
         panel_datos.add(txt_Plazas);
+
+        txt_ID = new JTextField();
+        txt_ID.setEditable(false);
+        txt_ID.setBounds(179, 59, 238, 19);
+        panel_datos.add(txt_ID);
+        txt_ID.setColumns(10);
+        
+        textArea_Descripcion = new JTextArea();
+        textArea_Descripcion.setLineWrap(true);
+        textArea_Descripcion.setBounds(582, 70, 263, 258);
+        panel_datos.add(textArea_Descripcion);
 
         lblAviso = new JLabel("");
         lblAviso.setBounds(315, 402, 556, 20);
@@ -182,7 +184,7 @@ public class ModificarEventos extends JDialog {
                 if (ID.equals(parte[0])) {
                     txt_ID.setText(parte[0]);
                     txt_Nombre.setText(parte[1]);
-                    txt_Descripcion.setText(parte[2]);
+                    textArea_Descripcion.setText(parte[2]);
                     txt_Fecha.setText(parte[3]);
                     txt_Plazas.setText(parte[4]);
                 }
@@ -203,9 +205,9 @@ public class ModificarEventos extends JDialog {
             while ((linea = reader.readLine()) != null) {
                 String[] parte = linea.split(":");
                 if (ID.equals(parte[0])) {
-                    if (!((txt_Nombre.getText().equals("")||(txt_Descripcion.getText().equals(""))||(txt_Fecha.getText().equals(""))||(txt_Plazas.getText().equals(""))))) {
+                    if (!((txt_Nombre.getText().equals("")||(textArea_Descripcion.getText().equals(""))||(txt_Fecha.getText().equals(""))||(txt_Plazas.getText().equals(""))))) {
 
-                        writer.write(parte[0] + ":" + txt_Nombre.getText() + txt_Descripcion.getText() + ":"
+                        writer.write(parte[0] + ":" + txt_Nombre.getText() + textArea_Descripcion.getText() + ":"
                                 + txt_Fecha.getText() + ":" + txt_Plazas.getText() + ":" + parte[5] + "\n");
 
                     }
@@ -238,5 +240,39 @@ public class ModificarEventos extends JDialog {
         } catch (IOException exception) {
             System.out.println(exception);
         }
+    }
+    public void limitarCaracteres() {
+        txt_ID.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_ID.getText().length() >= 4) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_Plazas.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Plazas.getText().length() >= 4) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_Nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Nombre.getText().length() >= 30) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_Fecha.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Fecha.getText().length() >= 10) {
+                    e.consume();    
+                }
+            }
+        });
     }
 }

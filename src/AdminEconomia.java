@@ -106,7 +106,7 @@ public class AdminEconomia extends JFrame {
             Object[] fila = new Object[numCols];
 
             String linea;
-            BufferedReader br = new BufferedReader(new FileReader("./src/Economía.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("./src/Economia.txt"));
 
             while ((linea = br.readLine()) != null) {
 
@@ -124,7 +124,7 @@ public class AdminEconomia extends JFrame {
         }
     }
     public void botones() {
-        btn_anadirProducto = new JButton("Anadir evento");
+        btn_anadirProducto = new JButton("Anadir producto");
         btn_anadirProducto.setBounds(748, 45, 157, 21);
         panel_Princ.add(btn_anadirProducto);
         btn_salir = new JButton("Cerrar Sesion");

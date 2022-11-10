@@ -87,7 +87,7 @@ public class AdminScreen extends JFrame {
     }
 
     public void botones() {
-        btn_anadirSocio = new JButton("Anadir socio");
+        btn_anadirSocio = new JButton("Añadir socio");
         btn_anadirSocio.setBounds(748, 45, 157, 21);
         panel_Princ.add(btn_anadirSocio);
         btn_salir = new JButton("Salir");

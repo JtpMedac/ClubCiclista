@@ -157,6 +157,7 @@ public class AñadirProducto extends JFrame {
         txt_ID.setColumns(10);
         
         textArea_Descripcion = new JTextArea();
+        textArea_Descripcion.setLineWrap(true);
         textArea_Descripcion.setBounds(582, 75, 262, 238);
         panel_datos.add(textArea_Descripcion);
     }
@@ -237,7 +238,7 @@ public class AñadirProducto extends JFrame {
                     || (txt_Nombre.getText().equals("")) || (txt_Precio.getText().equals(""))
                     || (txt_ID.getText().equals(""))))) {
 
-                BufferedWriter bw = new BufferedWriter(new FileWriter("./src/Eventos.txt", true));
+                BufferedWriter bw = new BufferedWriter(new FileWriter("./src/Economia.txt", true));
                 bw.newLine();
                 bw.write(txt_ID.getText() + ":" + txt_Nombre.getText() + ":" + textArea_Descripcion.getText() + ":"
                         + txt_Precio.getText() + ":" + txt_Cantidad.getText() + ":" + lbl_Ruta.getText());
