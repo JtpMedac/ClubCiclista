@@ -26,7 +26,7 @@ import java.awt.event.KeyAdapter;
 
 public class LogIn extends JFrame {
 
-    private JPanel contentPane, panel_Princ, panel_Sec;
+    private JPanel contentPane, panel_Princ;
     private JTextField txt_user, txt_psw;
     private JLabel lbl_restablecerContra, lbl_Logo, lbl_LogIn;
     private JButton btn_logIn;
@@ -64,7 +64,7 @@ public class LogIn extends JFrame {
         setSize(new Dimension(720, 480));
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
-        contentPane.setBackground(new Color(168, 201, 240));
+        contentPane.setBackground(Color.WHITE);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         setContentPane(contentPane);
@@ -74,7 +74,7 @@ public class LogIn extends JFrame {
     public void llamarText() {
         txt_user = new JTextField();
         txt_user.setToolTipText("");
-        txt_user.setBounds(246, 234, 178, 42);
+        txt_user.setBounds(24, 225, 178, 42);
         panel_Princ.add(txt_user);
         txt_user.setColumns(10);
         TextPrompt user = new TextPrompt("Usuario", txt_user);
@@ -82,7 +82,7 @@ public class LogIn extends JFrame {
 
         txt_psw = new JPasswordField();
         txt_psw.setText("");
-        txt_psw.setBounds(246, 286, 178, 42);
+        txt_psw.setBounds(24, 277, 178, 42);
         panel_Princ.add(txt_psw);
         txt_psw.setColumns(10);
         TextPrompt psw = new TextPrompt("Contrasena", txt_psw);
@@ -91,19 +91,19 @@ public class LogIn extends JFrame {
 
     public void boton() {
         btn_logIn = new JButton("Iniciar sesion");
-        btn_logIn.setBounds(232, 374, 204, 21);
+        btn_logIn.setBounds(20, 381, 204, 21);
         panel_Princ.add(btn_logIn);
     }
 
     public void llamarLbl() {
         lbl_restablecerContra = new JLabel("Restablecer contrasena");
         lbl_restablecerContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lbl_restablecerContra.setBounds(262, 327, 242, 42);
+        lbl_restablecerContra.setBounds(20, 329, 242, 42);
         panel_Princ.add(lbl_restablecerContra);
 
         lbl_LogIn = new JLabel("Log in");
         lbl_LogIn.setFont(new Font("Arial", Font.PLAIN, 20));
-        lbl_LogIn.setBounds(293, 151, 211, 141);
+        lbl_LogIn.setBounds(20, 118, 211, 141);
         panel_Princ.add(lbl_LogIn);
     }
 
@@ -177,21 +177,16 @@ public class LogIn extends JFrame {
 
     public void cargarPaneles() {
         panel_Princ = new JPanel();
-        panel_Princ.setBackground(new Color(249, 249, 249));
-        panel_Princ.setBounds(10, 11, 669, 406);
+        panel_Princ.setBackground(new Color(19, 118, 217));
+        panel_Princ.setBounds(0, 0, 353, 432);
         contentPane.add(panel_Princ);
         panel_Princ.setLayout(null);
-
-        panel_Sec = new JPanel();
-        panel_Sec.setBackground(new Color(142, 224, 157));
-        panel_Sec.setBounds(10, 11, 684, 419);
-        contentPane.add(panel_Sec);
     }
 
     public void cargarImg() {
         lbl_Logo = new JLabel("");
         lbl_Logo.setIcon(new ImageIcon("./src/resources/duke.png"));
-        lbl_Logo.setBounds(244, 18, 192, 205);
+        lbl_Logo.setBounds(10, 10, 192, 205);
         panel_Princ.add(lbl_Logo);
     }
 
