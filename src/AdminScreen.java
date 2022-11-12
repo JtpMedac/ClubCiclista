@@ -33,7 +33,7 @@ public class AdminScreen extends JFrame {
     private JTable table;
     private DefaultTableModel modelo;
     JButton btnNewButton;
-    private String contrasena;
+    private String contraseña;
     String dni;
 
     public static void main(String[] args) {
@@ -148,7 +148,7 @@ public class AdminScreen extends JFrame {
     public void iniciarAcciones() {
         btn_anadirSocio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AnadirSocios NuevoSocio = new AnadirSocios();
+                AñadirSocios NuevoSocio = new AñadirSocios();
                 NuevoSocio.setVisible(true);
                 dispose();
             }

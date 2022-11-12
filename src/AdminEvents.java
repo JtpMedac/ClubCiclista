@@ -148,7 +148,7 @@ public class AdminEvents extends JFrame {
         public void iniciarAcciones() {
             btn_anadirEvento.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    AnadirEvento NuevoEvento = new AnadirEvento();
+                    AñadirEvento NuevoEvento = new AñadirEvento();
                     NuevoEvento.setVisible(true);
                     dispose();
                 }

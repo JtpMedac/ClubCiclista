@@ -136,6 +136,11 @@ public class AñadirProducto extends JFrame {
         lbl_Ruta.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Ruta.setBounds(315, 299, 165, 29);
         panel_datos.add(lbl_Ruta);
+        
+        lbl_Talla = new JLabel("Talla/Tamaño");
+        lbl_Talla.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Talla.setBounds(42, 179, 193, 29);
+        panel_datos.add(lbl_Talla);
     }
 
     public void cargarTextFields() {
@@ -166,23 +171,18 @@ public class AñadirProducto extends JFrame {
         textArea_Descripcion.setLineWrap(true);
         textArea_Descripcion.setBounds(582, 75, 262, 238);
         panel_datos.add(textArea_Descripcion);
-    }
-    
-    public void botonImagen() {
-        btn_Foto = new JButton("Insertar Imagen");
-        btn_Foto.setBounds(179, 304, 131, 23);
-        panel_datos.add(btn_Foto);
-        
-        lbl_Talla = new JLabel("Talla/Tama\u00F1o");
-        lbl_Talla.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Talla.setBounds(42, 179, 193, 29);
-        panel_datos.add(lbl_Talla);
         
         txt_Talla = new JTextField();
         txt_Talla.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Talla.setColumns(10);
         txt_Talla.setBounds(179, 183, 238, 20);
         panel_datos.add(txt_Talla);
+    }
+    
+    public void botonImagen() {
+        btn_Foto = new JButton("Insertar Imagen");
+        btn_Foto.setBounds(179, 304, 131, 23);
+        panel_datos.add(btn_Foto);    
     }
 
     public void botonesConf() {
@@ -204,7 +204,7 @@ public class AñadirProducto extends JFrame {
                         boolean comprobarPre = sacarPrecio.find();
                         if(comprobar && comprobarCant && comprobarPre) {
                             aniadirEvento();
-                            prueba();
+                            guardarFoto();
                         }else if(!comprobar){
                             JOptionPane.showMessageDialog(null, "Error al crear el producto\nEl identificador debe de ser númerico",
                                     "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
@@ -342,9 +342,9 @@ public class AñadirProducto extends JFrame {
         });
     }
     
-    public void prueba() {
+    public void guardarFoto() {
         File origen = new File(lbl_Ruta.getText());
-        File destino = new File("C:\\Users/MEDAC/Git/ClubCiclista/src/pruebaProducto/productoprueba.png");
+        File destino = new File("./src/resources/fotoProductos");
 
         try {
                 InputStream in = new FileInputStream(origen);
