@@ -2,3 +2,4 @@
 79041428L:1234ABC:Socio:Joaquin:Toscano Perez:689996422:NoTieneCasaEnMalaga:Alta
 79039140P:1234ABC:Gestor:Alvaro:Rayo Vallecano:617611653:Palma Palmilla:Alta
 88930930R:1234ABC:Socio:Celia:Martín Fuentes:938383049:ElPalo:Baja
+82194612S:Hola:Socio:Javi:El suyo:946215613:su casa:Alta

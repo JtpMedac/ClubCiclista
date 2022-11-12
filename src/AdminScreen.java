@@ -116,21 +116,23 @@ public class AdminScreen extends JFrame {
 
         modelo = new DefaultTableModel();
         table = new JTable(modelo);
+        table.setEnabled(false);
 
         table.setDefaultRenderer(Object.class, new Render());
         JButton btn_borrar = new JButton("X");
         JButton btn_editar = new JButton("Edit");
+        JButton btn_mostrar = new JButton("Mostrar");
         btn_borrar.setName("delt");
         btn_editar.setName("edit");
+        btn_mostrar.setName("most");
         table.setModel(new DefaultTableModel(
-                new Object[][] {},
-                new String[] {
-                        "DNI", "Nombre", "Apellidos", "Estado", "Modificar", "Borrar"
-                }) {
-            public boolean isCellEditable(int row, int column) {
-                return false;
+            new Object[][] {
+            },
+            new String[] {
+                "DNI", "Nombre", "Apellidos", "Estado", "Mostrar datos", "Modificar", "Borrar"
             }
-        });
+        ));
+        table.getTableHeader().setReorderingAllowed(false);
         scrollPane.setViewportView(table);
         int numCols = table.getModel().getColumnCount();
         try {
@@ -146,8 +148,9 @@ public class AdminScreen extends JFrame {
                 fila[1] = parte[3];
                 fila[2] = parte[4];
                 fila[3] = parte[7];
-                fila[4] = btn_editar;
-                fila[5] = btn_borrar;
+                fila[4] = btn_mostrar;
+                fila[5] = btn_editar;
+                fila[6] = btn_borrar;
                 ((DefaultTableModel) table.getModel()).addRow(fila);
             }
         } catch (IOException e) {
@@ -196,8 +199,8 @@ public class AdminScreen extends JFrame {
 
                             }
                         }
-                        if (boton.getName().equals("delt")) {
-                            if (JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar",
+                        else if (boton.getName().equals("delt")) {
+                            if (JOptionPane.showConfirmDialog(null, "¿Desea eliminar este registro?", "Confirmar",
                                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                                 if (table.getSelectedRow() >= 0) {
                                     ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
@@ -234,6 +237,20 @@ public class AdminScreen extends JFrame {
                                 }
                                 System.out.println("Click en el boton eliminar");
                                 // EVENTOS ELIMINAR
+                            }
+                        }else if (boton.getName().equals("most")) {
+                            System.out.println("Click en el boton mostrar");
+                            // EVENTOS MODIFICAR
+                            int columna = 0;
+                            int fila = e.getY() / table.getRowHeight();
+
+                            if (fila < table.getRowCount() && fila >= 0 && columna < table.getColumnCount()
+                                    && columna >= 0) {
+                                Object objeto = table.getValueAt(fila, columna);
+
+                                MostrarSocios mostrar = new MostrarSocios(objeto.toString());
+                                mostrar.setVisible(true);
+
                             }
                         }
                     }

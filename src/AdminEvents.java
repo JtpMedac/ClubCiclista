@@ -33,7 +33,7 @@ public class AdminEvents extends JFrame {
     private JPanel panel_Princ;
     private JLabel lblNewLabel;
     private JLabel lbl_user;
-    private JButton btn_anadirEvento, btn_salir, btn_editar, btn_borrar;
+    private JButton btn_anadirEvento, btn_salir, btn_editar, btn_borrar, btn_mostrar;
     private JScrollPane scrollPane;
     private JTable table;
     private DefaultTableModel modelo;
@@ -95,7 +95,7 @@ public class AdminEvents extends JFrame {
         }
 
         public void botones() {
-            btn_anadirEvento = new JButton("Anadir evento");
+            btn_anadirEvento = new JButton("Añadir evento");
             btn_anadirEvento.setBounds(748, 45, 157, 21);
             panel_Princ.add(btn_anadirEvento);
             btn_salir = new JButton("Cerrar Sesion");
@@ -109,26 +109,44 @@ public class AdminEvents extends JFrame {
         public void cargarTabla() {
             // Fumadita
             scrollPane = new JScrollPane();
+            scrollPane.setEnabled(false);
             scrollPane.setBounds(10, 75, 1024, 573);
             panel_Princ.add(scrollPane);
 
             modelo = new DefaultTableModel();
             table = new JTable(modelo);
+            table.setEnabled(false);
 
             table.setDefaultRenderer(Object.class, new Render());
             btn_borrar = new JButton("X");
             btn_editar = new JButton("Edit");
+            btn_mostrar = new JButton("Mostrar");
             btn_borrar.setName("delt");
             btn_editar.setName("edit");
+            btn_mostrar.setName("most");
             table.setModel(new DefaultTableModel(
-                    new Object[][] {},
-                    new String[] {
-                            "ID", "Nombre","Descripcion", "Fecha", "Apuntados", "Plazas totales" ,"Modificar", "Borrar"
-                    }) {
+                new Object[][] {
+                },
+                new String[] {
+                    "ID", "Nombre", "Fecha", "Apuntados", "Plazas totales", "Mostrar datos", "Modificar", "Borrar"
+                }
+            ) {
+                boolean[] columnEditables = new boolean[] {
+                    false, false, false, false, false, false, false, false
+                };
                 public boolean isCellEditable(int row, int column) {
-                    return false;
+                    return columnEditables[column];
                 }
             });
+            table.getTableHeader().setReorderingAllowed(false);
+            table.getColumnModel().getColumn(0).setResizable(false);
+            table.getColumnModel().getColumn(1).setResizable(false);
+            table.getColumnModel().getColumn(2).setResizable(false);
+            table.getColumnModel().getColumn(3).setResizable(false);
+            table.getColumnModel().getColumn(4).setResizable(false);
+            table.getColumnModel().getColumn(5).setResizable(false);
+            table.getColumnModel().getColumn(6).setResizable(false);
+            table.getColumnModel().getColumn(7).setResizable(false);
             scrollPane.setViewportView(table);
             int numCols = table.getModel().getColumnCount();
             try {
@@ -142,10 +160,10 @@ public class AdminEvents extends JFrame {
                     String[] parte = linea.split(":");
                     fila[0] = parte[0];
                     fila[1] = parte[1];
-                    fila[2] = parte[2];
-                    fila[3] = parte[3];
-                    fila[4] = parte[4];
-                    fila[5] = parte[5];
+                    fila[2] = parte[3];
+                    fila[3] = parte[4];
+                    fila[4] = parte[5];
+                    fila[5] = btn_mostrar;
                     fila[6] = btn_editar;
                     fila[7] = btn_borrar;
                     ((DefaultTableModel) table.getModel()).addRow(fila);
@@ -198,7 +216,7 @@ public class AdminEvents extends JFrame {
                             }
                             
                             if (boton.getName().equals("delt")) {
-                                if (JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar",
+                                if (JOptionPane.showConfirmDialog(null, "¿Desea eliminar este registro?", "Confirmar",
                                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                                     if (table.getSelectedRow() >= 0) {
                                         ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
@@ -238,6 +256,21 @@ public class AdminEvents extends JFrame {
                                 System.out.println("Click en el boton eliminar");
                                 // EVENTOS ELIMINAR
                             }}
+                            else if (boton.getName().equals("most")) {
+                                System.out.println("Click en el boton mostrar");
+                                // EVENTOS MODIFICAR
+                                int columna = 0;
+                                int fila = e.getY() / table.getRowHeight();
+
+                                if (fila < table.getRowCount() && fila >= 0 && columna < table.getColumnCount()
+                                        && columna >= 0) {
+                                    Object objeto = table.getValueAt(fila, columna);
+
+                                    MostrarEventos mostrar = new MostrarEventos(objeto.toString());
+                                    mostrar.setVisible(true);
+
+                                }
+                            }
                         }
                     }
                 }
