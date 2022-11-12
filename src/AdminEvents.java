@@ -1,6 +1,8 @@
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -15,10 +17,13 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,7 +38,10 @@ public class AdminEvents extends JFrame {
     private JTable table;
     private DefaultTableModel modelo;
     JButton btnNewButton;
-
+    private JMenuBar menu_Principal;
+    private JMenuItem mntm_Economia;
+    private JMenuItem mnt_Socios;
+    
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -54,6 +62,8 @@ public class AdminEvents extends JFrame {
             cargarTabla();
             botones();
             iniciarAcciones();
+            cargarMenu();
+            accionesMenu();
         }
 
         public void cargarPanel() {
@@ -233,5 +243,31 @@ public class AdminEvents extends JFrame {
                 }
             });
          
+        }
+        public void cargarMenu() {
+            menu_Principal = new JMenuBar();
+            setJMenuBar(menu_Principal);
+            mnt_Socios = new JMenuItem("Ir a la ventana socios");
+            menu_Principal.add(mnt_Socios);
+            mntm_Economia = new JMenuItem("Ir a la ventana economica");     
+            menu_Principal.add(mntm_Economia);    
+        }
+        public void accionesMenu() {
+            mnt_Socios.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK));
+            mnt_Socios.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    AdminScreen admin = new AdminScreen();
+                    admin.setVisible(true);
+                    dispose();
+                }
+            });
+            mntm_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
+            mntm_Economia.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    AdminEconomia economia = new AdminEconomia();
+                    economia.setVisible(true);
+                    dispose();
+                }
+            });
         }
     }

@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -14,10 +16,13 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +33,9 @@ public class AdminEconomia extends JFrame {
     private JScrollPane scrollPane;
     private JButton btn_anadirProducto, btn_salir, btn_pedir, btn_borrar, btn_editar;
     private JTable proveedores;
+    private JMenuBar menu_Principal;
+    private JMenuItem mnt_Socios;
+    private JMenuItem mnt_Eventos;
     /**
      * Launch the application.
      */
@@ -53,6 +61,8 @@ public class AdminEconomia extends JFrame {
         crearTabla();
         botones();
         iniciarAcciones();
+        cargarMenu();
+        accionesMenu();
     }
     public void cargarPanel() {
         setMinimumSize(new Dimension(1080, 720));
@@ -227,5 +237,31 @@ public class AdminEconomia extends JFrame {
             }
         });
      
+    }
+    public void cargarMenu() {
+        menu_Principal = new JMenuBar();
+        setJMenuBar(menu_Principal);
+        mnt_Socios = new JMenuItem("Ir a la ventana socios");
+        menu_Principal.add(mnt_Socios);
+        mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
+        menu_Principal.add(mnt_Eventos);     
+    }
+    public void accionesMenu() {
+        mnt_Socios.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK));
+        mnt_Socios.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AdminScreen admin = new AdminScreen();
+                admin.setVisible(true);
+                dispose();
+            }
+        });
+        mnt_Eventos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_DOWN_MASK));
+        mnt_Eventos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AdminEvents eventos = new AdminEvents();
+                eventos.setVisible(true);
+                dispose();
+            }
+        });
     }
 }
