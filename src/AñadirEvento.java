@@ -170,6 +170,7 @@ public class AñadirEvento extends JDialog {
                         dispose();
                         AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
+                        admin.setLocationRelativeTo(null);
                     }
                 });
                 cancelButton.setActionCommand("Cancel");
@@ -206,6 +207,7 @@ public class AñadirEvento extends JDialog {
                     case 1:
                         AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
+                        admin.setLocationRelativeTo(null);
                        dispose();
                         break;
                 }

@@ -45,6 +45,7 @@ public class AdminEconomia extends JFrame {
                 try {
                     AdminEconomia frame = new AdminEconomia();
                     frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

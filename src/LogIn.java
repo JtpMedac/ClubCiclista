@@ -119,12 +119,38 @@ public class LogIn extends JFrame {
 			}
 		});
 
-		btn_logIn.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				// comprobar login
-			    checkLogin();
-			}
-		});
+        btn_logIn.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                // comprobar login
+                checkLogin();
+            }
+        });
+         txt_psw.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    checkLogin();
+                }
+                if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                    if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                        int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres cerrar el programa?",
+                                "¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE);
+                        
+                        if(opcionJpane==0) {
+                            dispose();  
+                        }
+                        
+                    }
+                }
+                
+            }
+        });
+         txt_user.addKeyListener(new KeyAdapter() {
+             @Override
+             public void keyPressed(KeyEvent e) {
+                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                     checkLogin();
 
 	}
 
@@ -180,16 +206,20 @@ public class LogIn extends JFrame {
 					// Abrir frame socio
 					SocioScreen ventanaSocio = new SocioScreen(UsuarioTXT,NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT );
 					ventanaSocio.setVisible(true);
+                    ventanaSocio.setLocationRelativeTo(null);
+                    dispose();
 				} else if (user_type.equals("Admin")) {
 					// Abrir frame admin
 				    AdminPrincipal admin = new AdminPrincipal();
 					admin.setVisible(true);
-					dispose();
+                    admin.setLocationRelativeTo(null);
+                    dispose();
 				} else if (user_type.equals("Gestor")) {
 					// Abrir frame Gestor
 					GestorScreen gestor = new GestorScreen(UsuarioTXT);
 					gestor.setVisible(true);
-					dispose();
+                    gestor.setLocationRelativeTo(null);
+                    dispose();
 				} 
 			} else {
 				System.out.println("No Funciona");

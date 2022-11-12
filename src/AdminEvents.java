@@ -178,6 +178,7 @@ public class AdminEvents extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     AñadirEvento NuevoEvento = new AñadirEvento();
                     NuevoEvento.setVisible(true);
+                    NuevoEvento.setLocationRelativeTo(null);
                     dispose();
                 }
             });
@@ -186,6 +187,8 @@ public class AdminEvents extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     AdminPrincipal principal = new AdminPrincipal();
                     principal.setVisible(true);
+                    principal.setLocationRelativeTo(null);
+                    dispose();
                 }
             });
             table.addMouseListener(new MouseAdapter() {

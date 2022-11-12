@@ -95,6 +95,7 @@ public class AñadirSocios extends JDialog {
 		panel_datos.setBounds(10, 81, 884, 354);
 		contentPanel.add(panel_datos);
 		panel_datos.setLayout(null);
+		
 	}
 
 	public void cargarJLabels() {
@@ -281,6 +282,7 @@ public class AñadirSocios extends JDialog {
 						dispose();
 						AdminScreen admin = new AdminScreen();
 		                admin.setVisible(true);
+		                admin.setLocationRelativeTo(null);
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
@@ -346,6 +348,7 @@ public class AñadirSocios extends JDialog {
 					case 1:
 					    AdminScreen admin = new AdminScreen();
 		                admin.setVisible(true);
+		                admin.setLocationRelativeTo(null);
 						dispose();
 						break;
 				}

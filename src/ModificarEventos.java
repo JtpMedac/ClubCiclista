@@ -151,6 +151,7 @@ public class ModificarEventos extends JDialog {
                         dispose();
                         AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
+                        admin.setLocationRelativeTo(null);
                     }
                 });
                 okButton.setActionCommand("OK");
