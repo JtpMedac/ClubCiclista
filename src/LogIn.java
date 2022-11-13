@@ -3,6 +3,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+
+import com.mysql.cj.jdbc.Driver;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JTextField;
@@ -14,6 +17,9 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 import javax.swing.ImageIcon;
 import java.awt.Font;
 
@@ -24,6 +30,7 @@ public class LogIn extends JFrame {
     private JLabel lbl_restablecerContra, lbl_Logo,lbl_LogIn;
     private JButton btn_logIn;
     private String UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT ;
+    private static Connection conexion;                         												//Conexion DB
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -36,7 +43,23 @@ public class LogIn extends JFrame {
                 }
             }
         });
-    }
+        Connection pruebaConexion = LogIn.getConnection();      												//Conexion DB
+        if(pruebaConexion!=null) {                              												//Conexion DB
+            System.out.println("Conectado");                    												//Conexion DB
+            System.out.println(pruebaConexion);                 												//Conexion DB
+        }else {                                                 												//Conexion DB
+            System.out.println("Desconectado");                 												//Conexion DB
+        }												                                                        //Conexion DB
+    }												                                                            //Conexion DB
+    public static Connection getConnection() {                  												//Conexion DB
+        try {                                                   												//Conexion DB
+            Class.forName("com.mysql.cj.jdbc.Driver");          												//Conexion DB
+            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/clubCiclistaDB","root","1234");   //Conexion DB
+        } catch (Exception e) {                                 												//Conexion DB
+            conexion=null;                                      												//Conexion DB
+        }                                                       												//Conexion DB
+        return conexion;                                        												//Conexion DB
+    }                                                           												//Conexion DB
 
     public LogIn() {
         setResizable(false);
