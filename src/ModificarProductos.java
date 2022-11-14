@@ -168,6 +168,7 @@ public class ModificarProductos extends JFrame {
                         dispose();
                         AdminScreen admin = new AdminScreen();
                         admin.setVisible(true);
+                        admin.setLocationRelativeTo(null);
                     }
                 });
                 okButton.setActionCommand("OK");
@@ -182,6 +183,7 @@ public class ModificarProductos extends JFrame {
                         dispose();
                         AdminScreen admin = new AdminScreen();
                         admin.setVisible(true);
+                        admin.setLocationRelativeTo(null);
                     }
 
                 });

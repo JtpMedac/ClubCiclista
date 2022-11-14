@@ -50,6 +50,7 @@ public class AdminScreen extends JFrame {
                 try {
                     AdminScreen frame = new AdminScreen();
                     frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

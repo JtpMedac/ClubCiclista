@@ -12,6 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -25,12 +28,12 @@ import java.awt.Font;
 
 public class LogIn extends JFrame {
 
-    private JPanel contentPane, panel_Princ,panel_Sec;
-    private JTextField txt_user,txt_psw;
-    private JLabel lbl_restablecerContra, lbl_Logo,lbl_LogIn;
+    private JPanel contentPane, panel_Princ, panel_Sec;
+    private JTextField txt_user, txt_psw;
+    private JLabel lbl_restablecerContra, lbl_Logo, lbl_LogIn;
     private JButton btn_logIn;
-    private String UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT ;
-    private static Connection conexion;                         												//Conexion DB
+    private String UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT;
+    private static Connection conexion; // Conexion DB
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -38,28 +41,31 @@ public class LogIn extends JFrame {
                 try {
                     LogIn frame = new LogIn();
                     frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-        Connection pruebaConexion = LogIn.getConnection();      												//Conexion DB
-        if(pruebaConexion!=null) {                              												//Conexion DB
-            System.out.println("Conectado");                    												//Conexion DB
-            System.out.println(pruebaConexion);                 												//Conexion DB
-        }else {                                                 												//Conexion DB
-            System.out.println("Desconectado");                 												//Conexion DB
-        }												                                                        //Conexion DB
-    }												                                                            //Conexion DB
-    public static Connection getConnection() {                  												//Conexion DB
-        try {                                                   												//Conexion DB
-            Class.forName("com.mysql.cj.jdbc.Driver");          												//Conexion DB
-            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/clubCiclistaDB","root","1234");   //Conexion DB
-        } catch (Exception e) {                                 												//Conexion DB
-            conexion=null;                                      												//Conexion DB
-        }                                                       												//Conexion DB
-        return conexion;                                        												//Conexion DB
-    }                                                           												//Conexion DB
+        Connection pruebaConexion = LogIn.getConnection(); // Conexion DB
+        if (pruebaConexion != null) { // Conexion DB
+            System.out.println("Conectado"); // Conexion DB
+            System.out.println(pruebaConexion); // Conexion DB
+        } else { // Conexion DB
+            System.out.println("Desconectado"); // Conexion DB
+        } // Conexion DB
+    } // Conexion DB
+
+    public static Connection getConnection() { // Conexion DB
+        try { // Conexion DB
+            Class.forName("com.mysql.cj.jdbc.Driver"); // Conexion DB
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/clubCiclistaDB", "root", "1234"); // Conexion
+                                                                                                                  // DB
+        } catch (Exception e) { // Conexion DB
+            conexion = null; // Conexion DB
+        } // Conexion DB
+        return conexion; // Conexion DB
+    } // Conexion DB
 
     public LogIn() {
         setResizable(false);
@@ -143,7 +149,32 @@ public class LogIn extends JFrame {
                 checkLogin();
             }
         });
-
+        txt_psw.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    checkLogin();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    if (JOptionPane.showConfirmDialog(null, "¿Desea salir del programa?", "Confirmar",
+                            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                        dispose();
+                    }
+                }
+            }
+        });
+        txt_user.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    checkLogin();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    if (JOptionPane.showConfirmDialog(null, "¿Desea salir del programa?", "Confirmar",
+                            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+                        dispose();
+                    }
+                }
+            }
+        });
     }
 
     public void cargarPaneles() {
@@ -183,7 +214,7 @@ public class LogIn extends JFrame {
                 String ContraseñaTXT = parte[1];
                 String TipoTXT = parte[2];
                 NombreTXT = parte[3];
-                ApellidosTXT= parte[4];
+                ApellidosTXT = parte[4];
                 NumeroTXT = parte[5];
                 DireccionTXT = parte[6];
                 if (User_Text.equals(UsuarioTXT) && Contra_Text.equals(ContraseñaTXT)) {
@@ -196,23 +227,28 @@ public class LogIn extends JFrame {
                 System.out.println("Funciona");
                 if (user_type.equals("Socio")) {
                     // Abrir frame socio
-                    SocioScreen ventanaSocio = new SocioScreen(UsuarioTXT,NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT );
+                    SocioScreen ventanaSocio = new SocioScreen(UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT,
+                            DireccionTXT);
                     ventanaSocio.setVisible(true);
+                    ventanaSocio.setLocationRelativeTo(null);
                 } else if (user_type.equals("Admin")) {
                     // Abrir frame admin
                     AdminPrincipal admin = new AdminPrincipal();
                     admin.setVisible(true);
+                    admin.setLocationRelativeTo(null);
                     dispose();
                 } else if (user_type.equals("Gestor")) {
                     // Abrir frame Gestor
                     GestorScreen gestor = new GestorScreen(UsuarioTXT);
                     gestor.setVisible(true);
+                    gestor.setLocationRelativeTo(null);
                     dispose();
-                } 
+                }
             } else {
                 System.out.println("No Funciona");
                 JFrame jFrame = new JFrame();
-                JOptionPane.showMessageDialog(jFrame,"Usuario/Contraseña incorrecta","Error" , JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(jFrame, "Usuario/Contraseña incorrecta", "Error",
+                        JOptionPane.WARNING_MESSAGE);
             }
         } catch (IOException e) {
             System.out.println(e);

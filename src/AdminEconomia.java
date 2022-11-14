@@ -183,6 +183,7 @@ public class AdminEconomia extends JFrame {
 
                                 ModificarEventos modificar = new ModificarEventos(objeto.toString());
                                 modificar.setVisible(true);
+                                modificar.setLocationRelativeTo(null);
 
                             }
                         }
@@ -203,6 +204,7 @@ public class AdminEconomia extends JFrame {
 
                                         ModificarEventos modificar = new ModificarEventos(objeto.toString());
                                         modificar.setVisible(true);
+                                        modificar.setLocationRelativeTo(null);
                                     try {
                                         File fichero = new File("./src/Economía.txt");
                                         File ficherotmp = new File("./src/Economíatmp.txt");
@@ -253,6 +255,7 @@ public class AdminEconomia extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminScreen admin = new AdminScreen();
                 admin.setVisible(true);
+                admin.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -261,6 +264,7 @@ public class AdminEconomia extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminEvents eventos = new AdminEvents();
                 eventos.setVisible(true);
+                eventos.setLocationRelativeTo(null);
                 dispose();
             }
         });

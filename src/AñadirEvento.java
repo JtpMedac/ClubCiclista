@@ -37,6 +37,7 @@ public class AñadirEvento extends JDialog {
             AñadirEvento dialog = new AñadirEvento();
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
+            dialog.setLocationRelativeTo(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

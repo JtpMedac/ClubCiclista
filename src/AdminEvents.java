@@ -48,6 +48,7 @@ public class AdminEvents extends JFrame {
                 try {
                     AdminEvents frame = new AdminEvents();
                     frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -214,6 +215,8 @@ public class AdminEvents extends JFrame {
 
                                     ModificarEventos modificar = new ModificarEventos(objeto.toString());
                                     modificar.setVisible(true);
+                                    modificar.setLocationRelativeTo(null);
+                                    dispose();
 
                                 }
                             }
@@ -271,6 +274,8 @@ public class AdminEvents extends JFrame {
 
                                     MostrarEventos mostrar = new MostrarEventos(objeto.toString());
                                     mostrar.setVisible(true);
+                                    mostrar.setLocationRelativeTo(null);
+                                    dispose();
 
                                 }
                             }

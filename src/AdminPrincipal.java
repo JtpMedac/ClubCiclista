@@ -38,6 +38,7 @@ public class AdminPrincipal extends JFrame {
                     try {
                         AdminEvents frame = new AdminEvents();
                         frame.setVisible(true);
+                        frame.setLocationRelativeTo(null);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -147,6 +148,7 @@ public class AdminPrincipal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminScreen admin = new AdminScreen();
                 admin.setVisible(true);
+                admin.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -155,6 +157,7 @@ public class AdminPrincipal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminEvents eventos = new AdminEvents();
                 eventos.setVisible(true);
+                eventos.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -163,6 +166,7 @@ public class AdminPrincipal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminEconomia economia = new AdminEconomia();
                 economia.setVisible(true);
+                economia.setLocationRelativeTo(null);
                 dispose();
             }
         });
