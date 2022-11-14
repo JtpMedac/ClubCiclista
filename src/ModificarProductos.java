@@ -1,17 +1,13 @@
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
-import java.awt.Dimension;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,31 +15,41 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
 
-public class ModificarEventos extends JDialog {
+public class ModificarProductos extends JFrame {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_Nombre,txt_Fecha,txt_Plazas;
+    private JTextField txt_Nombre,txt_Precio,txt_Cantidad;
     private JPanel panel_datos;
-    private JLabel lbl_datos, lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso, lbl_ID ;
+    private JLabel lbl_datos, lbl_Nombre, lbl_Precio, lbl_Cantidad, lbl_Descripcion, lblAviso, lbl_ID, lbl_Foto, lbl_Ruta;
     private JTextField txt_ID;
     private JTextArea textArea_Descripcion;
-    private String ID;
+    private String productos;
+    /**
+     * Launch the application.
+     */
+    
 
-    public ModificarEventos(String ID) {
-        this.ID = ID;
+    /**
+     * Create the frame.
+     */
+    public ModificarProductos(String Producto) {
+        this.productos = Producto;
         cargarPanelPrin();
         cargarPanelSec();
         cargarJLabels();
         cargarTextFields();
         botonesConf();
-        limitarCaracteres();
-        leerSocio();
+        leerProducto();
 
     }
 
@@ -61,9 +67,9 @@ public class ModificarEventos extends JDialog {
     }
 
     public void cargarPanelSec() {
-        lbl_datos = new JLabel("Modificar evento");
+        lbl_datos = new JLabel("Modificar producto");
         lbl_datos.setFont(new Font("Tahoma", Font.PLAIN, 36));
-        lbl_datos.setBounds(34, 26, 415, 44);
+        lbl_datos.setBounds(34, 26, 420, 44);
         contentPanel.add(lbl_datos);
 
         panel_datos = new JPanel();
@@ -79,17 +85,17 @@ public class ModificarEventos extends JDialog {
         lbl_Nombre.setBounds(42, 115, 193, 29);
         panel_datos.add(lbl_Nombre);
 
-        lbl_Fecha = new JLabel("Fecha");
-        lbl_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Fecha.setBounds(42, 187, 193, 29);
-        panel_datos.add(lbl_Fecha);
+        lbl_Precio = new JLabel("Precio (euros)");
+        lbl_Precio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Precio.setBounds(42, 187, 193, 29);
+        panel_datos.add(lbl_Precio);
 
-        lbl_Plazas = new JLabel("Número de plazas");
-        lbl_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Plazas.setBounds(42, 246, 193, 29);
-        panel_datos.add(lbl_Plazas);
+        lbl_Cantidad = new JLabel("Cantidad");
+        lbl_Cantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Cantidad.setBounds(42, 246, 193, 29);
+        panel_datos.add(lbl_Cantidad);
         
-        lbl_Descripcion = new JLabel("Descripción del evento");
+        lbl_Descripcion = new JLabel("Descripci\u00F3n del producto");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Descripcion.setBounds(582, 35, 193, 29);
         panel_datos.add(lbl_Descripcion);
@@ -98,6 +104,20 @@ public class ModificarEventos extends JDialog {
         lbl_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_ID.setBounds(42, 60, 45, 13);
         panel_datos.add(lbl_ID);
+        
+        lblAviso = new JLabel("");
+        lblAviso.setBounds(315, 402, 556, 20);
+        panel_datos.add(lblAviso);
+        
+        lbl_Foto = new JLabel("Foto");
+        lbl_Foto.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Foto.setBounds(42, 299, 193, 29);
+        panel_datos.add(lbl_Foto);
+        
+        lbl_Ruta = new JLabel("");
+        lbl_Ruta.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Ruta.setBounds(183, 299, 165, 29);
+        panel_datos.add(lbl_Ruta);
     }
 
     public void cargarTextFields() {
@@ -108,18 +128,17 @@ public class ModificarEventos extends JDialog {
         panel_datos.add(txt_Nombre);
         txt_Nombre.setColumns(10);
 
-        txt_Fecha = new JTextField();
-        txt_Fecha.setEditable(false);
-        txt_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Fecha.setColumns(10);
-        txt_Fecha.setBounds(179, 191, 238, 20);
-        panel_datos.add(txt_Fecha);
+        txt_Precio = new JTextField();
+        txt_Precio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_Precio.setColumns(10);
+        txt_Precio.setBounds(179, 191, 238, 20);
+        panel_datos.add(txt_Precio);
 
-        txt_Plazas = new JTextField();
-        txt_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Plazas.setColumns(10);
-        txt_Plazas.setBounds(179, 250, 238, 20);
-        panel_datos.add(txt_Plazas);
+        txt_Cantidad = new JTextField();
+        txt_Cantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_Cantidad.setColumns(10);
+        txt_Cantidad.setBounds(179, 250, 238, 20);
+        panel_datos.add(txt_Cantidad);
 
         txt_ID = new JTextField();
         txt_ID.setEditable(false);
@@ -129,13 +148,11 @@ public class ModificarEventos extends JDialog {
         
         textArea_Descripcion = new JTextArea();
         textArea_Descripcion.setLineWrap(true);
-        textArea_Descripcion.setBounds(582, 70, 263, 258);
+        textArea_Descripcion.setEditable(false);
+        textArea_Descripcion.setBounds(582, 75, 262, 238);
         panel_datos.add(textArea_Descripcion);
-
-        lblAviso = new JLabel("");
-        lblAviso.setBounds(315, 402, 556, 20);
-        panel_datos.add(lblAviso);
     }
+    
 
     public void botonesConf() {
         {
@@ -147,9 +164,9 @@ public class ModificarEventos extends JDialog {
                 JButton okButton = new JButton("OK");
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        modificarSocio();
+                        modificarProducto();
                         dispose();
-                        AdminEvents admin = new AdminEvents();
+                        AdminScreen admin = new AdminScreen();
                         admin.setVisible(true);
                         admin.setLocationRelativeTo(null);
                     }
@@ -164,7 +181,7 @@ public class ModificarEventos extends JDialog {
 
                     public void actionPerformed(ActionEvent e) {
                         dispose();
-                        AdminEvents admin = new AdminEvents();
+                        AdminScreen admin = new AdminScreen();
                         admin.setVisible(true);
                         admin.setLocationRelativeTo(null);
                     }
@@ -176,19 +193,20 @@ public class ModificarEventos extends JDialog {
         }
     }
 
-    public void leerSocio() {
+    public void leerProducto() {
         String linea;
         try {
 
-            BufferedReader br = new BufferedReader(new FileReader("./src/Eventos.txt"));
+            BufferedReader br = new BufferedReader(
+                    new FileReader("./src/Economia.txt"));
             while ((linea = br.readLine()) != null) {
                 String[] parte = linea.split(":");
-                if (ID.equals(parte[0])) {
-                    txt_ID.setText(parte[0]);
+                if (productos.equals(parte[0])) {
                     txt_Nombre.setText(parte[1]);
                     textArea_Descripcion.setText(parte[2]);
-                    txt_Fecha.setText(parte[3]);
-                    txt_Plazas.setText(parte[4]);
+                    txt_Precio.setText(parte[3]);
+                    txt_Cantidad.setText(parte[4]);
+                    lbl_Ruta.setText(parte[5]);
                 }
             }
         } catch (IOException exception) {
@@ -196,27 +214,29 @@ public class ModificarEventos extends JDialog {
         }
     }
 
-    public void modificarSocio() {
+    public void modificarProducto() {
         try {
-            File fichero = new File("./src/Eventos.txt");
-            File ficherotmp = new File("./src/Eventostmp.txt");
+            File fichero = new File("./src/Economia.txt");
+            File ficherotmp = new File("./src/Economiatmp.txt");
             BufferedReader reader = new BufferedReader(new FileReader(fichero));
             BufferedWriter writer = new BufferedWriter(new FileWriter(ficherotmp));
             String linea;
 
             while ((linea = reader.readLine()) != null) {
                 String[] parte = linea.split(":");
-                if (ID.equals(parte[0])) {
-                    if (!((txt_Nombre.getText().equals("")||(textArea_Descripcion.getText().equals(""))||(txt_Fecha.getText().equals(""))||(txt_Plazas.getText().equals(""))))) {
+                if (productos.equals(parte[0])) {
+                    if (!(txt_Precio.getText().equals(""))) {
 
-                        writer.write(parte[0] + ":" + txt_Nombre.getText() + textArea_Descripcion.getText() + ":"
-                                + txt_Fecha.getText() + ":" + txt_Plazas.getText() + ":" + parte[5] + "\n");
+                        writer.write(parte[0] + ":" + parte[1] + ":" + txt_Precio.getText() + ":" + parte[3] + ":"
+                                + parte[4] + ":" + parte[5] + "\n");
 
                     }
 
                 }
-                if (ID.equals(parte[0]))continue;
+                if (productos.equals(parte[0]))
+                    continue;
                 writer.write(linea + System.getProperty("line.separator"));
+
             }
             writer.close();
             reader.close();
@@ -226,8 +246,8 @@ public class ModificarEventos extends JDialog {
         }
 
         try {
-            File fichero = new File("./src/Eventos.txt");
-            File ficherotmp = new File("./src/Eventostmp.txt");
+            File fichero = new File("./src/Economia.txt");
+            File ficherotmp = new File("./src/Economiatmp.txt");
             BufferedReader reader = new BufferedReader(new FileReader(ficherotmp));
             BufferedWriter writer = new BufferedWriter(new FileWriter(fichero));
             String linea;
@@ -244,6 +264,14 @@ public class ModificarEventos extends JDialog {
         }
     }
     public void limitarCaracteres() {
+        textArea_Descripcion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(textArea_Descripcion.getText().length() >= 100) {
+                    e.consume();    
+                }
+            }
+        });
         txt_ID.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -252,10 +280,10 @@ public class ModificarEventos extends JDialog {
                 }
             }
         });
-        txt_Plazas.addKeyListener(new KeyAdapter() {
+        txt_Cantidad.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(txt_Plazas.getText().length() >= 4) {
+                if(txt_Cantidad.getText().length() >= 4) {
                     e.consume();    
                 }
             }
@@ -268,10 +296,10 @@ public class ModificarEventos extends JDialog {
                 }
             }
         });
-        txt_Fecha.addKeyListener(new KeyAdapter() {
+        txt_Precio.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(txt_Fecha.getText().length() >= 10) {
+                if(txt_Precio.getText().length() >= 4) {
                     e.consume();    
                 }
             }

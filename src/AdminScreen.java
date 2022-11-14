@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -17,8 +19,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,13 +33,16 @@ public class AdminScreen extends JFrame {
     private JPanel panel_Princ;
     private JLabel lblNewLabel;
     private JLabel lbl_user;
-    private JButton btn_añadirSocio, btn_salir;
+    private JButton btn_anadirSocio, btn_salir;
     private JScrollPane scrollPane;
     private JTable table;
     private DefaultTableModel modelo;
     JButton btnNewButton;
     private String contraseña;
     String dni;
+    private JMenuBar menu_Principal;
+    private JMenuItem mntm_Economia;
+    private JMenuItem mnt_Eventos;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -42,6 +50,7 @@ public class AdminScreen extends JFrame {
                 try {
                     AdminScreen frame = new AdminScreen();
                     frame.setVisible(true);
+                    frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -56,6 +65,8 @@ public class AdminScreen extends JFrame {
         cargarTabla();
         botones();
         iniciarAcciones();
+        cargarMenu();
+        accionesMenu();
     }
 
     public void cargarPanel() {
@@ -81,15 +92,15 @@ public class AdminScreen extends JFrame {
     }
 
     public void cargarLabel() {
-        lblNewLabel = new JLabel("Has iniciado sesión como administrador");
+        lblNewLabel = new JLabel("Sos admin capo :D");
         lblNewLabel.setBounds(58, 0, 106, 66);
         panel_Princ.add(lblNewLabel);
     }
 
     public void botones() {
-        btn_añadirSocio = new JButton("Añadir socio");
-        btn_añadirSocio.setBounds(748, 45, 157, 21);
-        panel_Princ.add(btn_añadirSocio);
+        btn_anadirSocio = new JButton("Añadir socio");
+        btn_anadirSocio.setBounds(748, 45, 157, 21);
+        panel_Princ.add(btn_anadirSocio);
         btn_salir = new JButton("Salir");
         btn_salir.setBounds(904, 22, 130, 23);
         panel_Princ.add(btn_salir);
@@ -149,10 +160,11 @@ public class AdminScreen extends JFrame {
     }
 
     public void iniciarAcciones() {
-        btn_añadirSocio.addActionListener(new ActionListener() {
+        btn_anadirSocio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AñadirSocios NuevoSocio = new AñadirSocios();
                 NuevoSocio.setVisible(true);
+                NuevoSocio.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -161,6 +173,8 @@ public class AdminScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminPrincipal principal = new AdminPrincipal();
                 principal.setVisible(true);
+                principal.setLocationRelativeTo(null);
+                dispose();
             }
         });
         table.addMouseListener(new MouseAdapter() {
@@ -186,6 +200,7 @@ public class AdminScreen extends JFrame {
 
                                 ModificarSocios modificar = new ModificarSocios(objeto.toString());
                                 modificar.setVisible(true);
+                                modificar.setLocationRelativeTo(null);
 
                             }
                         }
@@ -240,7 +255,7 @@ public class AdminScreen extends JFrame {
 
                                 MostrarSocios mostrar = new MostrarSocios(objeto.toString());
                                 mostrar.setVisible(true);
-
+                                mostrar.setLocationRelativeTo(null);
                             }
                         }
                     }
@@ -248,5 +263,31 @@ public class AdminScreen extends JFrame {
             }
         });
 
+    }
+    public void cargarMenu() {
+        menu_Principal = new JMenuBar();
+        setJMenuBar(menu_Principal);
+        mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
+        menu_Principal.add(mnt_Eventos);  
+        mntm_Economia = new JMenuItem("Ir a la ventana economica");     
+        menu_Principal.add(mntm_Economia);    
+    }
+    public void accionesMenu() {
+        mnt_Eventos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_DOWN_MASK));
+        mnt_Eventos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AdminEvents eventos = new AdminEvents();
+                eventos.setVisible(true);
+                dispose();
+            }
+        });
+        mntm_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
+        mntm_Economia.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AdminEconomia economia = new AdminEconomia();
+                economia.setVisible(true);
+                dispose();
+            }
+        });
     }
 }

@@ -4,9 +4,13 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,20 +21,23 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
+import javax.swing.JTextArea;
 
 public class AñadirEvento extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_Nombre,txt_Fecha,txt_Plazas,txt_Descripcion;
+    private JTextField txt_Nombre,txt_Fecha,txt_Plazas;
     private JPanel panel_datos;
     private JLabel lbl_datos, lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso, lbl_ID ;
     private JTextField txt_ID;
+    private JTextArea textArea_Descripcion;
 
     public static void main(String[] args) {
         try {
             AñadirEvento dialog = new AñadirEvento();
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
+            dialog.setLocationRelativeTo(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,7 +48,7 @@ public class AñadirEvento extends JDialog {
         cargarJLabels();
         cargarTextFields();
         botonesConf();
-
+        limitarCaracteres();
     }
 
     public void cargarPanelPrin() {
@@ -60,7 +67,7 @@ public class AñadirEvento extends JDialog {
     public void cargarPanelSec() {
         lbl_datos = new JLabel("Datos del nuevo evento");
         lbl_datos.setFont(new Font("Tahoma", Font.PLAIN, 36));
-        lbl_datos.setBounds(34, 26, 364, 44);
+        lbl_datos.setBounds(34, 26, 415, 44);
         contentPanel.add(lbl_datos);
 
         panel_datos = new JPanel();
@@ -119,17 +126,16 @@ public class AñadirEvento extends JDialog {
         txt_Plazas.setColumns(10);
         txt_Plazas.setBounds(179, 250, 238, 20);
         panel_datos.add(txt_Plazas);
-        
-        txt_Descripcion = new JTextField();
-        txt_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Descripcion.setColumns(10);
-        txt_Descripcion.setBounds(575, 60, 248, 243);
-        panel_datos.add(txt_Descripcion);
 
         txt_ID = new JTextField();
         txt_ID.setBounds(179, 59, 238, 19);
         panel_datos.add(txt_ID);
         txt_ID.setColumns(10);
+        
+        textArea_Descripcion = new JTextArea();
+        textArea_Descripcion.setLineWrap(true);
+        textArea_Descripcion.setBounds(582, 70, 263, 258);
+        panel_datos.add(textArea_Descripcion);
     }
 
     public void botonesConf() {
@@ -142,7 +148,16 @@ public class AñadirEvento extends JDialog {
                 JButton okButton = new JButton("OK");
                 okButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        aniadirEvento();
+                        Pattern numero = Pattern.compile("^[0-9]*$");
+                        Matcher sacarNum = numero.matcher(txt_ID.getText());
+                        boolean comprobar = sacarNum.find();
+                        if(comprobar) {
+                            aniadirEvento();
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Error al crear el evento\nEl identificador debe de ser númerico",
+                                    "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        }
+                        
                     }
                 });
                 okButton.setActionCommand("OK");
@@ -156,6 +171,7 @@ public class AñadirEvento extends JDialog {
                         dispose();
                         AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
+                        admin.setLocationRelativeTo(null);
                     }
                 });
                 cancelButton.setActionCommand("Cancel");
@@ -167,12 +183,13 @@ public class AñadirEvento extends JDialog {
     public void aniadirEvento() {
         try {
             // Este if es como los miembros de este grupo son feos pero sirven
-            if ((!(txt_Descripcion.getText().equals("") || (txt_Plazas.getText().equals(""))
-                    || (txt_Nombre.getText().equals("")) || (txt_Fecha.getText().equals(""))))) {
+            if ((!(textArea_Descripcion.getText().equals("") || (txt_Plazas.getText().equals(""))
+                    || (txt_Nombre.getText().equals("")) || (txt_Fecha.getText().equals(""))
+                    || (txt_ID.getText().equals(""))))) {
 
                 BufferedWriter bw = new BufferedWriter(new FileWriter("./src/Eventos.txt", true));
                 bw.newLine();
-                bw.write(txt_ID.getText() + ":" + txt_Nombre.getText() + ":" + txt_Descripcion.getText() + ":"
+                bw.write(txt_ID.getText() + ":" + txt_Nombre.getText() + ":" + textArea_Descripcion.getText() + ":"
                         + txt_Fecha.getText() + ":" + txt_Plazas.getText() + ":0");
                 bw.close();
                 JOptionPane.showMessageDialog(null, "Evento creado correctamente", "Evento creado",
@@ -182,7 +199,7 @@ public class AñadirEvento extends JDialog {
                         JOptionPane.INFORMATION_MESSAGE);
                 switch (opcionJpane) {
                     case 0:
-                        txt_Descripcion.setText("");
+                        textArea_Descripcion.setText("");
                         txt_Fecha.setText("");
                         txt_Nombre.setText("");
                         txt_Plazas.setText("");
@@ -191,6 +208,7 @@ public class AñadirEvento extends JDialog {
                     case 1:
                         AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
+                        admin.setLocationRelativeTo(null);
                        dispose();
                         break;
                 }
@@ -202,5 +220,39 @@ public class AñadirEvento extends JDialog {
             System.out.println(e);
         }
 
+    }
+    public void limitarCaracteres() {
+        txt_ID.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_ID.getText().length() >= 4) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_Plazas.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Plazas.getText().length() >= 4) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_Nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Nombre.getText().length() >= 30) {
+                    e.consume();    
+                }
+            }
+        });
+        txt_Fecha.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Fecha.getText().length() >= 10) {
+                    e.consume();    
+                }
+            }
+        });
     }
 }

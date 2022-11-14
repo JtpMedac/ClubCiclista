@@ -1,11 +1,15 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -13,22 +17,32 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class AñadirSocios extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contraseña, txt_contraseñaM;
+	private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contraseña, txt_Email, txt_contraseñaM;
 	private JPanel panel_datos;
-	private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contraseña, lbl_Aviso;
+	private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contraseña, lbl_Aviso, lbl_Imagen, lbl_Ruta, lbl_Sexo, lbl_Email;
+	private JButton btn_InsertarImagen;
+	private ButtonGroup btngrp_sexo = new ButtonGroup();
+	private JRadioButton rdbtn_Macho, rdbtn_Hembra;
+	private JFileChooser imagenElegida;
 	private boolean mostrar = false;
 
 	/**
@@ -39,6 +53,7 @@ public class AñadirSocios extends JDialog {
 			AñadirSocios dialog = new AñadirSocios();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
+			dialog.setLocationRelativeTo(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,13 +61,15 @@ public class AñadirSocios extends JDialog {
 
 
 	public AñadirSocios() {
-
 		cargarPanelPrin();
 		cargarPanelSec();
 		cargarJLabels();
 		cargarTextFields();
+		cargarBotones();
 		botonesConf();
-
+		limitarCaracteres();
+		grupoBotones();
+		insertarImagen();
 	}
 
 	public void cargarPanelPrin() {
@@ -79,6 +96,7 @@ public class AñadirSocios extends JDialog {
 		panel_datos.setBounds(10, 81, 884, 354);
 		contentPanel.add(panel_datos);
 		panel_datos.setLayout(null);
+		
 	}
 
 	public void cargarJLabels() {
@@ -89,12 +107,12 @@ public class AñadirSocios extends JDialog {
 
 		lbl_Apellidos = new JLabel("Apellidos");
 		lbl_Apellidos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_Apellidos.setBounds(56, 141, 193, 29);
+		lbl_Apellidos.setBounds(56, 102, 193, 29);
 		panel_datos.add(lbl_Apellidos);
 
 		lbl_DNI = new JLabel("DNI");
 		lbl_DNI.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_DNI.setBounds(56, 265, 193, 29);
+		lbl_DNI.setBounds(56, 234, 193, 29);
 		panel_datos.add(lbl_DNI);
 
 		lbl_Direccion = new JLabel("Dirección");
@@ -109,8 +127,27 @@ public class AñadirSocios extends JDialog {
 
 		lbl_Contraseña = new JLabel("Contraseña");
 		lbl_Contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_Contraseña.setBounds(486, 265, 193, 29);
+		lbl_Contraseña.setBounds(486, 234, 193, 29);
 		panel_datos.add(lbl_Contraseña);
+		
+		lbl_Sexo = new JLabel("Sexo");
+        lbl_Sexo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Sexo.setBounds(56, 297, 193, 29);
+        panel_datos.add(lbl_Sexo);
+        
+        lbl_Imagen = new JLabel("Foto");
+        lbl_Imagen.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Imagen.setBounds(486, 297, 109, 29);
+        panel_datos.add(lbl_Imagen);
+        
+        lbl_Ruta = new JLabel("");
+        lbl_Ruta.setBounds(738, 306, 133, 14);
+        panel_datos.add(lbl_Ruta);
+        
+        lbl_Email = new JLabel("Email");
+        lbl_Email.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Email.setBounds(56, 175, 193, 29);
+        panel_datos.add(lbl_Email);
 	}
 
 	public void cargarTextFields() {
@@ -123,13 +160,13 @@ public class AñadirSocios extends JDialog {
 		txt_Apellidos = new JTextField();
 		txt_Apellidos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txt_Apellidos.setColumns(10);
-		txt_Apellidos.setBounds(179, 145, 238, 20);
+		txt_Apellidos.setBounds(179, 106, 238, 20);
 		panel_datos.add(txt_Apellidos);
 
 		txt_DNI = new JTextField();
 		txt_DNI.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txt_DNI.setColumns(10);
-		txt_DNI.setBounds(179, 274, 238, 20);
+		txt_DNI.setBounds(179, 238, 238, 20);
 		panel_datos.add(txt_DNI);
 
 		txt_Direccion = new JTextField();
@@ -147,9 +184,14 @@ public class AñadirSocios extends JDialog {
 		txt_contraseña = new JPasswordField();
 		txt_contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txt_contraseña.setColumns(10);
-		txt_contraseña.setBounds(633, 269, 238, 20);
+		txt_contraseña.setBounds(633, 238, 238, 20);
 		panel_datos.add(txt_contraseña);
 		
+        txt_Email = new JTextField();
+        txt_Email.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_Email.setColumns(10);
+        txt_Email.setBounds(179, 179, 238, 20);
+        panel_datos.add(txt_Email);
 		txt_contraseñaM = new JTextField();
         txt_contraseñaM.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_contraseñaM.setColumns(10);
@@ -161,6 +203,26 @@ public class AñadirSocios extends JDialog {
 		lbl_Aviso.setBounds(315, 402, 556, 20);
 		panel_datos.add(lbl_Aviso);
 		
+		
+	}
+	public void cargarBotones() {
+	    rdbtn_Macho = new JRadioButton("Hombre");
+        rdbtn_Macho.setBounds(179, 302, 109, 23);
+        panel_datos.add(rdbtn_Macho);
+        
+        rdbtn_Hembra = new JRadioButton("Mujer");
+        rdbtn_Hembra.setBounds(315, 302, 109, 23);
+        panel_datos.add(rdbtn_Hembra);
+        
+        btn_InsertarImagen = new JButton("Insertar foto");
+        btn_InsertarImagen.setBounds(633, 302, 95, 23);
+        panel_datos.add(btn_InsertarImagen);
+
+	}
+	
+	public void grupoBotones() {
+	    btngrp_sexo.add(rdbtn_Macho);
+	    btngrp_sexo.add(rdbtn_Hembra);
 		JButton btn_mostrarContra = new JButton("OJO");
 		btn_mostrarContra.addMouseListener(new MouseAdapter() {
 		    @Override
@@ -192,7 +254,22 @@ public class AñadirSocios extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						aniadirSocio();
+					    Pattern numero = Pattern.compile("^[0-9]*$");
+					    Pattern correo = Pattern.compile("^(.+)@(.+)$");
+					    Matcher sacarNum = numero.matcher(txt_Telefono.getText());
+					    Matcher sacarCorreo = correo.matcher(txt_Email.getText());
+					    boolean comprobar = sacarNum.find();
+					    boolean comprobarCorreo = sacarCorreo.find();
+					    if(comprobar && comprobarCorreo) {
+					        aniadirSocio();
+					    }else if(!comprobar) {
+					        JOptionPane.showMessageDialog(null, "Error al crear el socio\nIntroduzca un número correcto",
+			                        "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+					    }else if(!comprobarCorreo) {
+                            JOptionPane.showMessageDialog(null, "Error al crear el socio\nIntroduzca un correo correcto",
+                                    "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                        }
+						
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -206,6 +283,7 @@ public class AñadirSocios extends JDialog {
 						dispose();
 						AdminScreen admin = new AdminScreen();
 		                admin.setVisible(true);
+		                admin.setLocationRelativeTo(null);
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
@@ -213,14 +291,34 @@ public class AñadirSocios extends JDialog {
 			}
 		}
 	}
+	public void insertarImagen() {
+	    btn_InsertarImagen.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String path = null;
+                imagenElegida = new JFileChooser();
+                //Carpeta que se abre por defecto
+                imagenElegida.setCurrentDirectory(new File(System.getProperty("user.home")));
+                
+                FileNameExtensionFilter extensiones = new FileNameExtensionFilter("*Images", "png");
+                imagenElegida.addChoosableFileFilter(extensiones);
+                
+                int estado = imagenElegida.showSaveDialog(null);
+                
+                if(estado == JFileChooser.APPROVE_OPTION) {
+                    File imagenSeleccionada = imagenElegida.getSelectedFile();
+                    path = imagenSeleccionada.getAbsolutePath();
+                    lbl_Ruta.setText(path);
+                }
+            }
+        });
+    }
 
 	public void aniadirSocio() {
 		try {
 			// Este if es como los miembros de este grupo son feos pero sirven
 			if (!((txt_DNI.getText().equals("")) || (txt_contraseña.getText().equals(""))
 					|| (txt_Nombre.getText().equals("")) || (txt_Apellidos.getText().equals(""))
-					|| (txt_Telefono.getText().equals("")) || (txt_Direccion.getText().equals("")))) {
-
+					|| (txt_Telefono.getText().equals("")) || (txt_Direccion.getText().equals("")) || (lbl_Ruta.getText().equals("")))) {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("./src/BBDD.txt", true));
 				bw.newLine();
 				if (mostrar) {
@@ -251,6 +349,7 @@ public class AñadirSocios extends JDialog {
 					case 1:
 					    AdminScreen admin = new AdminScreen();
 		                admin.setVisible(true);
+		                admin.setLocationRelativeTo(null);
 						dispose();
 						break;
 				}
@@ -262,5 +361,63 @@ public class AñadirSocios extends JDialog {
 			System.out.println(e);
 		}
 
+	}
+	public void limitarCaracteres() {
+	    txt_Nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Nombre.getText().length() >= 20) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_Apellidos.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Apellidos.getText().length() >= 20) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_contraseña.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_contraseña.getText().length() >= 10) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_Direccion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Direccion.getText().length() >= 30) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_DNI.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_DNI.getText().length() >= 9) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_Telefono.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Telefono.getText().length() >= 9) {
+                    e.consume();    
+                }
+            }
+        });
+	    txt_Email.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(txt_Email.getText().length() >= 40) {
+                    e.consume();    
+                }
+            }
+        });
 	}
 }
