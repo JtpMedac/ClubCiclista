@@ -51,6 +51,7 @@ public class AñadirProducto extends JFrame {
                     AñadirProducto frame = new AñadirProducto();
                     frame.setVisible(true);
                     frame.setLocationRelativeTo(null);
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -231,6 +232,7 @@ public class AñadirProducto extends JFrame {
                         AdminEconomia admin = new AdminEconomia();
                         admin.setVisible(true);
                         admin.setLocationRelativeTo(null);
+                       dispose();
                     }
                 });
                 cancelButton.setActionCommand("Cancel");

@@ -124,7 +124,7 @@ public class AdminPrincipal extends JFrame {
         });
         btn_ventas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //Hay que crear esta ventana
+                
                 AdminEconomia economia = new AdminEconomia();
                 economia.setVisible(true);
                 economia.setLocationRelativeTo(null);
