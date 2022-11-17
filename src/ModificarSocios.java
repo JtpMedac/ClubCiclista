@@ -27,9 +27,9 @@ import java.awt.event.ActionEvent;
 public class ModificarSocios extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contraseña, txt_Email;
+    private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contrasena, txt_Email;
     private JPanel panel_datos;
-    private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contraseña, lbl_Aviso, lbl_Imagen, lbl_Ruta, lbl_Sexo, lbl_Email;
+    private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contrasena, lbl_Aviso, lbl_Imagen, lbl_Ruta, lbl_Sexo, lbl_Email;
     private String dni;
     private ButtonGroup btngrp_sexo = new ButtonGroup();
     private JRadioButton rdbtn_Macho, rdbtn_Hembra;
@@ -89,20 +89,20 @@ public class ModificarSocios extends JDialog {
         lbl_DNI.setBounds(56, 234, 193, 29);
         panel_datos.add(lbl_DNI);
 
-        lbl_Direccion = new JLabel("Dirección");
+        lbl_Direccion = new JLabel("Direcciï¿½n");
         lbl_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Direccion.setBounds(486, 35, 193, 29);
         panel_datos.add(lbl_Direccion);
 
-        lbl_Telefono = new JLabel("Teléfono");
+        lbl_Telefono = new JLabel("Telï¿½fono");
         lbl_Telefono.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Telefono.setBounds(486, 141, 193, 29);
         panel_datos.add(lbl_Telefono);
 
-        lbl_Contraseña = new JLabel("Contraseña");
-        lbl_Contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Contraseña.setBounds(486, 234, 193, 29);
-        panel_datos.add(lbl_Contraseña);
+        lbl_Contrasena = new JLabel("Contrasena");
+        lbl_Contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        lbl_Contrasena.setBounds(486, 234, 193, 29);
+        panel_datos.add(lbl_Contrasena);
         
         lbl_Sexo = new JLabel("Sexo");
         lbl_Sexo.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -158,12 +158,12 @@ public class ModificarSocios extends JDialog {
         txt_Telefono.setBounds(633, 145, 238, 20);
         panel_datos.add(txt_Telefono);
 
-        txt_contraseña = new JPasswordField();
-        txt_contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_contraseña.setColumns(10);
-        txt_contraseña.setBounds(633, 238, 238, 20);
-        panel_datos.add(txt_contraseña);
-        
+        txt_contrasena = new JPasswordField();
+        txt_contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_contrasena.setColumns(10);
+        txt_contrasena.setBounds(633, 238, 238, 20);
+        panel_datos.add(txt_contrasena);
+    
         txt_Email = new JTextField();
         txt_Email.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Email.setColumns(10);
@@ -264,9 +264,9 @@ public class ModificarSocios extends JDialog {
             while ((linea = reader.readLine()) != null) {
                 String[] parte = linea.split(":");
                 if (dni.equals(parte[0])) {
-                    if (!(txt_contraseña.getText().equals(""))) {
+                    if (!(txt_contrasena.getText().equals(""))) {
 
-                        writer.write(parte[0] + ":" + txt_contraseña.getText() + ":Socio:" + parte[3] + ":"
+                        writer.write(parte[0] + ":" + txt_contrasena.getText() + ":Socio:" + parte[3] + ":"
                                 + parte[4] + ":" + parte[5] + ":" + parte[6] + ":"
                                 + parte[7] + "\n");
 
@@ -293,7 +293,6 @@ public class ModificarSocios extends JDialog {
             String linea;
 
             while ((linea = reader.readLine()) != null) {
-                String[] parte = linea.split(":");
                 writer.write(linea + System.getProperty("line.separator"));
             }
             writer.close();

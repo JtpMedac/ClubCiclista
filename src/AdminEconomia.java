@@ -34,6 +34,7 @@ public class AdminEconomia extends JFrame {
     private JButton btn_anadirProducto, btn_salir, btn_pedir, btn_borrar, btn_editar;
     private JTable proveedores;
     private JMenuBar menu_Principal;
+    private JMenuItem mnt_Economia;
     private JMenuItem mnt_Socios;
     private JMenuItem mnt_Eventos;
     /**
@@ -103,7 +104,7 @@ public class AdminEconomia extends JFrame {
         proveedores.setModel(new DefaultTableModel(
             new Object[][] {},
             new String[] {
-                "Nombre", "Precio", "Cantidad", "Talla/Tamaño", "Realizar pedido", "Modificar", "Borrar"
+                "Nombre", "Precio", "Cantidad", "Talla/Tamano", "Realizar pedido", "Modificar", "Borrar"
             }
         )
         {
@@ -146,7 +147,7 @@ public class AdminEconomia extends JFrame {
     public void iniciarAcciones() {
         btn_anadirProducto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AñadirProducto nuevoProducto = new AñadirProducto();
+                AnadirProducto nuevoProducto = new AnadirProducto();
                 nuevoProducto.setVisible(true);
                 nuevoProducto.setLocationRelativeTo(null);
                 dispose();
@@ -206,8 +207,8 @@ public class AdminEconomia extends JFrame {
                                         modificar.setVisible(true);
                                         modificar.setLocationRelativeTo(null);
                                     try {
-                                        File fichero = new File("./src/Economía.txt");
-                                        File ficherotmp = new File("./src/Economíatmp.txt");
+                                        File fichero = new File("./src/Economia.txt");
+                                        File ficherotmp = new File("./src/Economiatmp.txt");
                                         BufferedReader reader = new BufferedReader(new FileReader(fichero));
                                         BufferedWriter writer = new BufferedWriter(new FileWriter(ficherotmp));
                                         String linea;
@@ -231,8 +232,8 @@ public class AdminEconomia extends JFrame {
                             // EVENTOS ELIMINAR
                         }}
                         if (boton.getName().equals("pedir")) {
-                            if (JOptionPane.showInputDialog("¿Cuántos quieres pedir?", 1) != null) {
-                                //Aqui se sumará el número a la base de datos
+                            if (JOptionPane.showInputDialog("Cuantos quieres pedir?", 1) != null) {
+                                //Aqui se sumarï¿½ el nï¿½mero a la base de datos
                         }
                         }
                     }
@@ -247,7 +248,10 @@ public class AdminEconomia extends JFrame {
         mnt_Socios = new JMenuItem("Ir a la ventana socios");
         menu_Principal.add(mnt_Socios);
         mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
-        menu_Principal.add(mnt_Eventos);     
+        menu_Principal.add(mnt_Eventos);  
+        mnt_Economia = new JMenuItem("Ir a la ventana economica");
+        mnt_Economia.setEnabled(false);
+        menu_Principal.add(mnt_Economia);    
     }
     public void accionesMenu() {
         mnt_Socios.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK));

@@ -38,10 +38,11 @@ public class AdminScreen extends JFrame {
     private JTable table;
     private DefaultTableModel modelo;
     JButton btnNewButton;
-    private String contraseña;
+    private String contrasena;
     String dni;
     private JMenuBar menu_Principal;
-    private JMenuItem mntm_Economia;
+    private JMenuItem mnt_Economia;
+    private JMenuItem mnt_Socios;
     private JMenuItem mnt_Eventos;
 
     public static void main(String[] args) {
@@ -98,7 +99,7 @@ public class AdminScreen extends JFrame {
     }
 
     public void botones() {
-        btn_anadirSocio = new JButton("Añadir socio");
+        btn_anadirSocio = new JButton("Anadir socio");
         btn_anadirSocio.setBounds(748, 45, 157, 21);
         panel_Princ.add(btn_anadirSocio);
         btn_salir = new JButton("Salir");
@@ -162,7 +163,7 @@ public class AdminScreen extends JFrame {
     public void iniciarAcciones() {
         btn_anadirSocio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AñadirSocios NuevoSocio = new AñadirSocios();
+                AnadirSocios NuevoSocio = new AnadirSocios();
                 NuevoSocio.setVisible(true);
                 NuevoSocio.setLocationRelativeTo(null);
                 dispose();
@@ -205,7 +206,7 @@ public class AdminScreen extends JFrame {
                             }
                         }
                         else if (boton.getName().equals("delt")) {
-                            if (JOptionPane.showConfirmDialog(null, "¿Desea eliminar este registro?", "Confirmar",
+                            if (JOptionPane.showConfirmDialog(null, "Desea eliminar este registro?", "Confirmar",
                                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                                 if (table.getSelectedRow() >= 0) {
                                     ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
@@ -267,10 +268,13 @@ public class AdminScreen extends JFrame {
     public void cargarMenu() {
         menu_Principal = new JMenuBar();
         setJMenuBar(menu_Principal);
+        mnt_Socios = new JMenuItem("Ir a la ventana socios");
+        mnt_Socios.setEnabled(false);
+        menu_Principal.add(mnt_Socios);
         mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
         menu_Principal.add(mnt_Eventos);  
-        mntm_Economia = new JMenuItem("Ir a la ventana economica");     
-        menu_Principal.add(mntm_Economia);    
+        mnt_Economia = new JMenuItem("Ir a la ventana economica");     
+        menu_Principal.add(mnt_Economia);    
     }
     public void accionesMenu() {
         mnt_Eventos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_DOWN_MASK));
@@ -281,8 +285,8 @@ public class AdminScreen extends JFrame {
                 dispose();
             }
         });
-        mntm_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
-        mntm_Economia.addActionListener(new ActionListener() {
+        mnt_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
+        mnt_Economia.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AdminEconomia economia = new AdminEconomia();
                 economia.setVisible(true);

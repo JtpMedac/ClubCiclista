@@ -29,7 +29,7 @@ public class AdminPrincipal extends JFrame {
     private JButton btn_socios, btn_eventos, btn_ventas;
     String user;
     private JMenuBar menu_Principal;
-    private JMenuItem mntm_Economia;
+    private JMenuItem mnt_Economia;
     private JMenuItem mnt_Socios;
     private JMenuItem mnt_Eventos;
         public static void main(String[] args) {
@@ -139,8 +139,8 @@ public class AdminPrincipal extends JFrame {
         menu_Principal.add(mnt_Socios);
         mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
         menu_Principal.add(mnt_Eventos);  
-        mntm_Economia = new JMenuItem("Ir a la ventana economica");     
-        menu_Principal.add(mntm_Economia);    
+        mnt_Economia = new JMenuItem("Ir a la ventana economica");     
+        menu_Principal.add(mnt_Economia);    
     }
     public void accionesMenu() {
         mnt_Socios.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK));
@@ -161,8 +161,8 @@ public class AdminPrincipal extends JFrame {
                 dispose();
             }
         });
-        mntm_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
-        mntm_Economia.addActionListener(new ActionListener() {
+        mnt_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
+        mnt_Economia.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AdminEconomia economia = new AdminEconomia();
                 economia.setVisible(true);

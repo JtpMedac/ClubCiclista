@@ -30,7 +30,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextArea;
 
-public class AñadirProducto extends JFrame {
+public class AnadirProducto extends JFrame {
     private final JPanel contentPanel = new JPanel();
     private JTextField txt_Nombre,txt_Precio,txt_Cantidad;
     private JPanel panel_datos;
@@ -48,7 +48,7 @@ public class AñadirProducto extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    AñadirProducto frame = new AñadirProducto();
+                    AnadirProducto frame = new AnadirProducto();
                     frame.setVisible(true);
                     frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
@@ -61,7 +61,7 @@ public class AñadirProducto extends JFrame {
     /**
      * Create the frame.
      */
-    public AñadirProducto() {
+    public AnadirProducto() {
         cargarPanelPrin();
         cargarPanelSec();
         cargarJLabels();
@@ -114,7 +114,7 @@ public class AñadirProducto extends JFrame {
         lbl_Cantidad.setBounds(42, 235, 193, 29);
         panel_datos.add(lbl_Cantidad);
         
-        lbl_Descripcion = new JLabel("Descripci\u00F3n del producto");
+        lbl_Descripcion = new JLabel("Descripcion del producto");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Descripcion.setBounds(582, 35, 193, 29);
         panel_datos.add(lbl_Descripcion);
@@ -138,7 +138,7 @@ public class AñadirProducto extends JFrame {
         lbl_Ruta.setBounds(315, 299, 165, 29);
         panel_datos.add(lbl_Ruta);
         
-        lbl_Talla = new JLabel("Talla/Tamaño");
+        lbl_Talla = new JLabel("Talla/Tamano");
         lbl_Talla.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Talla.setBounds(42, 179, 193, 29);
         panel_datos.add(lbl_Talla);
@@ -207,13 +207,13 @@ public class AñadirProducto extends JFrame {
                             aniadirEvento();
                             guardarFoto();
                         }else if(!comprobar){
-                            JOptionPane.showMessageDialog(null, "Error al crear el producto\nEl identificador debe de ser númerico",
+                            JOptionPane.showMessageDialog(null, "Error al crear el producto\nEl identificador debe de ser numerico",
                                     "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                         }else if(!comprobarCant) {
-                            JOptionPane.showMessageDialog(null, "Error al crear el producto\nLa cantidad debe de ser númerica",
+                            JOptionPane.showMessageDialog(null, "Error al crear el producto\nLa cantidad debe de ser numerica",
                                     "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                         }else if(!comprobarPre) {
-                            JOptionPane.showMessageDialog(null, "Error al crear el producto\nEl precio debe de ser númerico",
+                            JOptionPane.showMessageDialog(null, "Error al crear el producto\nEl precio debe de ser numerico",
                                     "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                         }
                         
@@ -275,8 +275,8 @@ public class AñadirProducto extends JFrame {
                 bw.close();
                 JOptionPane.showMessageDialog(null, "Producto creado correctamente", "Producto creado",
                         JOptionPane.INFORMATION_MESSAGE);
-                int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres crear otro producto?",
-                        "¿Crear otro producto?", JOptionPane.YES_NO_OPTION,
+                int opcionJpane = JOptionPane.showConfirmDialog(null, "Quieres crear otro producto?",
+                        "Crear otro producto?", JOptionPane.YES_NO_OPTION,
                         JOptionPane.INFORMATION_MESSAGE);
                 switch (opcionJpane) {
                     case 0:

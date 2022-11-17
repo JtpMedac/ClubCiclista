@@ -30,7 +30,7 @@ public class MostrarSocios extends JDialog {
     private JTextField txt_DNI;
     private JTextField txt_Direccion;
     private JTextField txt_Telefono;
-    private JTextField txt_contraseña;
+    private JTextField txt_contrasena;
     private JPanel panel_datos;
     private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contrasena, lblAviso;
     private String dni;
@@ -86,7 +86,7 @@ public class MostrarSocios extends JDialog {
         lbl_DNI.setBounds(56, 265, 193, 29);
         panel_datos.add(lbl_DNI);
 
-        lbl_Direccion = new JLabel("Dirección");
+        lbl_Direccion = new JLabel("Direccion");
         lbl_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Direccion.setBounds(486, 35, 193, 29);
         panel_datos.add(lbl_Direccion);
@@ -96,7 +96,7 @@ public class MostrarSocios extends JDialog {
         lbl_Telefono.setBounds(486, 141, 193, 29);
         panel_datos.add(lbl_Telefono);
 
-        lbl_Contrasena = new JLabel("Contraseña");
+        lbl_Contrasena = new JLabel("Contrasena");
         lbl_Contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Contrasena.setBounds(486, 265, 193, 29);
         panel_datos.add(lbl_Contrasena);
@@ -138,12 +138,12 @@ public class MostrarSocios extends JDialog {
         txt_Telefono.setBounds(633, 145, 238, 20);
         panel_datos.add(txt_Telefono);
 
-        txt_contraseña = new JPasswordField();
-        txt_contraseña.setEditable(false);
-        txt_contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_contraseña.setColumns(10);
-        txt_contraseña.setBounds(633, 269, 238, 20);
-        panel_datos.add(txt_contraseña);
+        txt_contrasena = new JPasswordField();
+        txt_contrasena.setEditable(false);
+        txt_contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_contrasena.setColumns(10);
+        txt_contrasena.setBounds(633, 269, 238, 20);
+        panel_datos.add(txt_contrasena);
 
         lblAviso = new JLabel("");
         lblAviso.setBounds(315, 402, 556, 20);
@@ -202,7 +202,7 @@ public class MostrarSocios extends JDialog {
                     txt_Direccion.setText(parte[6]);
                     txt_DNI.setText(parte[0]);
                     txt_Telefono.setText(parte[5]);
-                    txt_contraseña.setText(parte[1]);
+                    txt_contrasena.setText(parte[1]);
                 }
             }
         } catch (IOException exception) {
