@@ -79,7 +79,7 @@ public class LogIn extends JFrame {
         setResizable(false);
         cargarPanel();
         cargarPaneles();
-        //cargarImg();
+        cargarImg();
         llamarText();
         boton();
         llamarLbl();
@@ -154,7 +154,7 @@ public class LogIn extends JFrame {
             }
 
             public void mouseExited(MouseEvent e) {
-                lbl_restablecerContra.setForeground(Color.white);
+                lbl_restablecerContra.setForeground(Color.black);
             }
         });
 
@@ -194,18 +194,26 @@ public class LogIn extends JFrame {
 
     public void cargarPaneles() {
         panel_Princ = new JPanel();
-        panel_Princ.setBackground(new Color(249, 249, 249));
-        panel_Princ.setBounds(10, 11, 669, 406);
+        panel_Princ.setBorder(new MatteBorder(0, 2, 0, 0, (Color) new Color(0, 0, 0)));
+        panel_Princ.setBackground(new Color(255, 255, 255));
+        panel_Princ.setBounds(325, 0, 403, 453);
         contentPane.add(panel_Princ);
         panel_Princ.setLayout(null);
+        
+        panel = new JPanel();
+        panel.setBackground(new Color(69, 151, 239));
+        panel.setBounds(0, 0, 335, 423);
+        contentPane.add(panel);
     }
 
-    /*public void cargarImg() {
-        lbl_Logo = new JLabel("");
-        lbl_Logo.setIcon(new ImageIcon("./src/resources/duke.png"));
-        lbl_Logo.setBounds(244, 18, 192, 205);
-        panel_Princ.add(lbl_Logo);
-    }*/
+    public void cargarImg() {
+
+        lblBackground = new JLabel("");
+        lblBackground.setBounds(209, 17, 0, 0);
+        lblBackground.setIcon(new ImageIcon("./src/resources/bg1.png"));
+        panel.add(lblBackground);
+        // panel.setLayout(null);
+    }
 
     private void checkLogin() {
         String linea;

@@ -41,12 +41,8 @@ public class AdminScreen extends JFrame {
     private String contrasena;
     String dni;
     private JMenuBar menu_Principal;
-<<<<<<< HEAD
-    private JMenuItem mntm_Economia;
-=======
     private JMenuItem mnt_Economia;
     private JMenuItem mnt_Socios;
->>>>>>> main
     private JMenuItem mnt_Eventos;
 
     public static void main(String[] args) {
@@ -103,11 +99,7 @@ public class AdminScreen extends JFrame {
     }
 
     public void botones() {
-<<<<<<< HEAD
-        btn_anadirSocio = new JButton("Añadir socio");
-=======
         btn_anadirSocio = new JButton("Anadir socio");
->>>>>>> main
         btn_anadirSocio.setBounds(748, 45, 157, 21);
         panel_Princ.add(btn_anadirSocio);
         btn_salir = new JButton("Salir");
@@ -210,10 +202,7 @@ public class AdminScreen extends JFrame {
                                 ModificarSocios modificar = new ModificarSocios(objeto.toString());
                                 modificar.setVisible(true);
                                 modificar.setLocationRelativeTo(null);
-<<<<<<< HEAD
-=======
                                 dispose();
->>>>>>> main
 
                             }
                         }
@@ -269,10 +258,7 @@ public class AdminScreen extends JFrame {
                                 MostrarSocios mostrar = new MostrarSocios(objeto.toString());
                                 mostrar.setVisible(true);
                                 mostrar.setLocationRelativeTo(null);
-<<<<<<< HEAD
-=======
                                 dispose();
->>>>>>> main
                             }
                         }
                     }
@@ -284,20 +270,13 @@ public class AdminScreen extends JFrame {
     public void cargarMenu() {
         menu_Principal = new JMenuBar();
         setJMenuBar(menu_Principal);
-<<<<<<< HEAD
-        mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
-        menu_Principal.add(mnt_Eventos);  
-        mntm_Economia = new JMenuItem("Ir a la ventana economica");     
-        menu_Principal.add(mntm_Economia);    
-=======
         mnt_Socios = new JMenuItem("Ir a la ventana socios");
         mnt_Socios.setEnabled(false);
         menu_Principal.add(mnt_Socios);
         mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
         menu_Principal.add(mnt_Eventos);  
-        mnt_Economia = new JMenuItem("Ir a la ventana economica");     
+        mnt_Economia = new JMenuItem("Ir a la ventana economia");     
         menu_Principal.add(mnt_Economia);    
->>>>>>> main
     }
     public void accionesMenu() {
         mnt_Eventos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, InputEvent.CTRL_DOWN_MASK));
@@ -308,13 +287,8 @@ public class AdminScreen extends JFrame {
                 dispose();
             }
         });
-<<<<<<< HEAD
-        mntm_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
-        mntm_Economia.addActionListener(new ActionListener() {
-=======
         mnt_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
         mnt_Economia.addActionListener(new ActionListener() {
->>>>>>> main
             public void actionPerformed(ActionEvent e) {
                 AdminEconomia economia = new AdminEconomia();
                 economia.setVisible(true);
