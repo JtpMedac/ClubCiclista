@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import com.mysql.cj.jdbc.Driver;
+import com.mysql.cj.xdevapi.Result;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +22,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -34,6 +37,8 @@ public class LogIn extends JFrame {
     private JButton btn_logIn;
     private String UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT;
     private static Connection conexion; // Conexion DB
+    
+    
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -197,12 +202,56 @@ public class LogIn extends JFrame {
         panel_Princ.add(lbl_Logo);
     }
 
-    private String checkLogin() {
+    private void checkLogin() {
         String linea;
         String user_type = "";
         boolean isLoginSuccess = false;
         String User_Text = txt_user.getText();
         String Contra_Text = txt_psw.getText();
+        try {
+            Statement statement = conexion.createStatement();
+            ResultSet resultado = statement.executeQuery("SELECT usuario,contraseña,tipoUsuario FROM usuarios");
+            
+            while (resultado.next()) {
+                String usr = resultado.getString("usuario");
+                String psw = resultado.getString("contraseña");
+                String type = resultado.getString("tipoUsuario");
+                if (User_Text.equals(usr) && Contra_Text.equals(psw)) {
+                    user_type=type;
+                    isLoginSuccess=true;
+                }
+            }
+            if (isLoginSuccess) {
+                System.out.println("Funciona");
+                if (user_type.equals("Socio")) {
+                    // Abrir frame socio
+                    SocioScreen ventanaSocio = new SocioScreen(UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT,
+                            DireccionTXT);
+                    ventanaSocio.setVisible(true);
+                    ventanaSocio.setLocationRelativeTo(null);
+                } else if (user_type.equals("Admin")) {
+                    // Abrir frame admin
+                    AdminPrincipal admin = new AdminPrincipal();
+                    admin.setVisible(true);
+                    admin.setLocationRelativeTo(null);
+                    dispose();
+                } else if (user_type.equals("Gestor")) {
+                    // Abrir frame Gestor
+                    GestorScreen gestor = new GestorScreen(UsuarioTXT);
+                    gestor.setVisible(true);
+                    gestor.setLocationRelativeTo(null);
+                    dispose();
+                }
+            } else {
+                System.out.println("No Funciona");
+                JFrame jFrame = new JFrame();
+                JOptionPane.showMessageDialog(jFrame, "Usuario/Contraseña incorrecta", "Error",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+            
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }/*
         try {
 
             BufferedReader br = new BufferedReader(new FileReader("./src/BBDD.txt"));
@@ -253,6 +302,6 @@ public class LogIn extends JFrame {
         } catch (IOException e) {
             System.out.println(e);
         }
-        return user_type;
+        return user_type;*/
     }
 }
