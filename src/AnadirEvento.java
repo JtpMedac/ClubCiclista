@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
 import javax.swing.JTextArea;
 
-public class AñadirEvento extends JDialog {
+public class AnadirEvento extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
     private JTextField txt_Nombre,txt_Fecha,txt_Plazas;
@@ -34,7 +34,7 @@ public class AñadirEvento extends JDialog {
 
     public static void main(String[] args) {
         try {
-            AñadirEvento dialog = new AñadirEvento();
+            AnadirEvento dialog = new AnadirEvento();
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
             dialog.setLocationRelativeTo(null);
@@ -42,7 +42,7 @@ public class AñadirEvento extends JDialog {
             e.printStackTrace();
         }
     }
-    public AñadirEvento() {
+    public AnadirEvento() {
         cargarPanelPrin();
         cargarPanelSec();
         cargarJLabels();

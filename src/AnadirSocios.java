@@ -33,12 +33,12 @@ import javax.swing.JRadioButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class AñadirSocios extends JDialog {
+public class AnadirSocios extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contraseña, txt_Email, txt_contraseñaM;
+	private JTextField txt_Nombre,txt_Apellidos,txt_DNI,txt_Direccion,txt_Telefono,txt_contrasena, txt_Email, txt_contrasenaM;
 	private JPanel panel_datos;
-	private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contraseña, lbl_Aviso, lbl_Imagen, lbl_Ruta, lbl_Sexo, lbl_Email;
+	private JLabel lbl_datos, lbl_Nombre, lbl_Apellidos, lbl_DNI, lbl_Direccion, lbl_Telefono, lbl_Contrasena, lbl_Aviso, lbl_Imagen, lbl_Ruta, lbl_Sexo, lbl_Email;
 	private JButton btn_InsertarImagen;
 	private ButtonGroup btngrp_sexo = new ButtonGroup();
 	private JRadioButton rdbtn_Macho, rdbtn_Hembra;
@@ -50,7 +50,7 @@ public class AñadirSocios extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			AñadirSocios dialog = new AñadirSocios();
+			AnadirSocios dialog = new AnadirSocios();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 			dialog.setLocationRelativeTo(null);
@@ -61,7 +61,7 @@ public class AñadirSocios extends JDialog {
 	}
 
 
-	public AñadirSocios() {
+	public AnadirSocios() {
 		cargarPanelPrin();
 		cargarPanelSec();
 		cargarJLabels();
@@ -116,20 +116,20 @@ public class AñadirSocios extends JDialog {
 		lbl_DNI.setBounds(56, 234, 193, 29);
 		panel_datos.add(lbl_DNI);
 
-		lbl_Direccion = new JLabel("Dirección");
+		lbl_Direccion = new JLabel("Direccion");
 		lbl_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_Direccion.setBounds(486, 35, 193, 29);
 		panel_datos.add(lbl_Direccion);
 
-		lbl_Telefono = new JLabel("Teléfono");
+		lbl_Telefono = new JLabel("Telefono");
 		lbl_Telefono.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbl_Telefono.setBounds(486, 141, 193, 29);
 		panel_datos.add(lbl_Telefono);
 
-		lbl_Contraseña = new JLabel("Contraseña");
-		lbl_Contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_Contraseña.setBounds(486, 234, 193, 29);
-		panel_datos.add(lbl_Contraseña);
+		lbl_Contrasena = new JLabel("Contrasena");
+		lbl_Contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lbl_Contrasena.setBounds(486, 234, 193, 29);
+		panel_datos.add(lbl_Contrasena);
 		
 		lbl_Sexo = new JLabel("Sexo");
         lbl_Sexo.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -182,23 +182,23 @@ public class AñadirSocios extends JDialog {
 		txt_Telefono.setBounds(633, 145, 238, 20);
 		panel_datos.add(txt_Telefono);
 
-		txt_contraseña = new JPasswordField();
-		txt_contraseña.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txt_contraseña.setColumns(10);
-		txt_contraseña.setBounds(633, 238, 238, 20);
-		panel_datos.add(txt_contraseña);
+		txt_contrasena = new JPasswordField();
+		txt_contrasena.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txt_contrasena.setColumns(10);
+		txt_contrasena.setBounds(633, 238, 238, 20);
+		panel_datos.add(txt_contrasena);
 		
         txt_Email = new JTextField();
         txt_Email.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Email.setColumns(10);
         txt_Email.setBounds(179, 179, 238, 20);
         panel_datos.add(txt_Email);
-		txt_contraseñaM = new JTextField();
-        txt_contraseñaM.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_contraseñaM.setColumns(10);
-        txt_contraseñaM.setBounds(633, 269, 238, 20);
-        panel_datos.add(txt_contraseñaM);
-        txt_contraseñaM.setVisible(false);
+		txt_contrasenaM = new JTextField();
+        txt_contrasenaM.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        txt_contrasenaM.setColumns(10);
+        txt_contrasenaM.setBounds(633, 269, 238, 20);
+        panel_datos.add(txt_contrasenaM);
+        txt_contrasenaM.setVisible(false);
 
 		lbl_Aviso = new JLabel("");
 		lbl_Aviso.setBounds(315, 402, 556, 20);
@@ -229,14 +229,14 @@ public class AñadirSocios extends JDialog {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
 		        if (!mostrar) {
-		            txt_contraseñaM.setText(txt_contraseña.getText());
-		            txt_contraseña.setVisible(false);
-		            txt_contraseñaM.setVisible(true);
+		            txt_contrasenaM.setText(txt_contrasena.getText());
+		            txt_contrasena.setVisible(false);
+		            txt_contrasenaM.setVisible(true);
 		            mostrar=true;
                 }else {
-                    txt_contraseña.setText(txt_contraseñaM.getText());
-                    txt_contraseña.setVisible(true);
-                    txt_contraseñaM.setVisible(false);
+                    txt_contrasena.setText(txt_contrasenaM.getText());
+                    txt_contrasena.setVisible(true);
+                    txt_contrasenaM.setVisible(false);
                     mostrar=false;
                 }
 		    }
@@ -264,7 +264,7 @@ public class AñadirSocios extends JDialog {
 					    if(comprobar && comprobarCorreo) {
 					        aniadirSocio();
 					    }else if(!comprobar) {
-					        JOptionPane.showMessageDialog(null, "Error al crear el socio\nIntroduzca un número correcto",
+					        JOptionPane.showMessageDialog(null, "Error al crear el socio\nIntroduzca un numero correcto",
 			                        "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
 					    }else if(!comprobarCorreo) {
                             JOptionPane.showMessageDialog(null, "Error al crear el socio\nIntroduzca un correo correcto",
@@ -318,17 +318,17 @@ public class AñadirSocios extends JDialog {
 	public void aniadirSocio() {
 		try {
 			// Este if es como los miembros de este grupo son feos pero sirven
-			if (!((txt_DNI.getText().equals("")) || (txt_contraseña.getText().equals(""))
+			if (!((txt_DNI.getText().equals("")) || (txt_contrasena.getText().equals(""))
 					|| (txt_Nombre.getText().equals("")) || (txt_Apellidos.getText().equals(""))
 					|| (txt_Telefono.getText().equals("")) || (txt_Direccion.getText().equals("")) || (lbl_Ruta.getText().equals("")))) {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("./src/BBDD.txt", true));
 				bw.newLine();
 				if (mostrar) {
-				    bw.write(txt_DNI.getText() + ":" + txt_contraseñaM.getText() + ":Socio:" + txt_Nombre.getText() + ":"
+				    bw.write(txt_DNI.getText() + ":" + txt_contrasenaM.getText() + ":Socio:" + txt_Nombre.getText() + ":"
 	                        + txt_Apellidos.getText() + ":" + txt_Telefono.getText() + ":" + txt_Direccion.getText() + ":"
 	                        + "Alta");
                 }else {
-                    bw.write(txt_DNI.getText() + ":" + txt_contraseña.getText() + ":Socio:" + txt_Nombre.getText() + ":"
+                    bw.write(txt_DNI.getText() + ":" + txt_contrasena.getText() + ":Socio:" + txt_Nombre.getText() + ":"
                             + txt_Apellidos.getText() + ":" + txt_Telefono.getText() + ":" + txt_Direccion.getText() + ":"
                             + "Alta");
                 }
@@ -336,13 +336,13 @@ public class AñadirSocios extends JDialog {
 				bw.close();
 				JOptionPane.showMessageDialog(null, "Socio creado correctamente", "Socio creado",
 						JOptionPane.INFORMATION_MESSAGE);
-				int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres crear otro socio?",
-						"¿Crear otro usuario?", JOptionPane.YES_NO_OPTION,
+				int opcionJpane = JOptionPane.showConfirmDialog(null, "Quieres crear otro socio?",
+						"Crear otro usuario?", JOptionPane.YES_NO_OPTION,
 						JOptionPane.INFORMATION_MESSAGE);
 				switch (opcionJpane) {
 					case 0:
 						txt_DNI.setText("");
-						txt_contraseña.setText("");
+						txt_contrasena.setText("");
 						txt_Nombre.setText("");
 						txt_Apellidos.setText("");
 						txt_Telefono.setText("");
@@ -381,10 +381,10 @@ public class AñadirSocios extends JDialog {
                 }
             }
         });
-	    txt_contraseña.addKeyListener(new KeyAdapter() {
+	    txt_contrasena.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if(txt_contraseña.getText().length() >= 10) {
+                if(txt_contrasena.getText().length() >= 10) {
                     e.consume();    
                 }
             }

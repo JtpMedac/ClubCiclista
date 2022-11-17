@@ -4,8 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import com.mysql.cj.jdbc.Driver;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JTextField;
@@ -34,7 +32,7 @@ public class LogIn extends JFrame {
 
     private JPanel contentPane, panel_Princ, panel;
     private JTextField txt_user, txt_psw;
-    private JLabel lbl_restablecerContra, lbl_LogIn,lblBackground;
+    private JLabel lbl_restablecerContra, lbl_LogIn, lblBackground;
     private JButton btn_logIn;
     private String UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT;
     private static Connection conexion; // Conexion DB
@@ -45,7 +43,7 @@ public class LogIn extends JFrame {
                 try {
                     LogIn frame = new LogIn();
                     frame.setVisible(true);
-                    frame.setTitle("Iniciar Sesión: Club Ciclista");
+                    frame.setTitle("Iniciar Sesion: Club Ciclista");
                     frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -110,17 +108,17 @@ public class LogIn extends JFrame {
         txt_psw.setBounds(64, 200, 260, 54);
         panel_Princ.add(txt_psw);
         txt_psw.setColumns(10);
-        TextPrompt psw = new TextPrompt("Contraseña", txt_psw);
+        TextPrompt psw = new TextPrompt("Contrasena", txt_psw);
     }
 
     public void boton() {
-        btn_logIn = new JButton("Iniciar sesión");
+        btn_logIn = new JButton("Iniciar sesion");
         btn_logIn.setBounds(110, 295, 178, 21);
         panel_Princ.add(btn_logIn);
     }
 
     public void llamarLbl() {
-        lbl_restablecerContra = new JLabel("Restablecer contraseña");
+        lbl_restablecerContra = new JLabel("Restablecer contrasena");
         lbl_restablecerContra.setForeground(new Color(0, 0, 0));
         lbl_restablecerContra.setFont(new Font("Roboto", Font.PLAIN, 14));
         lbl_restablecerContra.setBounds(121, 329, 151, 42);
@@ -130,7 +128,7 @@ public class LogIn extends JFrame {
         lbl_LogIn.setForeground(new Color(0, 0, 0));
         lbl_LogIn.setBackground(new Color(255, 255, 255));
         lbl_LogIn.setFont(new Font("Roboto", Font.BOLD, 20));
-        lbl_LogIn.setBounds(164, 54, 55, 54);
+        lbl_LogIn.setBounds(164, 54, 66, 54);
         panel_Princ.add(lbl_LogIn);
         
         JSeparator separator = new JSeparator();
@@ -143,7 +141,7 @@ public class LogIn extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame,
-                        "Pongase en contacto con un administrador para restablecer la contraseña");
+                        "Pongase en contacto con un administrador para restablecer la contrasena");
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -167,7 +165,7 @@ public class LogIn extends JFrame {
                     checkLogin();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    if (JOptionPane.showConfirmDialog(null, "¿Desea salir del programa?", "Confirmar",
+                    if (JOptionPane.showConfirmDialog(null, "Desea salir del programa?", "Confirmar",
                             JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                         dispose();
                     }
@@ -180,7 +178,7 @@ public class LogIn extends JFrame {
                     checkLogin();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    if (JOptionPane.showConfirmDialog(null, "¿Desea salir del programa?", "Confirmar",
+                    if (JOptionPane.showConfirmDialog(null, "Desea salir del programa?", "Confirmar",
                             JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                         dispose();
                     }
@@ -196,22 +194,21 @@ public class LogIn extends JFrame {
         panel_Princ.setBounds(325, 0, 403, 453);
         contentPane.add(panel_Princ);
         panel_Princ.setLayout(null);
-        
+
         panel = new JPanel();
         panel.setBackground(new Color(69, 151, 239));
         panel.setBounds(0, 0, 335, 423);
         contentPane.add(panel);
-        
-     
+
     }
 
     public void cargarImg() {
-        
+
         lblBackground = new JLabel("");
         lblBackground.setBounds(209, 17, 0, 0);
         lblBackground.setIcon(new ImageIcon("./src/resources/bg1.png"));
         panel.add(lblBackground);
-       // panel.setLayout(null);
+        // panel.setLayout(null);
     }
 
     private String checkLogin() {
@@ -228,13 +225,13 @@ public class LogIn extends JFrame {
 
                 String[] parte = linea.split(":");
                 UsuarioTXT = parte[0];
-                String ContraseñaTXT = parte[1];
+                String ContrasenaTXT = parte[1];
                 String TipoTXT = parte[2];
                 NombreTXT = parte[3];
                 ApellidosTXT = parte[4];
                 NumeroTXT = parte[5];
                 DireccionTXT = parte[6];
-                if (User_Text.equals(UsuarioTXT) && Contra_Text.equals(ContraseñaTXT)) {
+                if (User_Text.equals(UsuarioTXT) && Contra_Text.equals(ContrasenaTXT)) {
                     user_type = parte[2];
                     isLoginSuccess = true;
                     break;
@@ -265,7 +262,7 @@ public class LogIn extends JFrame {
             } else {
                 System.out.println("No Funciona");
                 JFrame jFrame = new JFrame();
-                JOptionPane.showMessageDialog(jFrame, "Usuario/Contraseña incorrecta", "Error",
+                JOptionPane.showMessageDialog(jFrame, "Usuario/Contrasena incorrecta", "Error",
                         JOptionPane.WARNING_MESSAGE);
             }
         } catch (IOException e) {
