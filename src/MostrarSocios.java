@@ -164,6 +164,7 @@ public class MostrarSocios extends JDialog {
                         AdminScreen admin = new AdminScreen();
                         admin.setVisible(true);
                         admin.setLocationRelativeTo(null);
+                        dispose();
                     }
                 });
                 okButton.setActionCommand("OK");
@@ -179,6 +180,7 @@ public class MostrarSocios extends JDialog {
                         AdminScreen admin = new AdminScreen();
                         admin.setVisible(true);
                         admin.setLocationRelativeTo(null);
+                        dispose();
                     }
 
                 });

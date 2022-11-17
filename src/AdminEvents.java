@@ -238,6 +238,8 @@ public class AdminEvents extends JFrame {
 
                                             ModificarEventos modificar = new ModificarEventos(objeto.toString());
                                             modificar.setVisible(true);
+                                            modificar.setLocationRelativeTo(null);
+                                            dispose();
                                         try {
                                             File fichero = new File("./src/Eventos.txt");
                                             File ficherotmp = new File("./src/Eventostmp.txt");
@@ -303,6 +305,7 @@ public class AdminEvents extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     AdminScreen admin = new AdminScreen();
                     admin.setVisible(true);
+                    admin.setLocationRelativeTo(null);
                     dispose();
                 }
             });
@@ -311,6 +314,7 @@ public class AdminEvents extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     AdminEconomia economia = new AdminEconomia();
                     economia.setVisible(true);
+                    economia.setLocationRelativeTo(null);
                     dispose();
                 }
             });

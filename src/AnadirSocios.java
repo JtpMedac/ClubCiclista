@@ -54,6 +54,7 @@ public class AnadirSocios extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 			dialog.setLocationRelativeTo(null);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -284,6 +285,7 @@ public class AnadirSocios extends JDialog {
 						AdminScreen admin = new AdminScreen();
 		                admin.setVisible(true);
 		                admin.setLocationRelativeTo(null);
+		                dispose();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");

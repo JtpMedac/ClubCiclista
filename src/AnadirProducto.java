@@ -51,6 +51,7 @@ public class AnadirProducto extends JFrame {
                     AnadirProducto frame = new AnadirProducto();
                     frame.setVisible(true);
                     frame.setLocationRelativeTo(null);
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -231,6 +232,7 @@ public class AnadirProducto extends JFrame {
                         AdminEconomia admin = new AdminEconomia();
                         admin.setVisible(true);
                         admin.setLocationRelativeTo(null);
+                       dispose();
                     }
                 });
                 cancelButton.setActionCommand("Cancel");

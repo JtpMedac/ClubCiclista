@@ -202,6 +202,7 @@ public class AdminScreen extends JFrame {
                                 ModificarSocios modificar = new ModificarSocios(objeto.toString());
                                 modificar.setVisible(true);
                                 modificar.setLocationRelativeTo(null);
+                                dispose();
 
                             }
                         }
@@ -257,6 +258,7 @@ public class AdminScreen extends JFrame {
                                 MostrarSocios mostrar = new MostrarSocios(objeto.toString());
                                 mostrar.setVisible(true);
                                 mostrar.setLocationRelativeTo(null);
+                                dispose();
                             }
                         }
                     }

@@ -172,6 +172,7 @@ public class AnadirEvento extends JDialog {
                         AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
                         admin.setLocationRelativeTo(null);
+                        dispose();
                     }
                 });
                 cancelButton.setActionCommand("Cancel");

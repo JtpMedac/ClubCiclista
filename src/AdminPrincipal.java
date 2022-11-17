@@ -38,7 +38,9 @@ public class AdminPrincipal extends JFrame {
                     try {
                         AdminEvents frame = new AdminEvents();
                         frame.setVisible(true);
+                        frame.setTitle("Admin: Principal");
                         frame.setLocationRelativeTo(null);
+                        
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -124,7 +126,7 @@ public class AdminPrincipal extends JFrame {
         });
         btn_ventas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //Hay que crear esta ventana
+                
                 AdminEconomia economia = new AdminEconomia();
                 economia.setVisible(true);
                 economia.setLocationRelativeTo(null);
