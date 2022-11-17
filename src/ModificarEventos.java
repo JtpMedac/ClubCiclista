@@ -84,12 +84,12 @@ public class ModificarEventos extends JDialog {
         lbl_Fecha.setBounds(42, 187, 193, 29);
         panel_datos.add(lbl_Fecha);
 
-        lbl_Plazas = new JLabel("Número de plazas");
+        lbl_Plazas = new JLabel("Numero de plazas");
         lbl_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Plazas.setBounds(42, 246, 193, 29);
         panel_datos.add(lbl_Plazas);
         
-        lbl_Descripcion = new JLabel("Descripción del evento");
+        lbl_Descripcion = new JLabel("Descripcion del evento");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Descripcion.setBounds(582, 35, 193, 29);
         panel_datos.add(lbl_Descripcion);
@@ -152,6 +152,7 @@ public class ModificarEventos extends JDialog {
                         AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
                         admin.setLocationRelativeTo(null);
+                        dispose();
                     }
                 });
                 okButton.setActionCommand("OK");
@@ -167,6 +168,7 @@ public class ModificarEventos extends JDialog {
                         AdminEvents admin = new AdminEvents();
                         admin.setVisible(true);
                         admin.setLocationRelativeTo(null);
+                        dispose();
                     }
 
                 });

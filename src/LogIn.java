@@ -28,17 +28,19 @@ import java.sql.Statement;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.Window.Type;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.JSeparator;
 
 public class LogIn extends JFrame {
 
-    private JPanel contentPane, panel_Princ, panel_Sec;
+    private JPanel contentPane, panel_Princ, panel;
     private JTextField txt_user, txt_psw;
-    private JLabel lbl_restablecerContra, lbl_Logo, lbl_LogIn;
+    private JLabel lbl_restablecerContra, lbl_LogIn, lblBackground;
     private JButton btn_logIn;
     private String UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT, DireccionTXT;
     private static Connection conexion; // Conexion DB
-    
-    
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -46,6 +48,7 @@ public class LogIn extends JFrame {
                 try {
                     LogIn frame = new LogIn();
                     frame.setVisible(true);
+                    frame.setTitle("Iniciar Sesion: Club Ciclista");
                     frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -76,7 +79,7 @@ public class LogIn extends JFrame {
         setResizable(false);
         cargarPanel();
         cargarPaneles();
-        cargarImg();
+        //cargarImg();
         llamarText();
         boton();
         llamarLbl();
@@ -90,7 +93,7 @@ public class LogIn extends JFrame {
         setSize(new Dimension(720, 480));
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
-        contentPane.setBackground(new Color(168, 201, 240));
+        contentPane.setBackground(new Color(255, 255, 255));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         setContentPane(contentPane);
@@ -100,35 +103,42 @@ public class LogIn extends JFrame {
     public void llamarText() {
         txt_user = new JTextField();
         txt_user.setToolTipText("");
-        txt_user.setBounds(246, 234, 178, 42);
+        txt_user.setBounds(64, 125, 260, 54);
         panel_Princ.add(txt_user);
         txt_user.setColumns(10);
         TextPrompt user = new TextPrompt("Usuario", txt_user);
 
         txt_psw = new JPasswordField();
         txt_psw.setText("");
-        txt_psw.setBounds(246, 286, 178, 42);
+        txt_psw.setBounds(64, 200, 260, 54);
         panel_Princ.add(txt_psw);
         txt_psw.setColumns(10);
-        TextPrompt psw = new TextPrompt("Contraseña", txt_psw);
+        TextPrompt psw = new TextPrompt("Contrasena", txt_psw);
     }
 
     public void boton() {
-        btn_logIn = new JButton("Iniciar sesión");
-        btn_logIn.setBounds(232, 374, 204, 21);
+        btn_logIn = new JButton("Iniciar sesion");
+        btn_logIn.setBounds(110, 295, 178, 21);
         panel_Princ.add(btn_logIn);
     }
 
     public void llamarLbl() {
-        lbl_restablecerContra = new JLabel("Restablecer contraseña");
-        lbl_restablecerContra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        lbl_restablecerContra.setBounds(262, 327, 242, 42);
+        lbl_restablecerContra = new JLabel("Restablecer contrasena");
+        lbl_restablecerContra.setForeground(new Color(0, 0, 0));
+        lbl_restablecerContra.setFont(new Font("Roboto", Font.PLAIN, 14));
+        lbl_restablecerContra.setBounds(121, 329, 151, 42);
         panel_Princ.add(lbl_restablecerContra);
 
         lbl_LogIn = new JLabel("Log in");
-        lbl_LogIn.setFont(new Font("Arial", Font.PLAIN, 20));
-        lbl_LogIn.setBounds(293, 151, 211, 141);
+        lbl_LogIn.setForeground(new Color(0, 0, 0));
+        lbl_LogIn.setBackground(new Color(255, 255, 255));
+        lbl_LogIn.setFont(new Font("Roboto", Font.BOLD, 20));
+        lbl_LogIn.setBounds(164, 54, 66, 54);
         panel_Princ.add(lbl_LogIn);
+        
+        JSeparator separator = new JSeparator();
+        separator.setBounds(0, 282, 393, 13);
+        panel_Princ.add(separator);
     }
 
     public void iniciarAcciones() {
@@ -136,7 +146,7 @@ public class LogIn extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 JFrame jFrame = new JFrame();
                 JOptionPane.showMessageDialog(jFrame,
-                        "Pongase en contacto con un administrador para restablecer la contraseña");
+                        "Pongase en contacto con un administrador para restablecer la contrasena");
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -144,7 +154,7 @@ public class LogIn extends JFrame {
             }
 
             public void mouseExited(MouseEvent e) {
-                lbl_restablecerContra.setForeground(Color.black);
+                lbl_restablecerContra.setForeground(Color.white);
             }
         });
 
@@ -160,7 +170,7 @@ public class LogIn extends JFrame {
                     checkLogin();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    if (JOptionPane.showConfirmDialog(null, "¿Desea salir del programa?", "Confirmar",
+                    if (JOptionPane.showConfirmDialog(null, "Desea salir del programa?", "Confirmar",
                             JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                         dispose();
                     }
@@ -173,7 +183,7 @@ public class LogIn extends JFrame {
                     checkLogin();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    if (JOptionPane.showConfirmDialog(null, "¿Desea salir del programa?", "Confirmar",
+                    if (JOptionPane.showConfirmDialog(null, "Desea salir del programa?", "Confirmar",
                             JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                         dispose();
                     }
@@ -188,19 +198,14 @@ public class LogIn extends JFrame {
         panel_Princ.setBounds(10, 11, 669, 406);
         contentPane.add(panel_Princ);
         panel_Princ.setLayout(null);
-
-        panel_Sec = new JPanel();
-        panel_Sec.setBackground(new Color(142, 224, 157));
-        panel_Sec.setBounds(10, 11, 684, 419);
-        contentPane.add(panel_Sec);
     }
 
-    public void cargarImg() {
+    /*public void cargarImg() {
         lbl_Logo = new JLabel("");
         lbl_Logo.setIcon(new ImageIcon("./src/resources/duke.png"));
         lbl_Logo.setBounds(244, 18, 192, 205);
         panel_Princ.add(lbl_Logo);
-    }
+    }*/
 
     private void checkLogin() {
         String linea;
@@ -251,57 +256,6 @@ public class LogIn extends JFrame {
             
         } catch (SQLException e1) {
             e1.printStackTrace();
-        }/*
-        try {
-
-            BufferedReader br = new BufferedReader(new FileReader("./src/BBDD.txt"));
-
-            while ((linea = br.readLine()) != null) {
-
-                String[] parte = linea.split(":");
-                UsuarioTXT = parte[0];
-                String ContraseñaTXT = parte[1];
-                String TipoTXT = parte[2];
-                NombreTXT = parte[3];
-                ApellidosTXT = parte[4];
-                NumeroTXT = parte[5];
-                DireccionTXT = parte[6];
-                if (User_Text.equals(UsuarioTXT) && Contra_Text.equals(ContraseñaTXT)) {
-                    user_type = parte[2];
-                    isLoginSuccess = true;
-                    break;
-                }
-            }
-            if (isLoginSuccess) {
-                System.out.println("Funciona");
-                if (user_type.equals("Socio")) {
-                    // Abrir frame socio
-                    SocioScreen ventanaSocio = new SocioScreen(UsuarioTXT, NombreTXT, ApellidosTXT, NumeroTXT,
-                            DireccionTXT);
-                    ventanaSocio.setVisible(true);
-                    ventanaSocio.setLocationRelativeTo(null);
-                } else if (user_type.equals("Admin")) {
-                    // Abrir frame admin
-                    AdminPrincipal admin = new AdminPrincipal();
-                    admin.setVisible(true);
-                    admin.setLocationRelativeTo(null);
-                    dispose();
-                } else if (user_type.equals("Gestor")) {
-                    // Abrir frame Gestor
-                    GestorScreen gestor = new GestorScreen(UsuarioTXT);
-                    gestor.setVisible(true);
-                    gestor.setLocationRelativeTo(null);
-                    dispose();
-                }
-            } else {
-                System.out.println("No Funciona");
-                JFrame jFrame = new JFrame();
-                JOptionPane.showMessageDialog(jFrame, "Usuario/Contraseña incorrecta", "Error",
-                        JOptionPane.WARNING_MESSAGE);
-            }
-        } catch (IOException e) {
-            System.out.println(e);
         }
-        return user_type;*/
     }
 }

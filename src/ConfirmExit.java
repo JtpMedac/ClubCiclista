@@ -63,7 +63,10 @@ public class ConfirmExit extends JDialog {
             }
             {
                 btn_cancel = new JButton("No");
-
+                AdminPrincipal principal = new AdminPrincipal();
+                principal.setVisible(true);
+                principal.setLocationRelativeTo(null);
+                dispose();
                 btn_cancel.setActionCommand("Cancel");
                 buttonPane.add(btn_cancel);
             }

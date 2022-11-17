@@ -34,6 +34,10 @@ public class AdminEconomia extends JFrame {
     private JButton btn_anadirProducto, btn_salir, btn_pedir, btn_borrar, btn_editar;
     private JTable proveedores;
     private JMenuBar menu_Principal;
+<<<<<<< HEAD
+=======
+    private JMenuItem mnt_Economia;
+>>>>>>> main
     private JMenuItem mnt_Socios;
     private JMenuItem mnt_Eventos;
     /**
@@ -69,10 +73,10 @@ public class AdminEconomia extends JFrame {
         setMinimumSize(new Dimension(1080, 720));
         setPreferredSize(new Dimension(1080, 720));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new Dimension(1080, 720));
+        setSize(new Dimension(720, 400));
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
-        contentPane.setBackground(new Color(168, 201, 240));
+        contentPane.setBackground(new Color(128, 128, 128));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
     }
@@ -88,7 +92,11 @@ public class AdminEconomia extends JFrame {
     }
     public void crearTabla() {
         scrollPane = new JScrollPane();
+<<<<<<< HEAD
         scrollPane.setBounds(10, 75, 1024, 520);
+=======
+        scrollPane.setBounds(10, 43, 1024, 506);
+>>>>>>> main
         panel_Princ.add(scrollPane);
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -103,7 +111,11 @@ public class AdminEconomia extends JFrame {
         proveedores.setModel(new DefaultTableModel(
             new Object[][] {},
             new String[] {
+<<<<<<< HEAD
                 "Nombre", "Precio", "Cantidad", "Talla/Tamaño", "Realizar pedido", "Modificar", "Borrar"
+=======
+                "Nombre", "Precio", "Cantidad", "Talla/Tamano", "Realizar pedido", "Modificar", "Borrar"
+>>>>>>> main
             }
         )
         {
@@ -137,16 +149,27 @@ public class AdminEconomia extends JFrame {
     }
     public void botones() {
         btn_anadirProducto = new JButton("Anadir producto");
+<<<<<<< HEAD
         btn_anadirProducto.setBounds(748, 45, 157, 21);
         panel_Princ.add(btn_anadirProducto);
         btn_salir = new JButton("Cerrar Sesion");
         btn_salir.setBounds(904, 22, 130, 23);
+=======
+        btn_anadirProducto.setBounds(877, 10, 157, 21);
+        panel_Princ.add(btn_anadirProducto);
+        btn_salir = new JButton("Salir");
+        btn_salir.setBounds(904, 559, 130, 23);
+>>>>>>> main
         panel_Princ.add(btn_salir);
     }
     public void iniciarAcciones() {
         btn_anadirProducto.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
                 AñadirProducto nuevoProducto = new AñadirProducto();
+=======
+                AnadirProducto nuevoProducto = new AnadirProducto();
+>>>>>>> main
                 nuevoProducto.setVisible(true);
                 nuevoProducto.setLocationRelativeTo(null);
                 dispose();
@@ -158,6 +181,10 @@ public class AdminEconomia extends JFrame {
                 AdminPrincipal principal = new AdminPrincipal();
                 principal.setVisible(true);
                 principal.setLocationRelativeTo(null);
+<<<<<<< HEAD
+=======
+                dispose();
+>>>>>>> main
             }
         });
         proveedores.addMouseListener(new MouseAdapter() {
@@ -184,6 +211,10 @@ public class AdminEconomia extends JFrame {
                                 ModificarEventos modificar = new ModificarEventos(objeto.toString());
                                 modificar.setVisible(true);
                                 modificar.setLocationRelativeTo(null);
+<<<<<<< HEAD
+=======
+                                dispose();
+>>>>>>> main
 
                             }
                         }
@@ -205,9 +236,16 @@ public class AdminEconomia extends JFrame {
                                         ModificarEventos modificar = new ModificarEventos(objeto.toString());
                                         modificar.setVisible(true);
                                         modificar.setLocationRelativeTo(null);
+<<<<<<< HEAD
                                     try {
                                         File fichero = new File("./src/Economía.txt");
                                         File ficherotmp = new File("./src/Economíatmp.txt");
+=======
+                                        dispose();
+                                    try {
+                                        File fichero = new File("./src/Economia.txt");
+                                        File ficherotmp = new File("./src/Economiatmp.txt");
+>>>>>>> main
                                         BufferedReader reader = new BufferedReader(new FileReader(fichero));
                                         BufferedWriter writer = new BufferedWriter(new FileWriter(ficherotmp));
                                         String linea;
@@ -231,8 +269,13 @@ public class AdminEconomia extends JFrame {
                             // EVENTOS ELIMINAR
                         }}
                         if (boton.getName().equals("pedir")) {
+<<<<<<< HEAD
                             if (JOptionPane.showInputDialog("¿Cuántos quieres pedir?", 1) != null) {
                                 //Aqui se sumará el número a la base de datos
+=======
+                            if (JOptionPane.showInputDialog("Cuantos quieres pedir?", 1) != null) {
+                                //Aqui se sumarï¿½ el nï¿½mero a la base de datos
+>>>>>>> main
                         }
                         }
                     }
@@ -247,7 +290,14 @@ public class AdminEconomia extends JFrame {
         mnt_Socios = new JMenuItem("Ir a la ventana socios");
         menu_Principal.add(mnt_Socios);
         mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
+<<<<<<< HEAD
         menu_Principal.add(mnt_Eventos);     
+=======
+        menu_Principal.add(mnt_Eventos);  
+        mnt_Economia = new JMenuItem("Ir a la ventana economica");
+        mnt_Economia.setEnabled(false);
+        menu_Principal.add(mnt_Economia);    
+>>>>>>> main
     }
     public void accionesMenu() {
         mnt_Socios.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK));
