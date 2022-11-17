@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
+import com.mysql.cj.xdevapi.Result;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JTextField;
@@ -20,6 +22,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -82,7 +87,7 @@ public class LogIn extends JFrame {
     }
 
     public void cargarPanel() {
-        setMinimumSize(new Dimension(720, 460));
+        setMinimumSize(new Dimension(720, 480));
         setPreferredSize(new Dimension(720, 480));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(720, 480));
@@ -149,7 +154,7 @@ public class LogIn extends JFrame {
             }
 
             public void mouseExited(MouseEvent e) {
-                lbl_restablecerContra.setForeground(Color.white);
+                lbl_restablecerContra.setForeground(Color.black);
             }
         });
 
@@ -194,12 +199,11 @@ public class LogIn extends JFrame {
         panel_Princ.setBounds(325, 0, 403, 453);
         contentPane.add(panel_Princ);
         panel_Princ.setLayout(null);
-
+        
         panel = new JPanel();
         panel.setBackground(new Color(69, 151, 239));
         panel.setBounds(0, 0, 335, 423);
         contentPane.add(panel);
-
     }
 
     public void cargarImg() {
@@ -211,30 +215,23 @@ public class LogIn extends JFrame {
         // panel.setLayout(null);
     }
 
-    private String checkLogin() {
+    private void checkLogin() {
         String linea;
         String user_type = "";
         boolean isLoginSuccess = false;
         String User_Text = txt_user.getText();
         String Contra_Text = txt_psw.getText();
         try {
-
-            BufferedReader br = new BufferedReader(new FileReader("./src/BBDD.txt"));
-
-            while ((linea = br.readLine()) != null) {
-
-                String[] parte = linea.split(":");
-                UsuarioTXT = parte[0];
-                String ContrasenaTXT = parte[1];
-                String TipoTXT = parte[2];
-                NombreTXT = parte[3];
-                ApellidosTXT = parte[4];
-                NumeroTXT = parte[5];
-                DireccionTXT = parte[6];
-                if (User_Text.equals(UsuarioTXT) && Contra_Text.equals(ContrasenaTXT)) {
-                    user_type = parte[2];
-                    isLoginSuccess = true;
-                    break;
+            Statement statement = conexion.createStatement();
+            ResultSet resultado = statement.executeQuery("SELECT usuario,contraseña,tipoUsuario FROM usuarios");
+            
+            while (resultado.next()) {
+                String usr = resultado.getString("usuario");
+                String psw = resultado.getString("contraseña");
+                String type = resultado.getString("tipoUsuario");
+                if (User_Text.equals(usr) && Contra_Text.equals(psw)) {
+                    user_type=type;
+                    isLoginSuccess=true;
                 }
             }
             if (isLoginSuccess) {
@@ -245,7 +242,6 @@ public class LogIn extends JFrame {
                             DireccionTXT);
                     ventanaSocio.setVisible(true);
                     ventanaSocio.setLocationRelativeTo(null);
-                    dispose();
                 } else if (user_type.equals("Admin")) {
                     // Abrir frame admin
                     AdminPrincipal admin = new AdminPrincipal();
@@ -262,12 +258,12 @@ public class LogIn extends JFrame {
             } else {
                 System.out.println("No Funciona");
                 JFrame jFrame = new JFrame();
-                JOptionPane.showMessageDialog(jFrame, "Usuario/Contrasena incorrecta", "Error",
+                JOptionPane.showMessageDialog(jFrame, "Usuario/Contraseña incorrecta", "Error",
                         JOptionPane.WARNING_MESSAGE);
             }
-        } catch (IOException e) {
-            System.out.println(e);
+            
+        } catch (SQLException e1) {
+            e1.printStackTrace();
         }
-        return user_type;
     }
 }

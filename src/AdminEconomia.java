@@ -236,7 +236,7 @@ public class AdminEconomia extends JFrame {
                         }}
                         if (boton.getName().equals("pedir")) {
                             if (JOptionPane.showInputDialog("Cuantos quieres pedir?", 1) != null) {
-                                //Aqui se sumar� el n�mero a la base de datos
+                                //Aqui se sumar el numero a la base de datos
                         }
                         }
                     }

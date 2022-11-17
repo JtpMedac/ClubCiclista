@@ -95,7 +95,7 @@ public class ModificarProductos extends JFrame {
         lbl_Cantidad.setBounds(42, 246, 193, 29);
         panel_datos.add(lbl_Cantidad);
         
-        lbl_Descripcion = new JLabel("Descripci\u00F3n del producto");
+        lbl_Descripcion = new JLabel("Descripcion del producto");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Descripcion.setBounds(582, 35, 193, 29);
         panel_datos.add(lbl_Descripcion);

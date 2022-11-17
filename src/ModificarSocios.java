@@ -89,12 +89,12 @@ public class ModificarSocios extends JDialog {
         lbl_DNI.setBounds(56, 234, 193, 29);
         panel_datos.add(lbl_DNI);
 
-        lbl_Direccion = new JLabel("Direcci�n");
+        lbl_Direccion = new JLabel("Direccion");
         lbl_Direccion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Direccion.setBounds(486, 35, 193, 29);
         panel_datos.add(lbl_Direccion);
 
-        lbl_Telefono = new JLabel("Tel�fono");
+        lbl_Telefono = new JLabel("Telefono");
         lbl_Telefono.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Telefono.setBounds(486, 141, 193, 29);
         panel_datos.add(lbl_Telefono);

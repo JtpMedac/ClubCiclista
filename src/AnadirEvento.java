@@ -88,12 +88,12 @@ public class AnadirEvento extends JDialog {
         lbl_Fecha.setBounds(42, 187, 193, 29);
         panel_datos.add(lbl_Fecha);
 
-        lbl_Plazas = new JLabel("Número de plazas");
+        lbl_Plazas = new JLabel("Nï¿½mero de plazas");
         lbl_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Plazas.setBounds(42, 246, 193, 29);
         panel_datos.add(lbl_Plazas);
         
-        lbl_Descripcion = new JLabel("Descripción del evento");
+        lbl_Descripcion = new JLabel("Descripcion del evento");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
         lbl_Descripcion.setBounds(582, 35, 193, 29);
         panel_datos.add(lbl_Descripcion);
@@ -154,7 +154,7 @@ public class AnadirEvento extends JDialog {
                         if(comprobar) {
                             aniadirEvento();
                         }else {
-                            JOptionPane.showMessageDialog(null, "Error al crear el evento\nEl identificador debe de ser númerico",
+                            JOptionPane.showMessageDialog(null, "Error al crear el evento\nEl identificador debe de ser numerico",
                                     "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
                         }
                         
@@ -195,8 +195,8 @@ public class AnadirEvento extends JDialog {
                 bw.close();
                 JOptionPane.showMessageDialog(null, "Evento creado correctamente", "Evento creado",
                         JOptionPane.INFORMATION_MESSAGE);
-                int opcionJpane = JOptionPane.showConfirmDialog(null, "¿Quieres crear otro evento?",
-                        "¿Crear otro evento?", JOptionPane.YES_NO_OPTION,
+                int opcionJpane = JOptionPane.showConfirmDialog(null, "Quieres crear otro evento?",
+                        "Crear otro evento?", JOptionPane.YES_NO_OPTION,
                         JOptionPane.INFORMATION_MESSAGE);
                 switch (opcionJpane) {
                     case 0:

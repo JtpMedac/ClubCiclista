@@ -275,7 +275,7 @@ public class AdminScreen extends JFrame {
         menu_Principal.add(mnt_Socios);
         mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
         menu_Principal.add(mnt_Eventos);  
-        mnt_Economia = new JMenuItem("Ir a la ventana economica");     
+        mnt_Economia = new JMenuItem("Ir a la ventana economia");     
         menu_Principal.add(mnt_Economia);    
     }
     public void accionesMenu() {

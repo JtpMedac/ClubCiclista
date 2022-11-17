@@ -17,3 +17,5 @@ SELECT * FROM productos;
 INSERT INTO eventos VALUES (1,'Carrera Montaña','Carrera por la Concha','2005-05-25','2022-11-20',2,5,null);
 INSERT INTO eventos VALUES (2,'Carrera Ciudad','Carrera en el paseo maritimo de Fuengirola','2022-10-25','2022-11-25',8,8,null);
 SELECT * FROM eventos;
+SELECT * FROM apuntar;
+SELECT * FROM comprar;

@@ -223,7 +223,7 @@ public class AdminEvents extends JFrame {
                             }
                             
                             if (boton.getName().equals("delt")) {
-                                if (JOptionPane.showConfirmDialog(null, "nDesea eliminar este registro?", "Confirmar",
+                                if (JOptionPane.showConfirmDialog(null, "Desea eliminar este registro?", "Confirmar",
                                         JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
                                     if (table.getSelectedRow() >= 0) {
                                         ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
@@ -296,7 +296,7 @@ public class AdminEvents extends JFrame {
             mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
             mnt_Eventos.setEnabled(false);
             menu_Principal.add(mnt_Eventos);  
-            mnt_Economia = new JMenuItem("Ir a la ventana economica");     
+            mnt_Economia = new JMenuItem("Ir a la ventana economia");     
             menu_Principal.add(mnt_Economia);    
         }
         public void accionesMenu() {
