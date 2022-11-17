@@ -39,8 +39,9 @@ public class AdminEvents extends JFrame {
     private DefaultTableModel modelo;
     JButton btnNewButton;
     private JMenuBar menu_Principal;
-    private JMenuItem mntm_Economia;
+    private JMenuItem mnt_Economia;
     private JMenuItem mnt_Socios;
+    private JMenuItem mnt_Eventos;
     
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -282,8 +283,11 @@ public class AdminEvents extends JFrame {
             setJMenuBar(menu_Principal);
             mnt_Socios = new JMenuItem("Ir a la ventana socios");
             menu_Principal.add(mnt_Socios);
-            mntm_Economia = new JMenuItem("Ir a la ventana economica");     
-            menu_Principal.add(mntm_Economia);    
+            mnt_Eventos = new JMenuItem("Ir a la ventana eventos");
+            mnt_Eventos.setEnabled(false);
+            menu_Principal.add(mnt_Eventos);  
+            mnt_Economia = new JMenuItem("Ir a la ventana economica");     
+            menu_Principal.add(mnt_Economia);    
         }
         public void accionesMenu() {
             mnt_Socios.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, InputEvent.CTRL_DOWN_MASK));
@@ -294,8 +298,8 @@ public class AdminEvents extends JFrame {
                     dispose();
                 }
             });
-            mntm_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
-            mntm_Economia.addActionListener(new ActionListener() {
+            mnt_Economia.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, InputEvent.CTRL_DOWN_MASK));
+            mnt_Economia.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     AdminEconomia economia = new AdminEconomia();
                     economia.setVisible(true);
