@@ -38,7 +38,9 @@ public class AdminPrincipal extends JFrame {
                     try {
                         AdminEvents frame = new AdminEvents();
                         frame.setVisible(true);
+                        frame.setTitle("Admin: Principal");
                         frame.setLocationRelativeTo(null);
+                        
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

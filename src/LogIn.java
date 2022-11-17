@@ -28,6 +28,7 @@ import java.awt.Font;
 import java.awt.Window.Type;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.JSeparator;
 
 public class LogIn extends JFrame {
 
@@ -44,6 +45,7 @@ public class LogIn extends JFrame {
                 try {
                     LogIn frame = new LogIn();
                     frame.setVisible(true);
+                    frame.setTitle("Iniciar Sesión: Club Ciclista");
                     frame.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -98,14 +100,14 @@ public class LogIn extends JFrame {
     public void llamarText() {
         txt_user = new JTextField();
         txt_user.setToolTipText("");
-        txt_user.setBounds(64, 139, 260, 54);
+        txt_user.setBounds(64, 125, 260, 54);
         panel_Princ.add(txt_user);
         txt_user.setColumns(10);
         TextPrompt user = new TextPrompt("Usuario", txt_user);
 
         txt_psw = new JPasswordField();
         txt_psw.setText("");
-        txt_psw.setBounds(64, 219, 260, 54);
+        txt_psw.setBounds(64, 200, 260, 54);
         panel_Princ.add(txt_psw);
         txt_psw.setColumns(10);
         TextPrompt psw = new TextPrompt("Contraseña", txt_psw);
@@ -113,23 +115,27 @@ public class LogIn extends JFrame {
 
     public void boton() {
         btn_logIn = new JButton("Iniciar sesión");
-        btn_logIn.setBounds(110, 299, 178, 21);
+        btn_logIn.setBounds(110, 295, 178, 21);
         panel_Princ.add(btn_logIn);
     }
 
     public void llamarLbl() {
         lbl_restablecerContra = new JLabel("Restablecer contraseña");
-        lbl_restablecerContra.setForeground(new Color(255, 255, 255));
+        lbl_restablecerContra.setForeground(new Color(0, 0, 0));
         lbl_restablecerContra.setFont(new Font("Roboto", Font.PLAIN, 14));
-        lbl_restablecerContra.setBounds(110, 315, 242, 42);
+        lbl_restablecerContra.setBounds(121, 329, 151, 42);
         panel_Princ.add(lbl_restablecerContra);
 
         lbl_LogIn = new JLabel("Log in");
-        lbl_LogIn.setForeground(new Color(255, 255, 255));
+        lbl_LogIn.setForeground(new Color(0, 0, 0));
         lbl_LogIn.setBackground(new Color(255, 255, 255));
         lbl_LogIn.setFont(new Font("Roboto", Font.BOLD, 20));
-        lbl_LogIn.setBounds(160, 142, 211, 141);
+        lbl_LogIn.setBounds(164, 54, 55, 54);
         panel_Princ.add(lbl_LogIn);
+        
+        JSeparator separator = new JSeparator();
+        separator.setBounds(0, 282, 393, 13);
+        panel_Princ.add(separator);
     }
 
     public void iniciarAcciones() {
@@ -242,6 +248,7 @@ public class LogIn extends JFrame {
                             DireccionTXT);
                     ventanaSocio.setVisible(true);
                     ventanaSocio.setLocationRelativeTo(null);
+                    dispose();
                 } else if (user_type.equals("Admin")) {
                     // Abrir frame admin
                     AdminPrincipal admin = new AdminPrincipal();
