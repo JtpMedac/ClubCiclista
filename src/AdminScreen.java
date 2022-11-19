@@ -26,12 +26,12 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 
 public class AdminScreen extends JFrame {
 
     private JPanel contentPane;
     private JPanel panel_Princ;
-    private JLabel lblNewLabel;
     private JLabel lbl_user;
     private JButton btn_anadirSocio, btn_salir;
     private JScrollPane scrollPane;
@@ -44,6 +44,7 @@ public class AdminScreen extends JFrame {
     private JMenuItem mnt_Economia;
     private JMenuItem mnt_Socios;
     private JMenuItem mnt_Eventos;
+    private JLabel lbl_Background;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -52,6 +53,7 @@ public class AdminScreen extends JFrame {
                     AdminScreen frame = new AdminScreen();
                     frame.setVisible(true);
                     frame.setLocationRelativeTo(null);
+                    frame.setTitle("Ventana Socios");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -62,7 +64,6 @@ public class AdminScreen extends JFrame {
     public AdminScreen() {
         cargarPanel();
         cargarPaneles();
-        cargarLabel();
         cargarTabla();
         botones();
         iniciarAcciones();
@@ -73,8 +74,9 @@ public class AdminScreen extends JFrame {
     public void cargarPanel() {
         setMinimumSize(new Dimension(1080, 720));
         setPreferredSize(new Dimension(1080, 720));
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new Dimension(1080, 720));
+        setSize(new Dimension(720, 400));
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(168, 201, 240));
@@ -87,34 +89,35 @@ public class AdminScreen extends JFrame {
     public void cargarPaneles() {
         panel_Princ = new JPanel();
         panel_Princ.setBackground(new Color(249, 249, 249));
-        panel_Princ.setBounds(10, 11, 1044, 659);
+        panel_Princ.setBounds(0, 0, 1066, 669);
         contentPane.add(panel_Princ);
         panel_Princ.setLayout(null);
     }
 
-    public void cargarLabel() {
-        lblNewLabel = new JLabel("Sos admin capo :D");
-        lblNewLabel.setBounds(58, 0, 106, 66);
-        panel_Princ.add(lblNewLabel);
-    }
-
     public void botones() {
         btn_anadirSocio = new JButton("Anadir socio");
-        btn_anadirSocio.setBounds(748, 45, 157, 21);
+        btn_anadirSocio.setBounds(877, 10, 157, 21);
         panel_Princ.add(btn_anadirSocio);
         btn_salir = new JButton("Salir");
-        btn_salir.setBounds(904, 22, 130, 23);
+        btn_salir.setBounds(904, 590, 130, 23);
         panel_Princ.add(btn_salir);
 
         btnNewButton = new JButton("Hola");
         panel_Princ.add(btnNewButton);
+        
+        lbl_Background = new JLabel("");
+        lbl_Background.setIcon(new ImageIcon(AdminScreen.class.getResource("/resources/Backgrounds/redimensionado2.png")));
+        lbl_Background.setBounds(-12, -11, 1198, 659);
+        panel_Princ.add(lbl_Background);
     }
 
     public void cargarTabla() {
         // Fumadita
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 75, 1024, 573);
+        scrollPane.setBounds(10, 43, 1024, 518);
         panel_Princ.add(scrollPane);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
 
         modelo = new DefaultTableModel();
         table = new JTable(modelo);
@@ -284,6 +287,7 @@ public class AdminScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminEvents eventos = new AdminEvents();
                 eventos.setVisible(true);
+                eventos.setLocationRelativeTo(null);
                 dispose();
             }
         });
@@ -292,6 +296,7 @@ public class AdminScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AdminEconomia economia = new AdminEconomia();
                 economia.setVisible(true);
+                economia.setLocationRelativeTo(null);
                 dispose();
             }
         });

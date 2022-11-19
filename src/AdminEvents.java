@@ -26,12 +26,12 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 
 public class AdminEvents extends JFrame {
 
     private JPanel contentPane;
     private JPanel panel_Princ;
-    private JLabel lblNewLabel;
     private JLabel lbl_user;
     private JButton btn_anadirEvento, btn_salir, btn_editar, btn_borrar, btn_mostrar;
     private JScrollPane scrollPane;
@@ -42,6 +42,7 @@ public class AdminEvents extends JFrame {
     private JMenuItem mnt_Economia;
     private JMenuItem mnt_Socios;
     private JMenuItem mnt_Eventos;
+    private JLabel lbl_Background;
     
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -50,6 +51,8 @@ public class AdminEvents extends JFrame {
                     AdminEvents frame = new AdminEvents();
                     frame.setVisible(true);
                     frame.setLocationRelativeTo(null);
+                    frame.setTitle("Ventana eventos");
+                   
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -73,6 +76,7 @@ public class AdminEvents extends JFrame {
             setPreferredSize(new Dimension(1080, 720));
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(new Dimension(1080, 720));
+            setResizable(false);
             setBounds(100, 100, 450, 300);
             contentPane = new JPanel();
             contentPane.setBackground(new Color(168, 201, 240));
@@ -85,36 +89,39 @@ public class AdminEvents extends JFrame {
         public void cargarPaneles() {
             panel_Princ = new JPanel();
             panel_Princ.setBackground(new Color(249, 249, 249));
-            panel_Princ.setBounds(10, 11, 1044, 659);
+            panel_Princ.setBounds(0, 0, 1066, 683);
             contentPane.add(panel_Princ);
             panel_Princ.setLayout(null);
         }
 
         public void cargarLabel() {
-            lblNewLabel = new JLabel("Sos admin capo :D");
-            lblNewLabel.setBounds(58, 0, 106, 66);
-            panel_Princ.add(lblNewLabel);
         }
 
         public void botones() {
             btn_anadirEvento = new JButton("Anadir evento");
-            btn_anadirEvento.setBounds(748, 45, 157, 21);
+            btn_anadirEvento.setBounds(877, 10, 157, 21);
             panel_Princ.add(btn_anadirEvento);
-            btn_salir = new JButton("Cerrar Sesion");
-            btn_salir.setBounds(904, 22, 130, 23);
+            btn_salir = new JButton("Salir");
+            btn_salir.setBounds(904, 590, 130, 23);
             panel_Princ.add(btn_salir);
 
             btnNewButton = new JButton("Hola");
             panel_Princ.add(btnNewButton);
+            
+            lbl_Background = new JLabel("");
+            lbl_Background.setIcon(new ImageIcon(AdminEvents.class.getResource("/resources/Backgrounds/redimensionado2.png")));
+            lbl_Background.setBounds(-12, -100, 1186, 831);
+            panel_Princ.add(lbl_Background);
         }
 
         public void cargarTabla() {
             // Fumadita
             scrollPane = new JScrollPane();
             scrollPane.setEnabled(false);
-            scrollPane.setBounds(10, 75, 1024, 573);
+            scrollPane.setBounds(10, 43, 1024, 518);
             panel_Princ.add(scrollPane);
-
+            scrollPane.setOpaque(false);
+            scrollPane.getViewport().setOpaque(false);
             modelo = new DefaultTableModel();
             table = new JTable(modelo);
             table.setEnabled(false);

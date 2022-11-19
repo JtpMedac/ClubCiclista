@@ -24,16 +24,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class ModificarEventos extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_Nombre,txt_Fecha,txt_Plazas;
+    private JTextField txt_ID,txt_Nombre,txt_Fecha,txt_Plazas;//Separar fecha en dos y poner numero apuntados, anadir descripcion, e id.
     private JPanel panel_datos;
-    private JLabel lbl_datos, lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso, lbl_ID ;
-    private JTextField txt_ID;
+    private JLabel lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso, lbl_ID;
     private JTextArea textArea_Descripcion;
     private String ID;
+    private JLabel lblBackground;
 
     public ModificarEventos(String ID) {
         this.ID = ID;
@@ -41,9 +42,9 @@ public class ModificarEventos extends JDialog {
         cargarPanelSec();
         cargarJLabels();
         cargarTextFields();
-        botonesConf();
+    //    botonesConf();
         limitarCaracteres();
-        leerSocio();
+        leerEvento();
 
     }
 
@@ -61,42 +62,73 @@ public class ModificarEventos extends JDialog {
     }
 
     public void cargarPanelSec() {
-        lbl_datos = new JLabel("Modificar evento");
-        lbl_datos.setFont(new Font("Tahoma", Font.PLAIN, 36));
-        lbl_datos.setBounds(34, 26, 415, 44);
-        contentPanel.add(lbl_datos);
 
         panel_datos = new JPanel();
         panel_datos.setBackground(new Color(158, 232, 134));
-        panel_datos.setBounds(10, 81, 884, 354);
+        panel_datos.setBounds(0, 0, 906, 481);
         contentPanel.add(panel_datos);
         panel_datos.setLayout(null);
+        JButton okButton = new JButton("OK");
+        okButton.setLocation(778, 451);
+        okButton.setSize(67, 20);
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setLocation(682, 451);
+        cancelButton.setSize(93, 20);
+        okButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                modificarEvento();
+                dispose();
+                AdminEvents admin = new AdminEvents();
+                admin.setVisible(true);
+                admin.setLocationRelativeTo(null);
+                dispose();
+            }
+        });
+        okButton.setActionCommand("OK");
+        panel_datos.add(okButton);
+        getRootPane().setDefaultButton(okButton);
+    
+    
+        cancelButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AdminEvents admin = new AdminEvents();
+                admin.setVisible(true);
+                admin.setLocationRelativeTo(null);
+                dispose();
+            }
+
+        });
+        cancelButton.setActionCommand("Cancel");
+        panel_datos.add(cancelButton);
     }
+
 
     public void cargarJLabels() {
         lbl_Nombre = new JLabel("Nombre");
         lbl_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Nombre.setBounds(42, 115, 193, 29);
+        lbl_Nombre.setBounds(53, 148, 120, 29);
         panel_datos.add(lbl_Nombre);
 
         lbl_Fecha = new JLabel("Fecha");
         lbl_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Fecha.setBounds(42, 187, 193, 29);
+        lbl_Fecha.setBounds(53, 186, 120, 29);
         panel_datos.add(lbl_Fecha);
 
         lbl_Plazas = new JLabel("Numero de plazas");
         lbl_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Plazas.setBounds(42, 246, 193, 29);
+        lbl_Plazas.setBounds(53, 225, 128, 29);
         panel_datos.add(lbl_Plazas);
         
         lbl_Descripcion = new JLabel("Descripcion del evento");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Descripcion.setBounds(582, 35, 193, 29);
+        lbl_Descripcion.setBounds(582, 80, 193, 29);
         panel_datos.add(lbl_Descripcion);
         
         lbl_ID = new JLabel("ID");
         lbl_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_ID.setBounds(42, 60, 45, 13);
+        lbl_ID.setBounds(53, 120, 45, 13);
         panel_datos.add(lbl_ID);
     }
 
@@ -104,7 +136,7 @@ public class ModificarEventos extends JDialog {
         txt_Nombre = new JTextField();
         txt_Nombre.setEditable(false);
         txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Nombre.setBounds(179, 119, 238, 20);
+        txt_Nombre.setBounds(190, 152, 238, 20);
         panel_datos.add(txt_Nombre);
         txt_Nombre.setColumns(10);
 
@@ -112,73 +144,47 @@ public class ModificarEventos extends JDialog {
         txt_Fecha.setEditable(false);
         txt_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Fecha.setColumns(10);
-        txt_Fecha.setBounds(179, 191, 238, 20);
+        txt_Fecha.setBounds(190, 190, 238, 20);
         panel_datos.add(txt_Fecha);
 
         txt_Plazas = new JTextField();
         txt_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Plazas.setColumns(10);
-        txt_Plazas.setBounds(179, 250, 238, 20);
+        txt_Plazas.setBounds(190, 229, 238, 20);
         panel_datos.add(txt_Plazas);
 
         txt_ID = new JTextField();
         txt_ID.setEditable(false);
-        txt_ID.setBounds(179, 59, 238, 19);
+        txt_ID.setBounds(190, 119, 238, 19);
         panel_datos.add(txt_ID);
         txt_ID.setColumns(10);
         
         textArea_Descripcion = new JTextArea();
         textArea_Descripcion.setLineWrap(true);
-        textArea_Descripcion.setBounds(582, 70, 263, 258);
+        textArea_Descripcion.setBounds(582, 119, 263, 258);
         panel_datos.add(textArea_Descripcion);
 
         lblAviso = new JLabel("");
         lblAviso.setBounds(315, 402, 556, 20);
         panel_datos.add(lblAviso);
+        
+        lblBackground = new JLabel("");
+        lblBackground.setIcon(new ImageIcon(ModificarEventos.class.getResource("/resources/Backgrounds/redimensionado2.png")));
+        lblBackground.setBounds(0, 0, 906, 481);
+        panel_datos.add(lblBackground);
     }
 
-    public void botonesConf() {
-        {
-            JPanel buttonPane = new JPanel();
-            buttonPane.setBackground(new Color(168, 201, 240));
-            buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            getContentPane().add(buttonPane, BorderLayout.SOUTH);
-            {
-                JButton okButton = new JButton("OK");
-                okButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        modificarSocio();
-                        dispose();
-                        AdminEvents admin = new AdminEvents();
-                        admin.setVisible(true);
-                        admin.setLocationRelativeTo(null);
-                        dispose();
-                    }
-                });
-                okButton.setActionCommand("OK");
-                buttonPane.add(okButton);
-                getRootPane().setDefaultButton(okButton);
-            }
-            {
-                JButton cancelButton = new JButton("Cancel");
-                cancelButton.addActionListener(new ActionListener() {
+//    public void botonesConf() {
+//        {
+//            JPanel buttonPane = new JPanel();
+//            buttonPane.setBackground(new Color(168, 201, 240));
+//            buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+//            getContentPane().add(buttonPane, BorderLayout.SOUTH);
+//            {
+//              
+//    }
 
-                    public void actionPerformed(ActionEvent e) {
-                        dispose();
-                        AdminEvents admin = new AdminEvents();
-                        admin.setVisible(true);
-                        admin.setLocationRelativeTo(null);
-                        dispose();
-                    }
-
-                });
-                cancelButton.setActionCommand("Cancel");
-                buttonPane.add(cancelButton);
-            }
-        }
-    }
-
-    public void leerSocio() {
+    public void leerEvento() {
         String linea;
         try {
 
@@ -198,7 +204,7 @@ public class ModificarEventos extends JDialog {
         }
     }
 
-    public void modificarSocio() {
+    public void modificarEvento() {
         try {
             File fichero = new File("./src/Eventos.txt");
             File ficherotmp = new File("./src/Eventostmp.txt");
@@ -211,7 +217,7 @@ public class ModificarEventos extends JDialog {
                 if (ID.equals(parte[0])) {
                     if (!((txt_Nombre.getText().equals("")||(textArea_Descripcion.getText().equals(""))||(txt_Fecha.getText().equals(""))||(txt_Plazas.getText().equals(""))))) {
 
-                        writer.write(parte[0] + ":" + txt_Nombre.getText() + textArea_Descripcion.getText() + ":"
+                        writer.write(parte[0] + ":" + txt_Nombre.getText() +":"+ textArea_Descripcion.getText() + ":"
                                 + txt_Fecha.getText() + ":" + txt_Plazas.getText() + ":" + parte[5] + "\n");
 
                     }

@@ -28,6 +28,7 @@ public class GestorScreen extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(1080, 720));
         setBounds(100, 100, 450, 300);
+        setResizable(false);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(168, 201, 240));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

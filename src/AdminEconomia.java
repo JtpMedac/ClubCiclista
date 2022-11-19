@@ -25,6 +25,8 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class AdminEconomia extends JFrame {
 
@@ -37,6 +39,7 @@ public class AdminEconomia extends JFrame {
     private JMenuItem mnt_Economia;
     private JMenuItem mnt_Socios;
     private JMenuItem mnt_Eventos;
+    private JLabel lbl_Background;
     /**
      * Launch the application.
      */
@@ -47,6 +50,8 @@ public class AdminEconomia extends JFrame {
                     AdminEconomia frame = new AdminEconomia();
                     frame.setVisible(true);
                     frame.setLocationRelativeTo(null);
+                    frame.setTitle("Ventana Productos");
+                   
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -67,6 +72,7 @@ public class AdminEconomia extends JFrame {
         accionesMenu();
     }
     public void cargarPanel() {
+        setResizable(false);
         setMinimumSize(new Dimension(1080, 720));
         setPreferredSize(new Dimension(1080, 720));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +87,7 @@ public class AdminEconomia extends JFrame {
     public void cargarPaneles() {
         contentPane.setLayout(null);
         panel_Princ = new JPanel();
-        panel_Princ.setBounds(10, 11, 1044, 659);
+        panel_Princ.setBounds(0, 0, 1066, 683);
         panel_Princ.setBackground(new Color(249, 249, 249));
         contentPane.add(panel_Princ);
         panel_Princ.setLayout(null);
@@ -89,8 +95,11 @@ public class AdminEconomia extends JFrame {
     }
     public void crearTabla() {
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 43, 1024, 506);
+        scrollPane.setBounds(10, 43, 1024, 518);
         panel_Princ.add(scrollPane);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+      
 
         DefaultTableModel modelo = new DefaultTableModel();
         proveedores = new JTable(modelo);
@@ -141,8 +150,13 @@ public class AdminEconomia extends JFrame {
         btn_anadirProducto.setBounds(877, 10, 157, 21);
         panel_Princ.add(btn_anadirProducto);
         btn_salir = new JButton("Salir");
-        btn_salir.setBounds(904, 559, 130, 23);
+        btn_salir.setBounds(904, 590, 130, 23);
         panel_Princ.add(btn_salir);
+        
+        lbl_Background = new JLabel("");
+        lbl_Background.setIcon(new ImageIcon(AdminEconomia.class.getResource("/resources/Backgrounds/redimensionado2.png")));
+        lbl_Background.setBounds(0, -90, 1186, 809);
+        panel_Princ.add(lbl_Background);
     }
     public void iniciarAcciones() {
         btn_anadirProducto.addActionListener(new ActionListener() {
@@ -183,7 +197,7 @@ public class AdminEconomia extends JFrame {
                                     && columna >= 0) {
                                 Object objeto = proveedores.getValueAt(fila, columna);
 
-                                ModificarEventos modificar = new ModificarEventos(objeto.toString());
+                                ModificarProductos modificar = new ModificarProductos(objeto.toString());
                                 modificar.setVisible(true);
                                 modificar.setLocationRelativeTo(null);
                                 dispose();

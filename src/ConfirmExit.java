@@ -36,6 +36,7 @@ public class ConfirmExit extends JDialog {
 
     public void crearPanel() {
         setBounds(100, 100, 450, 300);
+        setResizable(false);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -55,7 +56,6 @@ public class ConfirmExit extends JDialog {
             getContentPane().add(buttonPane, BorderLayout.SOUTH);
             {
                 btn_conf = new JButton("SI");
-
                 btn_conf.setActionCommand("OK");
                 buttonPane.add(btn_conf);
                 getRootPane().setDefaultButton(btn_conf);
@@ -63,10 +63,6 @@ public class ConfirmExit extends JDialog {
             }
             {
                 btn_cancel = new JButton("No");
-                AdminPrincipal principal = new AdminPrincipal();
-                principal.setVisible(true);
-                principal.setLocationRelativeTo(null);
-                dispose();
                 btn_cancel.setActionCommand("Cancel");
                 buttonPane.add(btn_cancel);
             }
@@ -81,6 +77,9 @@ public class ConfirmExit extends JDialog {
         });
         btn_cancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                AdminPrincipal principal = new AdminPrincipal();
+                principal.setVisible(true);
+                principal.setLocationRelativeTo(null);
                 dispose();
             }
         });

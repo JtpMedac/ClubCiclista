@@ -202,15 +202,16 @@ public class LogIn extends JFrame {
         
         panel = new JPanel();
         panel.setBackground(new Color(69, 151, 239));
-        panel.setBounds(0, 0, 335, 423);
+        panel.setBounds(0, 0, 335, 463);
         contentPane.add(panel);
     }
 
     public void cargarImg() {
+        panel.setLayout(null);
 
         lblBackground = new JLabel("");
-        lblBackground.setBounds(209, 17, 0, 0);
-        lblBackground.setIcon(new ImageIcon("./src/resources/bg1.png"));
+        lblBackground.setBounds(0, 0, 375, 500);
+        lblBackground.setIcon(new ImageIcon(LogIn.class.getResource("/resources/Backgrounds/bg1.png")));
         panel.add(lblBackground);
         // panel.setLayout(null);
     }
@@ -261,7 +262,7 @@ public class LogIn extends JFrame {
                 JOptionPane.showMessageDialog(jFrame, "Usuario/Contraseña incorrecta", "Error",
                         JOptionPane.WARNING_MESSAGE);
             }
-            
+            conexion.close();
         } catch (SQLException e1) {
             e1.printStackTrace();
         }

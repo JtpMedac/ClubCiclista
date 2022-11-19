@@ -20,6 +20,7 @@ import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
+import javax.swing.ImageIcon;
 
 public class AdminPrincipal extends JFrame {
 
@@ -40,6 +41,7 @@ public class AdminPrincipal extends JFrame {
                         frame.setVisible(true);
                         frame.setTitle("Admin: Principal");
                         frame.setLocationRelativeTo(null);
+                       
                         
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -57,10 +59,11 @@ public class AdminPrincipal extends JFrame {
         accionesMenu();
     }
     public void cargarPanel() {
-        setMinimumSize(new Dimension(1080, 720));
-        setPreferredSize(new Dimension(1080, 720));
+        setMinimumSize(new Dimension(700, 480));
+        setPreferredSize(new Dimension(720, 400));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new Dimension(1080, 720));
+        setResizable(false);
+        setSize(new Dimension(698, 480));
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(168, 201, 240));
@@ -70,42 +73,48 @@ public class AdminPrincipal extends JFrame {
     public void cargarPaneles() {
         contentPane.setLayout(null);
         panel_Princ = new JPanel();
-        panel_Princ.setBounds(10, 11, 1044, 659);
+        panel_Princ.setBounds(0, 0, 697, 668);
         panel_Princ.setBackground(new Color(249, 249, 249));
         contentPane.add(panel_Princ);
         panel_Princ.setLayout(null);
     }
     public void cargarLabel() {
-        lbl_bienvenida = new JLabel("Bienvenido administrador, que deseas hacer?");
-        lbl_bienvenida.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lbl_bienvenida.setBounds(318, 166, 406, 40);
+        lbl_bienvenida = new JLabel("Menu administrador: Club ciclista");
+        lbl_bienvenida.setFont(new Font("Roboto", Font.BOLD, 20));
+        lbl_bienvenida.setBounds(65, 6, 406, 40);
         panel_Princ.add(lbl_bienvenida);
     }
     public void cargarBotones() {
-        btn_socios = new JButton("Ir a la ventana Socios");  
-        btn_socios.setBounds(149, 282, 158, 207);
+        btn_socios = new JButton("Ventana Socios");  
+        btn_socios.setBounds(56, 120, 158, 207);
         panel_Princ.add(btn_socios);
         
-        btn_eventos = new JButton("Ir a la ventana Eventos");
-        btn_eventos.setBounds(453, 282, 158, 207);
+        btn_eventos = new JButton("Ventana Eventos");
+        btn_eventos.setBounds(481, 120, 158, 207);
         panel_Princ.add(btn_eventos);
         
-        btn_ventas = new JButton("Ir a la ventana Economica");
+        btn_ventas = new JButton("Ventana Productos");
         
-        btn_ventas.setBounds(760, 282, 158, 207);
+        btn_ventas.setBounds(270, 120, 158, 207);
         panel_Princ.add(btn_ventas);
         
         JButton btn_CerrarSesion = new JButton("Cerrar sesion");
         btn_CerrarSesion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 ConfirmExit Confirmar = new ConfirmExit();
                 Confirmar.setVisible(true);
                 Confirmar.setLocationRelativeTo(null);
-                dispose();
+
             }
         });
-        btn_CerrarSesion.setBounds(850, 32, 147, 21);
+        btn_CerrarSesion.setBounds(481, 19, 147, 21);
         panel_Princ.add(btn_CerrarSesion);
+        
+        JLabel lblBackground = new JLabel("New label");
+        lblBackground.setIcon(new ImageIcon(AdminPrincipal.class.getResource("/resources/Backgrounds/bgmprincipal.png")));
+        lblBackground.setBounds(0, 0, 685, 425);
+        panel_Princ.add(lblBackground);
     }
     public void iniciarAcciones() {
         btn_socios.addActionListener(new ActionListener() {

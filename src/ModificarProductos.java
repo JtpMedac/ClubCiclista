@@ -24,16 +24,19 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 
 public class ModificarProductos extends JFrame {
 
     private final JPanel contentPanel = new JPanel();
-    private JTextField txt_Nombre,txt_Precio,txt_Cantidad;
+    public JTextField txt_Nombre,txt_Precio,txt_Cantidad;
     private JPanel panel_datos;
-    private JLabel lbl_datos, lbl_Nombre, lbl_Precio, lbl_Cantidad, lbl_Descripcion, lblAviso, lbl_ID, lbl_Foto, lbl_Ruta;
+    private JLabel lbl_Nombre, lbl_Precio, lbl_Cantidad, lbl_Descripcion, lblAviso, lbl_ID, lbl_Foto, lbl_Ruta;
     private JTextField txt_ID;
     private JTextArea textArea_Descripcion;
     private String productos;
+    private JLabel lblModificarProductos;
+    private JLabel lblBackground;
     /**
      * Launch the application.
      */
@@ -48,7 +51,7 @@ public class ModificarProductos extends JFrame {
         cargarPanelSec();
         cargarJLabels();
         cargarTextFields();
-        botonesConf();
+       // botonesConf();
         leerProducto();
 
     }
@@ -67,56 +70,85 @@ public class ModificarProductos extends JFrame {
     }
 
     public void cargarPanelSec() {
-        lbl_datos = new JLabel("Modificar producto");
-        lbl_datos.setFont(new Font("Tahoma", Font.PLAIN, 36));
-        lbl_datos.setBounds(34, 26, 420, 44);
-        contentPanel.add(lbl_datos);
-
+        setResizable(false);
         panel_datos = new JPanel();
         panel_datos.setBackground(new Color(158, 232, 134));
-        panel_datos.setBounds(10, 81, 884, 354);
+        panel_datos.setBounds(0, 0, 906, 481);
         contentPanel.add(panel_datos);
         panel_datos.setLayout(null);
+        JButton okButton = new JButton("OK");
+        okButton.setLocation(763, 451);
+        okButton.setSize(80, 20);
+        okButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                modificarProducto();
+                dispose();
+                AdminScreen admin = new AdminScreen();
+                admin.setVisible(true);
+                admin.setLocationRelativeTo(null);
+                dispose();
+            }
+        });
+        okButton.setActionCommand("OK");
+        panel_datos.add(okButton);
+        getRootPane().setDefaultButton(okButton);
+  
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setLocation(673, 451);
+        cancelButton.setSize(80, 20);
+        cancelButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AdminEconomia admin = new AdminEconomia();
+                admin.setVisible(true);
+                admin.setLocationRelativeTo(null);
+                dispose();
+            }
+
+        });
+        cancelButton.setActionCommand("Cancel");
+        panel_datos.add(cancelButton);
     }
 
     public void cargarJLabels() {
         lbl_Nombre = new JLabel("Nombre");
         lbl_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Nombre.setBounds(42, 115, 193, 29);
+        lbl_Nombre.setBounds(41, 164, 193, 29);
         panel_datos.add(lbl_Nombre);
 
         lbl_Precio = new JLabel("Precio (euros)");
         lbl_Precio.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Precio.setBounds(42, 187, 193, 29);
+        lbl_Precio.setBounds(41, 236, 193, 29);
         panel_datos.add(lbl_Precio);
 
         lbl_Cantidad = new JLabel("Cantidad");
         lbl_Cantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Cantidad.setBounds(42, 246, 193, 29);
+        lbl_Cantidad.setBounds(41, 295, 193, 29);
         panel_datos.add(lbl_Cantidad);
         
         lbl_Descripcion = new JLabel("Descripcion del producto");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Descripcion.setBounds(582, 35, 193, 29);
+        lbl_Descripcion.setBounds(581, 84, 193, 29);
         panel_datos.add(lbl_Descripcion);
         
         lbl_ID = new JLabel("ID");
         lbl_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_ID.setBounds(42, 60, 45, 13);
+        lbl_ID.setBounds(41, 109, 45, 13);
         panel_datos.add(lbl_ID);
         
         lblAviso = new JLabel("");
-        lblAviso.setBounds(315, 402, 556, 20);
+        lblAviso.setBounds(41, 387, 556, 20);
         panel_datos.add(lblAviso);
         
         lbl_Foto = new JLabel("Foto");
         lbl_Foto.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Foto.setBounds(42, 299, 193, 29);
+        lbl_Foto.setBounds(41, 348, 193, 29);
         panel_datos.add(lbl_Foto);
         
         lbl_Ruta = new JLabel("");
         lbl_Ruta.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Ruta.setBounds(183, 299, 165, 29);
+        lbl_Ruta.setBounds(182, 348, 165, 29);
         panel_datos.add(lbl_Ruta);
     }
 
@@ -124,76 +156,57 @@ public class ModificarProductos extends JFrame {
         txt_Nombre = new JTextField();
         txt_Nombre.setEditable(false);
         txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Nombre.setBounds(179, 119, 238, 20);
+        txt_Nombre.setBounds(178, 168, 238, 20);
         panel_datos.add(txt_Nombre);
         txt_Nombre.setColumns(10);
 
         txt_Precio = new JTextField();
         txt_Precio.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Precio.setColumns(10);
-        txt_Precio.setBounds(179, 191, 238, 20);
+        txt_Precio.setBounds(178, 240, 238, 20);
         panel_datos.add(txt_Precio);
 
         txt_Cantidad = new JTextField();
         txt_Cantidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Cantidad.setColumns(10);
-        txt_Cantidad.setBounds(179, 250, 238, 20);
+        txt_Cantidad.setBounds(178, 299, 238, 20);
         panel_datos.add(txt_Cantidad);
 
         txt_ID = new JTextField();
         txt_ID.setEditable(false);
-        txt_ID.setBounds(179, 59, 238, 19);
+        txt_ID.setBounds(178, 108, 238, 19);
         panel_datos.add(txt_ID);
         txt_ID.setColumns(10);
         
         textArea_Descripcion = new JTextArea();
         textArea_Descripcion.setLineWrap(true);
         textArea_Descripcion.setEditable(false);
-        textArea_Descripcion.setBounds(582, 75, 262, 238);
+        textArea_Descripcion.setBounds(581, 124, 262, 238);
         panel_datos.add(textArea_Descripcion);
+        
+        lblModificarProductos = new JLabel("Modificar Producto");
+        lblModificarProductos.setFont(new Font("Roboto", Font.BOLD, 25));
+        lblModificarProductos.setBounds(334, 10, 238, 29);
+        panel_datos.add(lblModificarProductos);
+        
+        lblBackground = new JLabel("");
+        lblBackground.setIcon(new ImageIcon(ModificarProductos.class.getResource("/resources/Backgrounds/redimensionado2.png")));
+        lblBackground.setBounds(0, 0, 906, 481);
+        panel_datos.add(lblBackground);
     }
     
 
-    public void botonesConf() {
-        {
-            JPanel buttonPane = new JPanel();
-            buttonPane.setBackground(new Color(168, 201, 240));
-            buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            getContentPane().add(buttonPane, BorderLayout.SOUTH);
-            {
-                JButton okButton = new JButton("OK");
-                okButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        modificarProducto();
-                        dispose();
-                        AdminScreen admin = new AdminScreen();
-                        admin.setVisible(true);
-                        admin.setLocationRelativeTo(null);
-                        dispose();
-                    }
-                });
-                okButton.setActionCommand("OK");
-                buttonPane.add(okButton);
-                getRootPane().setDefaultButton(okButton);
-            }
-            {
-                JButton cancelButton = new JButton("Cancel");
-                cancelButton.addActionListener(new ActionListener() {
-
-                    public void actionPerformed(ActionEvent e) {
-                        dispose();
-                        AdminScreen admin = new AdminScreen();
-                        admin.setVisible(true);
-                        admin.setLocationRelativeTo(null);
-                        dispose();
-                    }
-
-                });
-                cancelButton.setActionCommand("Cancel");
-                buttonPane.add(cancelButton);
-            }
-        }
-    }
+//    public void botonesConf() {
+//        {
+//            JPanel buttonPane = new JPanel();
+//            buttonPane.setBackground(new Color(168, 201, 240));
+//            buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+//            getContentPane().add(buttonPane, BorderLayout.SOUTH);
+//            {
+//              
+//            }
+//        }
+//    }
 
     public void leerProducto() {
         String linea;

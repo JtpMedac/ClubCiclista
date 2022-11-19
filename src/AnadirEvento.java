@@ -22,15 +22,18 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 
 public class AnadirEvento extends JDialog {
 
     private final JPanel contentPanel = new JPanel();
     private JTextField txt_Nombre,txt_Fecha,txt_Plazas;
     private JPanel panel_datos;
-    private JLabel lbl_datos, lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso, lbl_ID ;
+    private JLabel lbl_Nombre, lbl_Fecha, lbl_Plazas, lbl_Descripcion, lblAviso, lbl_ID ;
     private JTextField txt_ID;
     private JTextArea textArea_Descripcion;
+    private JLabel lblNewLabel;
+    private JLabel lblBackground;
 
     public static void main(String[] args) {
         try {
@@ -38,6 +41,7 @@ public class AnadirEvento extends JDialog {
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
             dialog.setLocationRelativeTo(null);
+            dialog.setTitle("Anadir evento");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,7 +51,7 @@ public class AnadirEvento extends JDialog {
         cargarPanelSec();
         cargarJLabels();
         cargarTextFields();
-        botonesConf();
+        //botonesConf();
         limitarCaracteres();
     }
 
@@ -65,42 +69,71 @@ public class AnadirEvento extends JDialog {
     }
 
     public void cargarPanelSec() {
-        lbl_datos = new JLabel("Datos del nuevo evento");
-        lbl_datos.setFont(new Font("Tahoma", Font.PLAIN, 36));
-        lbl_datos.setBounds(34, 26, 415, 44);
-        contentPanel.add(lbl_datos);
 
         panel_datos = new JPanel();
         panel_datos.setBackground(new Color(158, 232, 134));
-        panel_datos.setBounds(10, 81, 884, 354);
+        panel_datos.setBounds(0, 0, 916, 491);
         contentPanel.add(panel_datos);
         panel_datos.setLayout(null);
+        JButton okButton = new JButton("OK");
+        okButton.setLocation(705, 432);
+        okButton.setSize(81, 20);
+        okButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Pattern numero = Pattern.compile("^[0-9]*$");
+                Matcher sacarNum = numero.matcher(txt_ID.getText());
+                boolean comprobar = sacarNum.find();
+                if(comprobar) {
+                    aniadirEvento();
+                }else {
+                    JOptionPane.showMessageDialog(null, "Error al crear el evento\nEl identificador debe de ser numerico",
+                            "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+        });
+        okButton.setActionCommand("OK");
+        panel_datos.add(okButton);
+        getRootPane().setDefaultButton(okButton);
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setLocation(796, 432);
+        cancelButton.setSize(75, 20);
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                AdminEvents admin = new AdminEvents();
+                admin.setVisible(true);
+                admin.setLocationRelativeTo(null);
+                dispose();
     }
+        });
+        cancelButton.setActionCommand("Cancel");
+        panel_datos.add(cancelButton);}
 
     public void cargarJLabels() {
         lbl_Nombre = new JLabel("Nombre");
         lbl_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Nombre.setBounds(42, 115, 193, 29);
+        lbl_Nombre.setBounds(48, 140, 139, 29);
         panel_datos.add(lbl_Nombre);
 
         lbl_Fecha = new JLabel("Fecha");
         lbl_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Fecha.setBounds(42, 187, 193, 29);
+        lbl_Fecha.setBounds(48, 170, 139, 29);
         panel_datos.add(lbl_Fecha);
 
-        lbl_Plazas = new JLabel("N�mero de plazas");
+        lbl_Plazas = new JLabel("Numero de plazas");
         lbl_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Plazas.setBounds(42, 246, 193, 29);
+        lbl_Plazas.setBounds(48, 209, 139, 29);
         panel_datos.add(lbl_Plazas);
         
         lbl_Descripcion = new JLabel("Descripcion del evento");
         lbl_Descripcion.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_Descripcion.setBounds(582, 35, 193, 29);
+        lbl_Descripcion.setBounds(512, 74, 193, 29);
         panel_datos.add(lbl_Descripcion);
         
         lbl_ID = new JLabel("ID");
         lbl_ID.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lbl_ID.setBounds(42, 60, 45, 13);
+        lbl_ID.setBounds(48, 117, 45, 13);
         panel_datos.add(lbl_ID);
         
         lblAviso = new JLabel("");
@@ -111,75 +144,55 @@ public class AnadirEvento extends JDialog {
     public void cargarTextFields() {
         txt_Nombre = new JTextField();
         txt_Nombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        txt_Nombre.setBounds(179, 119, 238, 20);
+        txt_Nombre.setBounds(185, 149, 238, 20);
         panel_datos.add(txt_Nombre);
         txt_Nombre.setColumns(10);
 
         txt_Fecha = new JTextField();
         txt_Fecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Fecha.setColumns(10);
-        txt_Fecha.setBounds(179, 191, 238, 20);
+        txt_Fecha.setBounds(185, 179, 238, 20);
         panel_datos.add(txt_Fecha);
 
         txt_Plazas = new JTextField();
         txt_Plazas.setFont(new Font("Tahoma", Font.PLAIN, 16));
         txt_Plazas.setColumns(10);
-        txt_Plazas.setBounds(179, 250, 238, 20);
+        txt_Plazas.setBounds(185, 213, 238, 20);
         panel_datos.add(txt_Plazas);
 
         txt_ID = new JTextField();
-        txt_ID.setBounds(179, 59, 238, 19);
+        txt_ID.setBounds(185, 116, 238, 19);
         panel_datos.add(txt_ID);
         txt_ID.setColumns(10);
         
         textArea_Descripcion = new JTextArea();
         textArea_Descripcion.setLineWrap(true);
-        textArea_Descripcion.setBounds(582, 70, 263, 258);
+        textArea_Descripcion.setBounds(512, 113, 263, 258);
         panel_datos.add(textArea_Descripcion);
+        
+        lblNewLabel = new JLabel("Datos del evento");
+        lblNewLabel.setFont(new Font("Roboto", Font.BOLD, 25));
+        lblNewLabel.setBounds(318, 10, 263, 27);
+        panel_datos.add(lblNewLabel);
+        
+        lblBackground = new JLabel("");
+        lblBackground.setIcon(new ImageIcon(AnadirEvento.class.getResource("/resources/Backgrounds/redimensionado2.png")));
+        lblBackground.setBounds(0, 0, 906, 481);
+        panel_datos.add(lblBackground);
     }
 
-    public void botonesConf() {
-        {
-            JPanel buttonPane = new JPanel();
-            buttonPane.setBackground(new Color(168, 201, 240));
-            buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-            getContentPane().add(buttonPane, BorderLayout.SOUTH);
-            {
-                JButton okButton = new JButton("OK");
-                okButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        Pattern numero = Pattern.compile("^[0-9]*$");
-                        Matcher sacarNum = numero.matcher(txt_ID.getText());
-                        boolean comprobar = sacarNum.find();
-                        if(comprobar) {
-                            aniadirEvento();
-                        }else {
-                            JOptionPane.showMessageDialog(null, "Error al crear el evento\nEl identificador debe de ser numerico",
-                                    "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE);
-                        }
-                        
-                    }
-                });
-                okButton.setActionCommand("OK");
-                buttonPane.add(okButton);
-                getRootPane().setDefaultButton(okButton);
-            }
-            {
-                JButton cancelButton = new JButton("Cancel");
-                cancelButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        dispose();
-                        AdminEvents admin = new AdminEvents();
-                        admin.setVisible(true);
-                        admin.setLocationRelativeTo(null);
-                        dispose();
-                    }
-                });
-                cancelButton.setActionCommand("Cancel");
-                buttonPane.add(cancelButton);
-            }
-        }
-    }
+//    public void botonesConf() {
+//        {
+//            {
+//             
+//            }
+//            {
+//               
+//                    }
+//              
+//            }
+//        }
+//    }
 
     public void aniadirEvento() {
         try {
